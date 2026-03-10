@@ -152,7 +152,7 @@ export default function App() {
       <section id="quiz" className="relative py-20 md:py-32 px-4 overflow-hidden bg-sage-dark">
         <div className="absolute inset-0 opacity-20">
           <img 
-            src="https://picsum.photos/seed/bama-mist/1920/1080?blur=2" 
+            src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1920" 
             alt="Bama Village Mist" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
@@ -373,7 +373,7 @@ export default function App() {
             <div className="relative">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-stone-900/10">
                 <img 
-                  src="https://picsum.photos/seed/bama-landscape/1000/1250" 
+                  src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" 
                   alt="Vila de Bama" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   referrerPolicy="no-referrer"
