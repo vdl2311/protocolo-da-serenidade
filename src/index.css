@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;0,900;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Merriweather", serif;
+  
+  --color-sage: #748E78;
+  --color-sage-dark: #4A5D4D;
+  --color-lavender: #967BB6;
+  --color-cream: #F9F7F2;
+  --color-coral: #FF7F50;
+  --color-coral-dark: #E66A40;
+}
+
+@layer base {
+  body {
+    @apply bg-cream text-stone-800 antialiased;
+    line-height: 1.7;
+  }
+}
