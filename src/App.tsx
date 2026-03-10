@@ -188,6 +188,9 @@ export default function App() {
                 exit={{ opacity: 0, y: -20 }}
                 className="bg-white/95 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-14 shadow-2xl shadow-stone-900/10 border border-white"
               >
+                <p className="text-stone-600 mb-10 text-lg leading-relaxed italic border-l-4 border-sage pl-6">
+                  "O Padrão Bama é o nome dado ao equilíbrio hormonal perfeito encontrado em uma vila isolada na China, onde a menopausa é vivida com total serenidade. Este quiz vai comparar seus sintomas atuais com os biomarcadores de Bama para criar o seu Protocolo da Serenidade personalizado."
+                </p>
                 <div className="flex items-center gap-6 mb-12">
                   <div className="p-4 bg-cream rounded-2xl">
                     <Heart className="text-sage" />
