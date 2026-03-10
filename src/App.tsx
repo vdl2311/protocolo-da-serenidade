@@ -31,6 +31,39 @@ interface QuizState {
   userName: string;
 }
 
+const CountdownTimer = () => {
+  const calculateTimeLeft = () => {
+    const now = new Date();
+    const midnight = new Date();
+    midnight.setHours(24, 0, 0, 0);
+    return Math.floor((midnight.getTime() - now.getTime()) / 1000);
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const remaining = calculateTimeLeft();
+      setTimeLeft(remaining > 0 ? remaining : 0);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const hrs = Math.floor(seconds / 3600);
+    const mins = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  return (
+    <div className="flex items-center gap-2 text-coral font-mono font-bold text-xl mt-2">
+      <Clock size={20} />
+      <span>{formatTime(timeLeft)}</span>
+    </div>
+  );
+};
+
 // --- Components ---
 
 const Button = ({ 
@@ -356,10 +389,13 @@ export default function App() {
                 <Button 
                   variant="secondary" 
                   className="w-full py-7 text-xl"
-                  onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })}
                 >
                   Quero Iniciar meu Reset Agora <ArrowRight size={24} />
                 </Button>
+                <p className="mt-4 text-center text-stone-400 text-xs font-bold uppercase tracking-widest">
+                  Acesso Imediato • Produto Digital (E-book)
+                </p>
               </motion.div>
             )}
           </AnimatePresence>
@@ -517,12 +553,13 @@ export default function App() {
       </section>
 
       {/* --- OFFER SECTION --- */}
-      <section className="py-32 px-4 bg-cream">
+      <section id="offer" className="py-32 px-4 bg-cream">
         <div className="max-w-6xl mx-auto">
           <div className="bg-white rounded-[3.5rem] shadow-2xl overflow-hidden border border-stone-100">
             <div className="grid lg:grid-cols-5">
               <div className="lg:col-span-3 p-10 md:p-20 bg-sage text-white">
-                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-12">O que você recebe hoje:</h2>
+                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">O que você recebe hoje:</h2>
+                <p className="text-white/60 text-sm font-bold uppercase tracking-widest mb-12">Entrega Digital Imediata em Formato E-book (PDF)</p>
                 <div className="space-y-10">
                   <div className="flex items-start gap-6">
                     <div className="p-3 bg-white/20 rounded-2xl">
@@ -565,14 +602,18 @@ export default function App() {
               
               <div className="lg:col-span-2 p-10 md:p-16 flex flex-col justify-center items-center text-center bg-gradient-to-b from-stone-50 to-stone-100/50">
                 <div className="mb-10">
-                  <span className="inline-block px-4 py-1.5 bg-coral/10 text-coral font-bold rounded-full text-sm tracking-widest uppercase mb-6">
-                    Oferta Especial de Lançamento
+                  <span className="inline-block px-4 py-1.5 bg-coral/10 text-coral font-bold rounded-full text-sm tracking-widest uppercase mb-2">
+                    Oferta especial de hoje
                   </span>
+                  <CountdownTimer />
                   <div className="flex flex-col items-center justify-center">
                     <span className="text-stone-400 line-through text-2xl font-medium">R$ 97,00</span>
                     <div className="text-7xl md:text-8xl font-bold text-sage-dark mt-2 tracking-tight">
                       R$ 27<span className="text-4xl md:text-5xl text-sage">,90</span>
                     </div>
+                    <span className="mt-2 text-xs font-bold text-stone-400 uppercase tracking-widest">
+                      Produto Digital • Acesso Imediato • Formato E-book
+                    </span>
                   </div>
                 </div>
                 
@@ -617,9 +658,9 @@ export default function App() {
               />
             </div>
             <div>
-              <h3 className="text-2xl md:text-3xl font-serif font-bold text-sage-dark mb-4">Garantia de 30 Dias "Serenidade Total"</h3>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-sage-dark mb-4">Garantia de 7 Dias "Serenidade Total"</h3>
               <p className="text-lg text-stone-600 leading-relaxed font-light">
-                Siga o plano por 14 dias. Se você não sentir sua pele mais firme, seus calorões desaparecendo e seu sono voltando ao normal, eu devolvo 100% do seu dinheiro. Sem perguntas.
+                Siga o plano. Se você não sentir sua pele mais firme, seus calorões desaparecendo e seu sono voltando ao normal, eu devolvo 100% do seu dinheiro. Sem perguntas.
               </p>
             </div>
           </div>
@@ -663,6 +704,9 @@ export default function App() {
               👉 QUERO COMEÇAR MEU PROTOCOLO DE 14 DIAS AGORA
             </Button>
           </a>
+          <p className="mt-6 text-stone-400 text-sm font-medium uppercase tracking-widest">
+            Acesso imediato via e-mail • Produto 100% Digital (E-book)
+          </p>
         </div>
       </section>
 
