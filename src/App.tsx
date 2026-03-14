@@ -109,6 +109,13 @@ export default function App() {
   const [aiDiagnosis, setAiDiagnosis] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
 
+  // Scroll to top ONLY on diagnosis step
+  useEffect(() => {
+    if (quiz.step === 'diagnosis') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [quiz.step]);
+
   const quizQuestions = [
     {
       question: (name: string) => `${name}, se você pudesse eliminar apenas UM desses problemas hoje para voltar a se sentir "você mesma", qual seria o mais urgente?`,
