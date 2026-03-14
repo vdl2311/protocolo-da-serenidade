@@ -196,34 +196,55 @@ export default function App() {
 
   const startAnalysis = async () => {
     setIsGenerating(true);
-    let progress = 0;
-    const interval = setInterval(() => {
-      progress += 1;
-      setAnalysisProgress(prev => {
-        if (prev >= 99) return 99;
-        return prev + 1;
+    setAnalysisProgress(0);
+    
+    let aiFinished = false;
+    
+    // Start AI call immediately in the background
+    const diagnosisPromise = generateDiagnosis(quiz.userName, quiz.answers)
+      .then(diagnosis => {
+        setAiDiagnosis(diagnosis);
+        aiFinished = true;
+      })
+      .catch(error => {
+        console.error("AI Diagnosis Error:", error);
+        aiFinished = true; // Still finish to allow user to see results
       });
-    }, 50);
 
-    try {
-      // Get AI diagnosis while progress bar is moving
-      const diagnosis = await generateDiagnosis(quiz.userName, quiz.answers);
-      setAiDiagnosis(diagnosis);
+    // Progress bar animation logic
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
       
-      // Ensure progress reaches 100
-      clearInterval(interval);
-      setAnalysisProgress(100);
-      
-      setTimeout(() => {
-        setQuiz(prev => ({ ...prev, step: 'diagnosis' }));
-        setIsGenerating(false);
-      }, 800);
-    } catch (error) {
-      console.error(error);
-      setAnalysisProgress(100);
-      setQuiz(prev => ({ ...prev, step: 'diagnosis' }));
-      setIsGenerating(false);
-    }
+      setAnalysisProgress(prev => {
+        // If AI is done, jump to 100 and clear interval
+        if (aiFinished && prev >= 90) {
+          clearInterval(interval);
+          
+          // Final transition
+          setTimeout(() => {
+            setQuiz(prevQuiz => ({ ...prevQuiz, step: 'diagnosis' }));
+            setIsGenerating(false);
+          }, 800);
+          
+          return 100;
+        }
+
+        // Natural progress curve: fast at first, slows down significantly after 90%
+        let nextProgress;
+        if (prev < 70) {
+          nextProgress = prev + (Math.random() * 2 + 1); // Fast
+        } else if (prev < 90) {
+          nextProgress = prev + (Math.random() * 0.5 + 0.2); // Slower
+        } else if (prev < 99) {
+          nextProgress = prev + 0.05; // Very slow crawl at the end
+        } else {
+          nextProgress = 99;
+        }
+
+        return Math.min(nextProgress, 99);
+      });
+    }, 100);
   };
 
   return (
@@ -342,45 +363,46 @@ export default function App() {
             ) : quiz.step === 'analyzing' ? (
               <motion.div
                 key="analyzing"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center py-24"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="bg-white/95 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-16 shadow-2xl shadow-stone-900/10 border border-white text-center"
               >
-                <div className="relative w-56 h-56 mx-auto mb-10">
-                  <svg className="w-full h-full transform -rotate-90">
+                <div className="relative w-48 h-48 md:w-56 md:h-56 mx-auto mb-8 md:mb-10">
+                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                     <circle
-                      cx="112"
-                      cy="112"
-                      r="104"
+                      cx="50"
+                      cy="50"
+                      r="45"
                       stroke="currentColor"
                       strokeWidth="6"
                       fill="transparent"
                       className="text-stone-100"
                     />
                     <circle
-                      cx="112"
-                      cy="112"
-                      r="104"
+                      cx="50"
+                      cy="50"
+                      r="45"
                       stroke="currentColor"
                       strokeWidth="6"
                       fill="transparent"
-                      strokeDasharray={653}
-                      strokeDashoffset={653 - (653 * analysisProgress) / 100}
+                      strokeDasharray="282.7"
+                      strokeDashoffset={282.7 - (282.7 * analysisProgress) / 100}
                       className="text-sage transition-all duration-100"
                     />
                   </svg>
                   <div className="absolute inset-0 flex items-center justify-center flex-col">
-                    <span className="text-5xl font-bold text-sage-dark">{analysisProgress}%</span>
+                    <span className="text-4xl md:text-5xl font-bold text-sage-dark">{Math.round(analysisProgress)}%</span>
                   </div>
                 </div>
-                <h3 className="text-3xl font-serif font-bold text-sage-dark mb-4">
+                <h3 className="text-xl md:text-3xl font-serif font-bold text-sage-dark mb-4 leading-tight">
                   {analysisProgress < 40 
                     ? "Cruzando seus sintomas com os Biomarcadores de Bama..." 
                     : analysisProgress < 80 
                       ? "Calculando a dosagem de nutrientes para o seu Protocolo da Serenidade..." 
                       : "Diagnóstico Concluído. Você é compatível com o Ritual de 14 dias."}
                 </h3>
-                <p className="text-stone-500 italic text-lg">Processando suas respostas com o Código de Bama, {quiz.userName}.</p>
+                <p className="text-stone-500 italic text-base md:text-lg">Processando suas respostas com o Código de Bama, {quiz.userName}.</p>
               </motion.div>
             ) : (
               <motion.div
@@ -407,37 +429,52 @@ export default function App() {
                   } pelo Modo de Sobrevivência.
                 </h3>
 
-                <div className="space-y-6 text-lg md:text-xl text-stone-300 leading-relaxed font-light mb-8 md:mb-10">
+                <div className="space-y-6 mb-8 md:mb-10">
                   {aiDiagnosis ? (
-                    <div className="whitespace-pre-wrap">
-                      {aiDiagnosis}
-                    </div>
+                    aiDiagnosis.split('\n\n').filter(p => p.trim()).map((paragraph, idx) => (
+                      <div 
+                        key={idx} 
+                        className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light"
+                      >
+                        {paragraph}
+                      </div>
+                    ))
                   ) : (
-                    <>
-                      <p className="text-xl md:text-2xl font-medium text-white">
-                        Não é sua culpa que você ainda sofre com {quiz.answers[0]?.toLowerCase()}. {quiz.answers[3] === "Só conheço os tratamentos hormonais comuns" ? "A reposição hormonal clássica foca nos ovários, mas" : "Você estava tentando consertar os sintomas isolados quando,"} na verdade, precisa religar o seu Gerador de Reserva (as adrenais).
-                      </p>
+                    <div className="space-y-6">
+                      <div className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light">
+                        <p className="text-xl md:text-2xl font-medium text-white mb-4">
+                          Não é sua culpa que você ainda sofre com {quiz.answers[0]?.toLowerCase()}. {quiz.answers[3] === "Só conheço os tratamentos hormonais comuns" ? "A reposição hormonal clássica foca nos ovários, mas" : "Você estava tentando consertar os sintomas isolados quando,"} na verdade, precisa religar o seu Gerador de Reserva (as adrenais).
+                        </p>
+                      </div>
                       
-                      <p>
-                        Com base nas suas respostas, o seu <strong>hipotálamo</strong> — o termostato do cérebro — perdeu a calibração. {quiz.answers[4] === "Nunca nenhum médico me explicou a causa real (o termostato desregulado)" ? "Como você suspeitava, ninguém te explicou que ele" : "Ele"} está enviando sinais de pânico constantes, o que explica por que {quiz.answers[3] === "Já tentei de tudo, mas o alívio é sempre temporário" ? "os métodos comuns só funcionam por pouco tempo" : "você se sente tão exausta"}.
-                      </p>
+                      <div className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light">
+                        <p>
+                          Com base nas suas respostas, o seu <strong>hipotálamo</strong> — o termostato do cérebro — perdeu a calibração. {quiz.answers[4] === "Nunca nenhum médico me explicou a causa real (o termostato desregulado)" ? "Como você suspeitava, ninguém te explicou que ele" : "Ele"} está enviando sinais de pânico constantes, o que explica por que {quiz.answers[3] === "Já tentei de tudo, mas o alívio é sempre temporário" ? "os métodos comuns só funcionam por pouco tempo" : "você se sente tão exausta"}.
+                        </p>
+                      </div>
 
                       {quiz.answers[1] !== "Raramente" && (
-                        <p>
-                          A sensação de "fogo interno" que você relatou é o seu corpo tentando dissipar calor de forma desordenada porque o seu "software" hormonal está travado.
-                        </p>
+                        <div className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light">
+                          <p>
+                            A sensação de "fogo interno" que você relatou é o seu corpo tentando dissipar calor de forma desordenada porque o seu "software" hormonal está travado.
+                          </p>
+                        </div>
                       )}
 
                       {quiz.answers[2] !== "Não costumo acordar de madrugada" && (
-                        <p>
-                          O despertar exaustivo entre 2h e 4h da manhã indica que o seu cortisol está disparando no momento errado, impedindo que você alcance o sono profundo reparador.
-                        </p>
+                        <div className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light">
+                          <p>
+                            O despertar exaustivo entre 2h e 4h da manhã indica que o seu cortisol está disparando no momento errado, impedindo que você alcance o sono profundo reparador.
+                          </p>
+                        </div>
                       )}
                       
-                      <p className="text-white font-bold text-xl md:text-2xl mt-6 md:mt-8">
-                        Se você não recalibrar esse sinal agora, {quiz.answers[0]?.includes("Névoa") ? "essa confusão mental pode se tornar permanente" : quiz.answers[0]?.includes("Peso") ? "seu metabolismo pode travar de vez" : "o cansaço de hoje pode se transformar em um esgotamento severo"}. Mas a ciência provou que existe uma saída natural.
-                      </p>
-                    </>
+                      <div className="bg-coral/10 border border-coral/20 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-white leading-relaxed font-bold">
+                        <p>
+                          Se você não recalibrar esse sinal agora, {quiz.answers[0]?.includes("Névoa") ? "essa confusão mental pode se tornar permanente" : quiz.answers[0]?.includes("Peso") ? "seu metabolismo pode travar de vez" : "o cansaço de hoje pode se transformar em um esgotamento severo"}. Mas a ciência provou que existe uma saída natural.
+                        </p>
+                      </div>
+                    </div>
                   )}
                 </div>
 
@@ -731,15 +768,15 @@ export default function App() {
             </p>
 
             <div className="text-left bg-white/5 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10">
-              <h4 className="text-xl md:text-2xl font-serif font-bold text-coral mb-3 md:mb-4">Opção 1: Ignorar este diagnóstico.</h4>
-              <p className="text-sm md:text-base text-stone-300">
+              <h4 className="text-2xl md:text-3xl font-serif font-bold text-coral mb-4 md:mb-6">Opção 1: Ignorar este diagnóstico.</h4>
+              <p className="text-base md:text-lg lg:text-xl text-stone-300 leading-relaxed">
                 Você pode fechar esta página agora e continuar tentando resolver seus sintomas com as mesmas ferramentas que falharam até hoje. Isso significa enfrentar mais uma noite em claro entre 2h e 4h da manhã, lutar contra o suor excessivo durante o dia e aceitar o cansaço como parte da sua rotina. Seu hipotálamo continuará enviando sinais de pânico e seu sistema hormonal permanecerá no "Modo de Sobrevivência".
               </p>
             </div>
 
             <div className="text-left bg-white/10 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/20 shadow-xl">
-              <h4 className="text-xl md:text-2xl font-serif font-bold text-sage mb-3 md:mb-4">Opção 2: Ativar o Padrão Bama.</h4>
-              <p className="text-sm md:text-base text-white">
+              <h4 className="text-2xl md:text-3xl font-serif font-bold text-sage mb-4 md:mb-6">Opção 2: Ativar o Padrão Bama.</h4>
+              <p className="text-base md:text-lg lg:text-xl text-white leading-relaxed">
                 Você clica no botão abaixo, garante seu acesso ao Protocolo da Serenidade por um investimento menor que o de um café por dia, e começa seu Dia 1 amanhã mesmo. Em 14 dias, você segue o mapa das mulheres que vivem com total vitalidade, silenciando os calorões e recuperando o sono de pedra que você não tem há anos.
               </p>
             </div>
