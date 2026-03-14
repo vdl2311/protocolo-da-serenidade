@@ -4,6 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Protocolo da Serenidade</title>
+    <script>
+      // Fix for "Uncaught TypeError: Cannot set property fetch of #<Window> which has only a getter"
+      // This happens when some libraries try to polyfill fetch by assignment.
+      (function() {
+        var _fetch = window.fetch;
+        try {
+          Object.defineProperty(window, 'fetch', {
+            enumerable: true,
+            configurable: true,
+            get: function() { return _fetch; },
+            set: function(v) { 
+              console.warn('Attempted to overwrite window.fetch. Ignoring to prevent TypeError.');
+              // We don't overwrite the original fetch to maintain stability
+            }
+          });
+        } catch (e) {
+          // If we can't redefine it, we just hope for the best
+        }
+      })();
+    </script>
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)

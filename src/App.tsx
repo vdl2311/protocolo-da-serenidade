@@ -19,8 +19,10 @@ import {
   Zap,
   Heart,
   BookOpen,
-  ClipboardList
+  ClipboardList,
+  Loader2
 } from 'lucide-react';
+import { generateDiagnosis } from './services/geminiService';
 
 // --- Types ---
 type QuizStep = 'name' | 0 | 1 | 2 | 3 | 4 | 5 | 'analyzing' | 'diagnosis';
@@ -104,36 +106,63 @@ const SectionTitle = ({ children, subtitle, light = false }: { children: React.R
 export default function App() {
   const [quiz, setQuiz] = useState<QuizState>({ step: 'name', answers: [], userName: '' });
   const [analysisProgress, setAnalysisProgress] = useState(0);
+  const [aiDiagnosis, setAiDiagnosis] = useState<string>('');
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const quizQuestions = [
     {
-      question: (name: string) => `${name}, qual desses sintomas mais afeta sua qualidade de vida hoje?`,
-      options: ["Ondas de Calor", "Insônia e Cansaço", "Ganho de Peso e Inchaço", "Névoa Mental"],
+      question: (name: string) => `${name}, se você pudesse eliminar apenas UM desses problemas hoje para voltar a se sentir "você mesma", qual seria o mais urgente?`,
+      options: [
+        "Ondas de calor sufocantes e suor repentino",
+        "Insônia crônica e cansaço extremo",
+        "Ganho de peso inexplicável e inchaço",
+        "\"Névoa mental\", esquecimentos e irritabilidade"
+      ],
       icon: <Zap className="text-sage" />
     },
     {
-      question: (name: string) => `Você sente que seu corpo está "pegando fogo" por dentro, mesmo em ambientes frios?`,
-      options: ["Sim", "Frequentemente", "Raramente"],
+      question: (name: string) => `Você sente que o seu corpo de repente "pega fogo" por dentro, criando uma pressão que sobe para o rosto, mesmo quando o ambiente está frio?`,
+      options: [
+        "Sim, isso acontece com frequência e me incomoda muito",
+        "Às vezes, principalmente à noite",
+        "Raramente"
+      ],
       icon: <Flame className="text-coral" />
     },
     {
-      question: (name: string) => `Com que frequência você acorda entre 2h e 4h da manhã com a mente "ligada"?`,
-      options: ["Todas as noites", "Às vezes", "Raramente"],
+      question: (name: string) => `Quando você acorda entre 2h e 4h da manhã com a mente "ligada", você sente que o seu dia seguinte já está "arruinado" pelo cansaço antes mesmo de começar?`,
+      options: [
+        "Sim, acordo exausta e sem energia para nada",
+        "Tento ignorar, mas o cansaço sempre me vence à tarde",
+        "Não costumo acordar de madrugada"
+      ],
       icon: <Moon className="text-lavender" />
     },
     {
-      question: (name: string) => `Você sabia que em Bama as mulheres não sofrem de menopausa porque ativam uma "via adrenal" escondida?`,
-      options: ["Sim", "Não"],
+      question: (name: string) => `A ciência descobriu que as mulheres de Bama não sofrem com isso porque ativam uma "via adrenal" natural. Você já tentou algum método que focasse em "destravar" o seu sistema nervoso em vez de apenas tentar mascarar os sintomas com chás ou remédios?`,
+      options: [
+        "Nunca me falaram sobre essa via adrenal",
+        "Já tentei de tudo, mas o alívio é sempre temporário",
+        "Só conheço os tratamentos hormonais comuns"
+      ],
       icon: <Brain className="text-sage-dark" />
     },
     {
-      question: (name: string) => `Por que você acha que não teve sucesso em controlar os sintomas até agora?`,
-      options: ["Tentei de tudo e nada funcionou", "Achei que era 'coisa da idade'", "Não queria usar hormônios sintéticos", "Nunca me explicaram a causa real"],
+      question: (name: string) => `Sinceramente, por que você acha que não teve sucesso em controlar esses sintomas de forma definitiva até agora?`,
+      options: [
+        "Achei que era apenas \"coisa da idade\" e que precisava aguentar",
+        "Tenho medo dos efeitos colaterais dos hormônios sintéticos",
+        "Nunca nenhum médico me explicou a causa real (o termostato desregulado)",
+        "Sinto que meu corpo simplesmente parou de responder"
+      ],
       icon: <Brain className="text-sage-dark" />
     },
     {
-      question: (name: string) => `Está pronta para dedicar 14 dias para "reprogramar" seu sistema nervoso?`,
-      options: ["Sim, estou pronta!", "Quero saber mais"],
+      question: (name: string) => `O Padrão Bama exige 14 dias de reprogramação térmica e alimentar. Você está disposta a investir apenas 5 minutos do seu dia para recuperar anos de serenidade, sono profundo e energia?`,
+      options: [
+        "Sim, eu mereço recuperar a minha vida!",
+        "Estou pronta, quero ver o meu diagnóstico agora."
+      ],
       icon: <Clock className="text-sage" />
     }
   ];
@@ -165,25 +194,43 @@ export default function App() {
     }
   };
 
-  const startAnalysis = () => {
+  const startAnalysis = async () => {
+    setIsGenerating(true);
     let progress = 0;
     const interval = setInterval(() => {
-      progress += 2;
-      setAnalysisProgress(progress);
-      if (progress >= 98) {
-        clearInterval(interval);
-        setTimeout(() => {
-          setQuiz(prev => ({ ...prev, step: 'diagnosis' }));
-        }, 500);
-      }
-    }, 40);
+      progress += 1;
+      setAnalysisProgress(prev => {
+        if (prev >= 99) return 99;
+        return prev + 1;
+      });
+    }, 50);
+
+    try {
+      // Get AI diagnosis while progress bar is moving
+      const diagnosis = await generateDiagnosis(quiz.userName, quiz.answers);
+      setAiDiagnosis(diagnosis);
+      
+      // Ensure progress reaches 100
+      clearInterval(interval);
+      setAnalysisProgress(100);
+      
+      setTimeout(() => {
+        setQuiz(prev => ({ ...prev, step: 'diagnosis' }));
+        setIsGenerating(false);
+      }, 800);
+    } catch (error) {
+      console.error(error);
+      setAnalysisProgress(100);
+      setQuiz(prev => ({ ...prev, step: 'diagnosis' }));
+      setIsGenerating(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-cream text-stone-800 font-sans selection:bg-sage/20">
       {/* --- QUIZ HERO SECTION --- */}
-      <section id="quiz" className="relative py-20 md:py-32 px-4 overflow-hidden bg-sage-dark">
-        <div className="absolute inset-0 opacity-20">
+      <section id="quiz" className={`relative py-20 md:py-32 px-4 overflow-hidden ${quiz.step === 'diagnosis' ? 'bg-stone-100' : 'bg-sage-dark'}`}>
+        <div className={`absolute inset-0 ${quiz.step === 'diagnosis' ? 'opacity-60' : 'opacity-20'}`}>
           <img 
             src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1920" 
             alt="Bama Village Mist" 
@@ -193,23 +240,25 @@ export default function App() {
         </div>
         
         <div className="relative max-w-5xl mx-auto z-10">
-          <div className="text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-xs font-bold mb-6 uppercase tracking-[0.2em]">
-                O Segredo de Bama
-              </span>
-              <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold leading-[1.05] tracking-tight mb-6 text-white">
-                O Segredo da Longevidade de Bama: Como mulheres de 90 anos na China <span className="text-coral italic">"enganam"</span> a menopausa.
-              </h1>
-              <p className="text-lg md:text-xl text-stone-200 max-w-3xl mx-auto leading-relaxed font-light">
-                Descubra o seu perfil hormonal e ative o seu <strong className="text-white font-bold">"Paradoxo do Estrogênio"</strong> em apenas 14 dias.
-              </p>
-            </motion.div>
-          </div>
+          {quiz.step !== 'diagnosis' && (
+            <div className="text-center mb-16">
+              <motion.div
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <span className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-xs font-bold mb-6 uppercase tracking-[0.2em]">
+                  O Segredo de Bama
+                </span>
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold leading-[1.05] tracking-tight mb-6 text-white">
+                  O Segredo de Bama: Como mulheres de 90 anos na China silenciaram os sintomas da menopausa <span className="text-coral italic">(sem usar um único hormônio sintético)</span>.
+                </h1>
+                <p className="text-lg md:text-xl text-stone-200 max-w-3xl mx-auto leading-relaxed font-light">
+                  Descubra seu perfil hormonal e ative seu <strong>'Paradoxo do Estrogênio'</strong> para resetar seu metabolismo e seu sono em apenas 14 dias.
+                </p>
+              </motion.div>
+            </div>
+          )}
 
           <div className="max-w-3xl mx-auto">
             <AnimatePresence mode="wait">
@@ -324,7 +373,13 @@ export default function App() {
                     <span className="text-5xl font-bold text-sage-dark">{analysisProgress}%</span>
                   </div>
                 </div>
-                <h3 className="text-3xl font-serif font-bold text-sage-dark mb-4">Analisando seu Perfil Hormonal...</h3>
+                <h3 className="text-3xl font-serif font-bold text-sage-dark mb-4">
+                  {analysisProgress < 40 
+                    ? "Cruzando seus sintomas com os Biomarcadores de Bama..." 
+                    : analysisProgress < 80 
+                      ? "Calculando a dosagem de nutrientes para o seu Protocolo da Serenidade..." 
+                      : "Diagnóstico Concluído. Você é compatível com o Ritual de 14 dias."}
+                </h3>
                 <p className="text-stone-500 italic text-lg">Processando suas respostas com o Código de Bama, {quiz.userName}.</p>
               </motion.div>
             ) : (
@@ -338,46 +393,52 @@ export default function App() {
                   <Zap size={20} /> DIAGNÓSTICO PERSONALIZADO CONCLUÍDO
                 </div>
                 
-                <h3 className="text-3xl md:text-5xl font-serif font-bold mb-8 leading-tight">
-                  {quiz.userName}, seu Sistema Hormonal está em <span className="text-coral italic">"Modo de Sobrevivência"</span>.
+                <h3 className="text-3xl md:text-5xl font-serif font-bold mb-8 leading-tight text-coral">
+                  {quiz.userName}, {
+                    quiz.answers[4] === "Sinto que meu corpo simplesmente parou de responder" 
+                      ? "seu corpo entrou em estado de bloqueio total" 
+                      : quiz.answers[4]?.includes("coisa da idade")
+                      ? "seu corpo está envelhecendo precocemente"
+                      : quiz.answers[0]?.includes("Ondas de calor")
+                      ? "seu termostato interno está em curto-circuito"
+                      : quiz.answers[0]?.includes("Insônia")
+                      ? "seu sistema de alerta está travado no 'on'"
+                      : "seu corpo está sequestrado"
+                  } pelo Modo de Sobrevivência.
                 </h3>
 
                 <div className="space-y-6 text-xl text-stone-300 leading-relaxed font-light mb-10">
-                  <p>
-                    {quiz.userName}, não é sua culpa que você não teve sucesso até agora. Você estava tentando consertar os ovários quando deveria estar ligando o seu <strong>gerador de reserva (as adrenais)</strong>.
-                  </p>
-                  
-                  <p>
-                    Com base nas suas respostas, identificamos que seu <strong>hipotálamo</strong> — o centro de comando do seu corpo — está enviando sinais de pânico constantes devido ao <strong>Relógio Biológico Silencioso</strong>.
-                  </p>
-                  
-                  <div className="bg-white/5 border-l-4 border-coral p-6 rounded-r-2xl my-8">
-                    <p className="text-white font-medium mb-2">Análise de Sintomas para {quiz.userName}:</p>
-                    <ul className="space-y-3 text-lg">
-                      <li className="flex items-start gap-3">
-                        <CheckCircle2 size={18} className="text-coral mt-1 flex-shrink-0" />
-                        <span>Sua queixa principal de <strong>{quiz.answers[0]}</strong> é um sinal claro de que seu "termostato interno" perdeu a calibração devido à <strong>Indústria da Desinformação Hormonal</strong>.</span>
-                      </li>
-                      {quiz.answers[1] === "Sim" || quiz.answers[1] === "Frequentemente" ? (
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 size={18} className="text-coral mt-1 flex-shrink-0" />
-                          <span>A sensação de "fogo interno" confirma que seu corpo está tentando dissipar calor de forma desordenada.</span>
-                        </li>
-                      ) : null}
-                      {quiz.answers[2] === "Todas as noites" || quiz.answers[2] === "Às vezes" ? (
-                        <li className="flex items-start gap-3">
-                          <CheckCircle2 size={18} className="text-coral mt-1 flex-shrink-0" />
-                          <span>O despertar entre 2h e 4h indica que suas adrenais estão sobrecarregadas, disparando cortisol no momento errado.</span>
-                        </li>
-                      ) : null}
-                    </ul>
-                  </div>
+                  {aiDiagnosis ? (
+                    <div className="whitespace-pre-wrap">
+                      {aiDiagnosis}
+                    </div>
+                  ) : (
+                    <>
+                      <p className="text-2xl font-medium text-white">
+                        Não é sua culpa que você ainda sofre com {quiz.answers[0]?.toLowerCase()}. {quiz.answers[3] === "Só conheço os tratamentos hormonais comuns" ? "A reposição hormonal clássica foca nos ovários, mas" : "Você estava tentando consertar os sintomas isolados quando,"} na verdade, precisa religar o seu Gerador de Reserva (as adrenais).
+                      </p>
+                      
+                      <p>
+                        Com base nas suas respostas, o seu <strong>hipotálamo</strong> — o termostato do cérebro — perdeu a calibração. {quiz.answers[4] === "Nunca nenhum médico me explicou a causa real (o termostato desregulado)" ? "Como você suspeitava, ninguém te explicou que ele" : "Ele"} está enviando sinais de pânico constantes, o que explica por que {quiz.answers[3] === "Já tentei de tudo, mas o alívio é sempre temporário" ? "os métodos comuns só funcionam por pouco tempo" : "você se sente tão exausta"}.
+                      </p>
 
+                      {quiz.answers[1] !== "Raramente" && (
+                        <p>
+                          A sensação de "fogo interno" que você relatou é o seu corpo tentando dissipar calor de forma desordenada porque o seu "software" hormonal está travado.
+                        </p>
+                      )}
 
-                  
-                  <p className="text-white font-bold">
-                    A única forma de recuperar sua vitalidade na menopausa é ativando a Via Adrenal, e o Protocolo da Serenidade é o único caminho para fazer isso sem hormônios sintéticos.
-                  </p>
+                      {quiz.answers[2] !== "Não costumo acordar de madrugada" && (
+                        <p>
+                          O despertar exaustivo entre 2h e 4h da manhã indica que o seu cortisol está disparando no momento errado, impedindo que você alcance o sono profundo reparador.
+                        </p>
+                      )}
+                      
+                      <p className="text-white font-bold text-2xl mt-8">
+                        Se você não recalibrar esse sinal agora, {quiz.answers[0]?.includes("Névoa") ? "essa confusão mental pode se tornar permanente" : quiz.answers[0]?.includes("Peso") ? "seu metabolismo pode travar de vez" : "o cansaço de hoje pode se transformar em um esgotamento severo"}. Mas a ciência provou que existe uma saída natural.
+                      </p>
+                    </>
+                  )}
                 </div>
 
                 <div className="p-8 bg-white/5 rounded-3xl border border-white/10 mb-12 text-center">
@@ -405,39 +466,41 @@ export default function App() {
 
     {quiz.step === 'diagnosis' && (
       <>
-        {/* --- STORY SECTION --- */}
-        <section id="story" className="py-24 md:py-32 px-4">
+        {/* --- STORY SECTION (BLOCK 3) --- */}
+        <section id="story" className="py-24 md:py-32 px-4 bg-cream/30">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="relative">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-stone-900/10">
                 <img 
-                  src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=1000" 
-                  alt="Vila de Bama" 
+                  src="https://i.ibb.co/LXwZr23J/Untitled-design-6.png" 
+                  alt="O Segredo de Bama" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute -bottom-8 -right-4 md:-right-8 bg-lavender/95 backdrop-blur-md text-white p-8 md:p-10 rounded-[2rem] shadow-xl max-w-xs border border-white/20">
+              <div className="absolute -bottom-8 -right-4 md:-right-8 bg-sage/95 backdrop-blur-md text-white p-8 md:p-10 rounded-[2rem] shadow-xl max-w-xs border border-white/20">
                 <p className="font-serif italic text-xl leading-relaxed">
-                  "Lá, as mulheres não lutam contra o tempo; elas colaboram com ele."
+                  "O Segredo do Vale da Longevidade"
                 </p>
               </div>
             </div>
             <div>
-              <span className="text-sage font-bold tracking-[0.2em] uppercase text-xs md:text-sm mb-6 block">O Segredo de Bama</span>
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-sage-dark mb-10 leading-[1.1] tracking-tight">
-                Por que em Bama a Menopausa <span className="italic text-coral">"Não Existe"</span>?
+                O Segredo do <span className="italic text-coral">"Vale da Longevidade"</span>
               </h2>
               <div className="space-y-8 text-xl text-stone-600 leading-relaxed font-light">
                 <p>
-                  Nas montanhas isoladas de Guangxi, na China, a Vila de Bama esconde um segredo milenar. Lá, as mulheres não lutam contra o tempo; elas colaboram com ele. Elas não usam reposição hormonal química. Em vez disso, elas utilizam o <strong>Paradoxo do Estrogênio</strong>.
+                  A mais de 12 mil quilômetros daqui, nas montanhas isoladas de Bama, na China, existe um vale da longevidade onde mulheres com 50 a 70 anos vivem sem sintomas da menopausa. Elas não lutam contra o próprio corpo, e não sabem o que é um calorão ou uma noite de insônia.
                 </p>
                 <p>
-                  Elas consomem nutrientes específicos que "enganam" o cérebro, enviando sinais de que o corpo ainda está em equilíbrio. Elas ativam as <strong>Glândulas Adrenais</strong> para assumir o papel que antes era dos ovários.
+                  <strong>Elas usam o Padrão Bama.</strong>
+                </p>
+                <p>
+                  Através de nutrientes específicos e rituais térmicos simples, elas ativam a Via Adrenal para assumir o papel que antes era dos ovários. É uma atualização de "software" do corpo humano que neutraliza o Relógio Biológico Silencioso em questão de dias.
                 </p>
                 <p className="font-bold text-sage-dark text-2xl">
-                  O resultado? Centenárias com pele radiante, sono de pedra e zero fogachos.
+                  A única forma de recuperar sua vitalidade é ativando essa mesma via. E o Protocolo da Serenidade é o único mapa validado para fazer isso sem usar hormônios sintéticos.
                 </p>
               </div>
             </div>
@@ -445,54 +508,36 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- TECHNIQUES SECTION --- */}
+      {/* --- TECHNIQUES SECTION (BLOCK 4 - PART 2) --- */}
       <section className="py-32 px-4 bg-sage-dark text-white relative overflow-hidden">
         <div className="absolute inset-0 opacity-5 pointer-events-none">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white rounded-full blur-[150px]" />
         </div>
         
         <div className="max-w-6xl mx-auto relative z-10">
-          <SectionTitle light subtitle="Como o Protocolo da Serenidade vai transformar você em 14 dias">
-            As Técnicas do Protocolo
+          <SectionTitle light subtitle="O que vai acontecer nos próximos 14 dias:">
+            O Seu Plano de Transformação
           </SectionTitle>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {[
               {
-                title: "Método R.E.S.E.T. Hormonal",
-                desc: "Aprenda técnicas práticas para aliviar o desconforto de calorões rapidamente, ajudando você a se sentir mais confortável e equilibrada.",
-                icon: <Zap className="text-sage" />,
-                tag: "Alívio Rápido"
-              },
-              {
-                title: "Os 7 Gatilhos Ocultos",
-                desc: "Identifique fatores que intensificam seus sintomas (o gatilho 4 vai te surpreender) e aprenda como neutralizá-los.",
-                icon: <Brain className="text-lavender" />,
-                tag: "Diagnóstico"
-              },
-              {
-                title: "Técnica do Interruptor Térmico",
-                desc: "Quando o calor começar, você saberá exatamente o que fazer para se sentir fresca e no controle instantaneamente.",
+                title: "Alívio Rápido",
+                desc: "Você aplicará o \"Interruptor Térmico\" para neutralizar calorões instantaneamente.",
                 icon: <Flame className="text-coral" />,
-                tag: "Controle Térmico"
+                tag: "Dia 1-3"
               },
               {
-                title: "Ritual Noturno de 12 Minutos",
-                desc: "Feche os olhos e deslize para um sono profundo, acordando renovada – mesmo que a insônia tenha sido sua companheira por anos.",
-                icon: <Moon className="text-indigo-400" />,
-                tag: "Sono Profundo"
-              },
-              {
-                title: "O Paradoxo do Estrogênio",
-                desc: "Como apoiar seu corpo naturalmente para encontrar mais equilíbrio hormonal sem depender de substâncias sintéticas.",
-                icon: <Scale className="text-sage" />,
-                tag: "Equilíbrio"
+                title: "Sono Profundo",
+                desc: "O Ritual de 12 Minutos estabilizará sua glicose para um sono sem interrupções.",
+                icon: <Moon className="text-lavender" />,
+                tag: "Dia 4-7"
               },
               {
                 title: "Plano Alimentar da Serenidade",
-                desc: "Cardápio de 14 dias desenhado especificamente para apoiar seu equilíbrio hormonal e nutrir suas glândulas adrenais.",
-                icon: <Clock className="text-white" />,
-                tag: "Nutrição"
+                desc: "Você saberá exatamente quais ingredientes baratos ativam o Padrão Bama no seu prato.",
+                icon: <Scale className="text-sage" />,
+                tag: "Dia 8-14"
               }
             ].map((item, idx) => (
               <div key={idx} className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-10 rounded-[2rem] hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group">
@@ -510,10 +555,10 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- TESTIMONIALS SECTION --- */}
+      {/* --- TESTIMONIALS SECTION (BLOCK 4 - PART 1) --- */}
       <section className="py-32 px-4 bg-white">
         <div className="max-w-6xl mx-auto">
-          <SectionTitle subtitle="A Vida Após o Reset de 14 Dias">
+          <SectionTitle subtitle="A Vida Após o Reset de 14 Dias:">
             Histórias de Transformação
           </SectionTitle>
           
@@ -521,18 +566,18 @@ export default function App() {
             {[
               {
                 title: "As ondas de calor quase sumiram!",
-                text: "Eu não aguentava mais trocar de roupa três vezes por noite. O Protocolo me mostrou que o segredo estava em 'enganar' meu hipotálamo com ajustes simples no prato. Hoje, as ondas de calor quase sumiram. Agora consigo aproveitar meus dias!",
-                author: "Cláudia, 54 anos, São Paulo"
+                text: "Eu não aguentava mais trocar de roupa três vezes por noite. O Protocolo me mostrou <strong>como enganar meu hipotálamo</strong>. Hoje, as ondas de calor quase sumiram!",
+                author: "Cláudia, 54 anos"
               },
               {
                 title: "Meu marido notou a diferença!",
-                text: "Eu vivia em uma 'névoa mental' e não dormia nada. O Ritual Noturno [estabilização da glicose] me devolveu o sono de forma impressionante. Acordo descansada e com paciência. Meu marido notou a diferença logo na primeira semana!",
-                author: "Patrícia, 49 anos, Belo Horizonte"
+                text: "Eu vivia em uma <strong>névoa mental</strong>. O Ritual Noturno me devolveu o sono e a minha paciência. Meu marido notou a diferença logo na primeira semana!",
+                author: "Patrícia, 49 anos"
               },
               {
                 title: "Até meu médico aprovou!",
-                text: "Eu estava cética, mas decidi tentar o plano de 14 dias antes de partir para medicamentos pesados. Meu médico ficou impressionado com minha energia nos exames de rotina. Ele aprovou o Protocolo e disse para eu continuar exatamente o que estou fazendo!",
-                author: "Sandra, 57 anos, Rio de Janeiro"
+                text: "Eu decidi tentar o plano de 14 dias antes de ir para medicamentos pesados. Meu médico ficou <strong>impressionado com minha energia nos exames</strong> e mandou eu continuar.",
+                author: "Sandra, 57 anos"
               }
             ].map((item, idx) => (
               <div key={idx} className="bg-cream/30 p-10 rounded-[2rem] border border-stone-100 shadow-sm hover:shadow-md transition-shadow relative">
@@ -542,7 +587,7 @@ export default function App() {
                   ))}
                 </div>
                 <h4 className="text-xl font-serif font-bold text-sage-dark mb-4">"{item.title}"</h4>
-                <p className="text-stone-600 leading-relaxed mb-8 font-light italic">"{item.text}"</p>
+                <p className="text-stone-600 leading-relaxed mb-8 font-light italic" dangerouslySetInnerHTML={{ __html: `"${item.text}"` }} />
                 <div className="pt-6 border-t border-stone-100">
                   <p className="font-bold text-sage-dark text-sm uppercase tracking-wider">— {item.author}</p>
                 </div>
@@ -552,49 +597,42 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- OFFER SECTION --- */}
+      {/* --- OFFER SECTION (BLOCK 5) --- */}
       <section id="offer" className="py-32 px-4 bg-cream">
         <div className="max-w-6xl mx-auto">
           <div className="bg-white rounded-[3.5rem] shadow-2xl overflow-hidden border border-stone-100">
             <div className="grid lg:grid-cols-5">
               <div className="lg:col-span-3 p-10 md:p-20 bg-sage text-white">
-                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-4">O que você recebe hoje:</h2>
-                <p className="text-white/60 text-sm font-bold uppercase tracking-widest mb-12">Entrega Digital Imediata em Formato E-book (PDF)</p>
-                <div className="space-y-10">
-                  <div className="flex items-start gap-6">
-                    <div className="p-3 bg-white/20 rounded-2xl">
-                      <BookOpen size={24} />
+                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">Missão de Resgate à Vitalidade Feminina</h2>
+                <div className="space-y-8 text-xl leading-relaxed font-light">
+                  <p>
+                    Se você fosse buscar essa consultoria integrativa em uma clínica especializada hoje, não pagaria menos de <strong>R$ 800,00</strong> pela consulta, além dos exames caros.
+                  </p>
+                  <p>
+                    Mas o custo não pode ser a barreira entre você e a sua primeira noite de sono profundo em anos.
+                  </p>
+                  <p>
+                    Por isso, você não pagará R$ 800. Nem mesmo R$ 97.
+                  </p>
+                  <p>
+                    Para cobrir apenas nossos custos de plataforma e garantir que o material chegue ao seu e-mail agora mesmo, o valor do acesso vitalício hoje é de apenas:
+                  </p>
+                </div>
+                
+                <div className="mt-12 pt-10 border-t border-white/20">
+                  <h4 className="text-xl font-bold mb-6">O que você recebe hoje:</h4>
+                  <div className="grid gap-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-8 h-8 bg-coral rounded-full flex items-center justify-center font-bold text-sm">✓</div>
+                      <p className="text-lg">Protocolo da Serenidade Completo</p>
                     </div>
-                    <div>
-                      <h4 className="text-xl font-bold mb-2">Guia Master: O Paradoxo do Estrogênio</h4>
-                      <p className="text-sage-dark/80 font-medium">Manual completo de reprogramação hormonal.</p>
+                    <div className="flex items-center gap-4">
+                      <div className="w-8 h-8 bg-coral rounded-full flex items-center justify-center font-bold text-sm">✓</div>
+                      <p className="text-lg">Plano Alimentar de 14 Dias</p>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-6">
-                    <div className="p-3 bg-white/20 rounded-2xl">
-                      <Clock size={24} />
-                    </div>
-                    <div>
-                      <h4 className="text-xl font-bold mb-2">O Cronograma de Bama</h4>
-                      <p className="text-sage-dark/80 font-medium">Plano alimentar de 14 dias (Café, Almoço e Jantar detalhados).</p>
-                    </div>
-                  </div>
-                  
-                  <div className="pt-10 border-t border-white/20">
-                    <h5 className="text-xs font-bold tracking-[0.3em] uppercase mb-8 text-white/60">Bônus Exclusivos</h5>
-                    <div className="grid gap-8">
-                      <div className="flex items-center gap-5">
-                        <div className="w-10 h-10 bg-coral rounded-full flex items-center justify-center font-bold">✓</div>
-                        <p className="text-lg font-medium">O Protocolo de 28 Dias para Recuperar a Elasticidade e o Desejo</p>
-                      </div>
-                      <div className="flex items-center gap-5">
-                        <div className="w-10 h-10 bg-coral rounded-full flex items-center justify-center font-bold">✓</div>
-                        <p className="text-lg font-medium">Diário da Menopausa — planilha para acompanhar seu progresso</p>
-                      </div>
-                      <div className="flex items-center gap-5">
-                        <div className="w-10 h-10 bg-coral rounded-full flex items-center justify-center font-bold">✓</div>
-                        <p className="text-lg font-medium">Livro de Receitas Hormonais — refeições práticas</p>
-                      </div>
+                    <div className="flex items-center gap-4">
+                      <div className="w-8 h-8 bg-coral rounded-full flex items-center justify-center font-bold text-sm">✓</div>
+                      <p className="text-lg">Acesso Vitalício e Bônus Exclusivos</p>
                     </div>
                   </div>
                 </div>
@@ -603,17 +641,15 @@ export default function App() {
               <div className="lg:col-span-2 p-10 md:p-16 flex flex-col justify-center items-center text-center bg-gradient-to-b from-stone-50 to-stone-100/50">
                 <div className="mb-10">
                   <span className="inline-block px-4 py-1.5 bg-coral/10 text-coral font-bold rounded-full text-sm tracking-widest uppercase mb-2">
-                    Oferta especial de hoje
+                    Acesso Imediato • 100% Digital
                   </span>
                   <CountdownTimer />
-                  <div className="flex flex-col items-center justify-center">
-                    <span className="text-stone-400 line-through text-2xl font-medium">R$ 97,00</span>
-                    <div className="text-7xl md:text-8xl font-bold text-sage-dark mt-2 tracking-tight">
-                      R$ 27<span className="text-4xl md:text-5xl text-sage">,90</span>
+                  <div className="flex flex-col items-center justify-center mt-6">
+                    <span className="text-stone-400 line-through text-2xl font-medium">De: R$ 97,00</span>
+                    <div className="text-2xl font-bold text-sage-dark mt-2">Por apenas:</div>
+                    <div className="text-7xl md:text-8xl font-bold text-coral mt-2 tracking-tight">
+                      R$ 27<span className="text-4xl md:text-5xl">,90</span>
                     </div>
-                    <span className="mt-2 text-xs font-bold text-stone-400 uppercase tracking-widest">
-                      Produto Digital • Acesso Imediato • Formato E-book
-                    </span>
                   </div>
                 </div>
                 
@@ -623,13 +659,13 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="w-full"
                 >
-                  <Button variant="secondary" className="w-full py-8 text-xl shadow-coral/30">
-                    Quero Meu Acesso Agora <ShoppingBag size={24} />
+                  <Button variant="secondary" className="w-full py-8 text-xl shadow-coral/30 bg-coral hover:bg-coral-dark">
+                    👉 SIM! QUERO INICIAR MEU PROTOCOLO DE 14 DIAS AGORA
                   </Button>
                 </a>
 
-                <p className="mt-8 text-stone-500 italic text-sm max-w-md mx-auto leading-relaxed">
-                  Se você está lendo isso, seu hipotálamo já enviou um sinal de alerta hoje. Você pode ignorar e enfrentar outra noite em claro, ou pode começar o Dia 1 amanhã mesmo. A decisão de Bama está em suas mãos.
+                <p className="mt-6 text-stone-500 text-xs font-bold uppercase tracking-widest">
+                  Acesso imediato via e-mail • Produto Digital
                 </p>
                 
                 <div className="mt-12 flex flex-col items-center gap-6">
@@ -637,17 +673,12 @@ export default function App() {
                     <ShieldCheck size={24} />
                     <span className="text-sm font-medium">Pagamento 100% Seguro</span>
                   </div>
-                  <div className="flex items-center gap-6 opacity-40 grayscale">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" className="h-5" referrerPolicy="no-referrer" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" className="h-8" referrerPolicy="no-referrer" />
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" className="h-6" referrerPolicy="no-referrer" />
-                  </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* --- GUARANTEE --- */}
+          {/* --- GUARANTEE (BLOCK 6) --- */}
           <div className="mt-20 max-w-4xl mx-auto bg-white p-10 md:p-16 rounded-[3rem] shadow-xl border border-stone-100 flex flex-col md:flex-row items-center gap-10">
             <div className="w-40 h-40 flex-shrink-0">
               <img 
@@ -658,9 +689,9 @@ export default function App() {
               />
             </div>
             <div>
-              <h3 className="text-2xl md:text-3xl font-serif font-bold text-sage-dark mb-4">Garantia de 7 Dias "Serenidade Total"</h3>
+              <h3 className="text-2xl md:text-3xl font-serif font-bold text-sage-dark mb-4">Garantia "Sono de Pedra ou Seu Dinheiro de Volta" (7 Dias)</h3>
               <p className="text-lg text-stone-600 leading-relaxed font-light">
-                Siga o plano. Se você não sentir sua pele mais firme, seus calorões desaparecendo e seu sono voltando ao normal, eu devolvo 100% do seu dinheiro. Sem perguntas.
+                Siga o plano. Se em 7 dias você não sentir suas ondas de calor diminuindo drasticamente, sua mente mais clara e seu sono voltando ao normal, eu não quero o seu dinheiro. Basta enviar um e-mail e devolverei 100% do valor pago. Sem perguntas, sem burocracia. O risco está todo nas minhas costas.
               </p>
             </div>
           </div>
@@ -687,26 +718,61 @@ export default function App() {
         </div>
       </section>
 
-      {/* --- FINAL CTA SECTION --- */}
+      {/* --- FINAL CTA SECTION (BLOCK 7) --- */}
       <section className="py-24 px-4 bg-sage-dark text-white text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-serif font-bold mb-8">Você está a 14 dias de uma nova versão de si mesma.</h2>
-          <p className="text-xl text-stone-300 mb-12 font-light leading-relaxed">
-            Junte-se a Cláudia, Patrícia, Sandra e centenas de outras mulheres que decidiram não aceitar o desconforto como parte do envelhecimento. O Segredo de Bama e o Paradoxo do Estrogênio estão agora ao seu alcance.
-          </p>
-          <a 
-            href="https://pay.hotmart.com/Y98549636E?checkoutMode=10" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="inline-block"
-          >
-            <Button variant="secondary" className="py-8 px-12 text-xl shadow-coral/40">
-              👉 QUERO COMEÇAR MEU PROTOCOLO DE 14 DIAS AGORA
-            </Button>
-          </a>
-          <p className="mt-6 text-stone-400 text-sm font-medium uppercase tracking-widest">
-            Acesso imediato via e-mail • Produto 100% Digital (E-book)
-          </p>
+          <h2 className="text-3xl md:text-5xl font-serif font-bold mb-8">
+            {quiz.userName}, você chegou ao momento da decisão.
+          </h2>
+          
+          <div className="space-y-12 text-xl leading-relaxed font-light max-w-3xl mx-auto">
+            <p className="text-2xl font-medium text-white">
+              Neste exato momento, você tem duas opções reais à sua frente:
+            </p>
+
+            <div className="text-left bg-white/5 p-8 md:p-12 rounded-[2.5rem] border border-white/10">
+              <h4 className="text-2xl font-serif font-bold text-coral mb-4">Opção 1: Ignorar este diagnóstico.</h4>
+              <p className="text-stone-300">
+                Você pode fechar esta página agora e continuar tentando resolver seus sintomas com as mesmas ferramentas que falharam até hoje. Isso significa enfrentar mais uma noite em claro entre 2h e 4h da manhã, lutar contra o suor excessivo durante o dia e aceitar o cansaço como parte da sua rotina. Seu hipotálamo continuará enviando sinais de pânico e seu sistema hormonal permanecerá no "Modo de Sobrevivência".
+              </p>
+            </div>
+
+            <div className="text-left bg-white/10 p-8 md:p-12 rounded-[2.5rem] border border-white/20 shadow-xl">
+              <h4 className="text-2xl font-serif font-bold text-sage mb-4">Opção 2: Ativar o Padrão Bama.</h4>
+              <p className="text-white">
+                Você clica no botão abaixo, garante seu acesso ao Protocolo da Serenidade por um investimento menor que o de um café por dia, e começa seu Dia 1 amanhã mesmo. Em 14 dias, você segue o mapa das mulheres que vivem com total vitalidade, silenciando os calorões e recuperando o sono de pedra que você não tem há anos.
+              </p>
+            </div>
+
+            <div className="pt-8">
+              <p className="text-2xl font-serif italic mb-4">
+                O seu corpo já deu o sinal de alerta. A pergunta é: você vai continuar sendo refém dos seus hormônios ou vai se tornar a mestre do seu próprio bem-estar?
+              </p>
+              <p className="text-xl font-bold text-sage uppercase tracking-widest">
+                A decisão de Bama está em suas mãos.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-16">
+            <a 
+              href="https://pay.hotmart.com/Y98549636E?checkoutMode=10" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block w-full max-w-xl"
+            >
+              <Button variant="secondary" className="w-full py-8 text-xl shadow-coral/40 bg-coral hover:bg-coral-dark">
+                👉 QUERO MEU ACESSO AGORA - R$ 27,90
+              </Button>
+            </a>
+            <div className="mt-6 flex flex-wrap justify-center gap-4 text-stone-400 text-xs font-bold uppercase tracking-widest">
+              <span>Pagamento 100% Seguro</span>
+              <span className="hidden md:inline">•</span>
+              <span>Acesso Imediato via E-mail</span>
+              <span className="hidden md:inline">•</span>
+              <span>Garantia de 7 Dias</span>
+            </div>
+          </div>
         </div>
       </section>
 
