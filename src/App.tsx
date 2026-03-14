@@ -96,10 +96,10 @@ const Button = ({
 };
 
 const SectionTitle = ({ children, subtitle, light = false }: { children: React.ReactNode; subtitle?: string; light?: boolean }) => (
-  <div className="text-center mb-16 md:mb-24">
-    <h2 className={`text-4xl md:text-5xl lg:text-6xl font-serif font-bold mb-6 leading-[1.1] tracking-tight ${light ? 'text-white' : 'text-sage-dark'}`}>{children}</h2>
-    {subtitle && <p className={`text-lg md:text-xl max-w-2xl mx-auto italic ${light ? 'text-stone-300' : 'text-stone-500'}`}>{subtitle}</p>}
-    <div className={`w-20 h-1 mx-auto mt-8 rounded-full ${light ? 'bg-coral' : 'bg-sage'}`} />
+  <div className="text-center mb-12 md:mb-24 px-4">
+    <h2 className={`text-3xl md:text-5xl lg:text-6xl font-serif font-bold mb-4 md:mb-6 leading-[1.1] tracking-tight ${light ? 'text-white' : 'text-sage-dark'}`}>{children}</h2>
+    {subtitle && <p className={`text-base md:text-xl max-w-2xl mx-auto italic ${light ? 'text-stone-300' : 'text-stone-500'}`}>{subtitle}</p>}
+    <div className={`w-16 md:w-20 h-1 mx-auto mt-6 md:mt-8 rounded-full ${light ? 'bg-coral' : 'bg-sage'}`} />
   </div>
 );
 
@@ -250,10 +250,10 @@ export default function App() {
                 <span className="inline-block px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-xs font-bold mb-6 uppercase tracking-[0.2em]">
                   O Segredo de Bama
                 </span>
-                <h1 className="text-4xl md:text-5xl lg:text-7xl font-serif font-bold leading-[1.05] tracking-tight mb-6 text-white">
+                <h1 className="text-3xl md:text-5xl lg:text-7xl font-serif font-bold leading-[1.1] tracking-tight mb-6 text-white">
                   O Segredo de Bama: Como mulheres de 90 anos na China silenciaram os sintomas da menopausa <span className="text-coral italic">(sem usar um único hormônio sintético)</span>.
                 </h1>
-                <p className="text-lg md:text-xl text-stone-200 max-w-3xl mx-auto leading-relaxed font-light">
+                <p className="text-base md:text-xl text-stone-200 max-w-3xl mx-auto leading-relaxed font-light px-2">
                   Descubra seu perfil hormonal e ative seu <strong>'Paradoxo do Estrogênio'</strong> para resetar seu metabolismo e seu sono em apenas 14 dias.
                 </p>
               </motion.div>
@@ -268,20 +268,20 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                className="bg-white/95 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-14 shadow-2xl shadow-stone-900/10 border border-white"
+                className="bg-white/95 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-14 shadow-2xl shadow-stone-900/10 border border-white"
               >
-                <p className="text-stone-600 mb-10 text-lg leading-relaxed italic border-l-4 border-sage pl-6">
+                <p className="text-stone-600 mb-8 md:mb-10 text-base md:text-lg leading-relaxed italic border-l-4 border-sage pl-4 md:pl-6">
                   "O Padrão Bama é o nome dado ao equilíbrio hormonal perfeito encontrado em uma vila isolada na China, onde a menopausa é vivida com total serenidade. Este quiz vai comparar seus sintomas atuais com os biomarcadores de Bama para criar o seu Protocolo da Serenidade personalizado."
                 </p>
-                <div className="flex items-center gap-6 mb-12">
-                  <div className="p-4 bg-cream rounded-2xl">
+                <div className="flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-6 mb-8 md:mb-12 text-center md:text-left">
+                  <div className="p-3 md:p-4 bg-cream rounded-2xl shrink-0">
                     <Heart className="text-sage" />
                   </div>
-                  <h3 className="text-2xl md:text-3xl font-serif font-bold text-sage-dark">
+                  <h3 className="text-xl md:text-3xl font-serif font-bold text-sage-dark">
                     Antes de começarmos, como podemos te chamar?
                   </h3>
                 </div>
-                <form onSubmit={handleNameSubmit} className="space-y-8">
+                <form onSubmit={handleNameSubmit} className="space-y-6 md:space-y-8">
                   <div className="relative">
                     <input
                       type="text"
@@ -289,10 +289,10 @@ export default function App() {
                       placeholder="Seu nome aqui..."
                       value={quiz.userName}
                       onChange={(e) => setQuiz(prev => ({ ...prev, userName: e.target.value }))}
-                      className="w-full p-6 text-xl border-2 border-stone-100 rounded-2xl focus:border-sage focus:ring-0 outline-none transition-all"
+                      className="w-full p-4 md:p-6 text-lg md:text-xl border-2 border-stone-100 rounded-2xl focus:border-sage focus:ring-0 outline-none transition-all"
                     />
                   </div>
-                  <Button type="submit" className="w-full py-6">
+                  <Button type="submit" className="w-full py-5 md:py-6">
                     Iniciar Diagnóstico <ArrowRight size={20} />
                   </Button>
                 </form>
@@ -303,10 +303,10 @@ export default function App() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="bg-white/95 backdrop-blur-xl rounded-[2.5rem] p-8 md:p-14 shadow-2xl shadow-stone-900/10 border border-white"
+                className="bg-white/95 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-14 shadow-2xl shadow-stone-900/10 border border-white"
               >
-                <div className="flex items-center gap-6 mb-12">
-                  <div className="p-4 bg-cream rounded-2xl">
+                <div className="flex items-center gap-4 md:gap-6 mb-8 md:mb-12">
+                  <div className="p-3 md:p-4 bg-cream rounded-2xl shrink-0">
                     {quizQuestions[quiz.step].icon}
                   </div>
                   <div className="flex-1 h-2 bg-stone-100 rounded-full overflow-hidden">
@@ -315,25 +315,25 @@ export default function App() {
                       style={{ width: `${((quiz.step + 1) / quizQuestions.length) * 100}%` }}
                     />
                   </div>
-                  <span className="text-sm font-bold text-stone-400 tracking-tighter">
+                  <span className="text-xs md:text-sm font-bold text-stone-400 tracking-tighter shrink-0">
                     {quiz.step + 1}/{quizQuestions.length}
                   </span>
                 </div>
 
-                <h3 className="text-2xl md:text-4xl font-serif font-bold text-sage-dark mb-12 leading-tight">
+                <h3 className="text-xl md:text-4xl font-serif font-bold text-sage-dark mb-8 md:mb-12 leading-tight">
                   {quizQuestions[quiz.step].question(quiz.userName)}
                 </h3>
 
-                <div className="grid gap-4 md:gap-5">
+                <div className="grid gap-3 md:gap-5">
                   {quizQuestions[quiz.step].options.map((option, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleAnswer(option)}
-                      className="w-full p-5 md:p-6 text-left rounded-2xl border border-stone-200 hover:border-sage hover:bg-sage/5 hover:shadow-md transition-all duration-300 group flex items-center justify-between"
+                      className="w-full p-4 md:p-6 text-left rounded-2xl border border-stone-200 hover:border-sage hover:bg-sage/5 hover:shadow-md transition-all duration-300 group flex items-center justify-between gap-4"
                     >
-                      <span className="text-lg font-medium text-stone-700 group-hover:text-sage-dark">{option}</span>
-                      <div className="w-7 h-7 rounded-full border-2 border-stone-200 group-hover:border-sage group-hover:bg-sage flex items-center justify-center transition-colors">
-                        <CheckCircle2 size={16} className="text-white opacity-0 group-hover:opacity-100" />
+                      <span className="text-base md:text-lg font-medium text-stone-700 group-hover:text-sage-dark leading-snug">{option}</span>
+                      <div className="w-6 h-6 md:w-7 md:h-7 rounded-full border-2 border-stone-200 group-hover:border-sage group-hover:bg-sage flex items-center justify-center transition-colors shrink-0">
+                        <CheckCircle2 size={14} className="text-white opacity-0 group-hover:opacity-100" />
                       </div>
                     </button>
                   ))}
@@ -393,7 +393,7 @@ export default function App() {
                   <Zap size={20} /> DIAGNÓSTICO PERSONALIZADO CONCLUÍDO
                 </div>
                 
-                <h3 className="text-3xl md:text-5xl font-serif font-bold mb-8 leading-tight text-coral">
+                <h3 className="text-2xl md:text-5xl font-serif font-bold mb-6 md:mb-8 leading-tight text-coral">
                   {quiz.userName}, {
                     quiz.answers[4] === "Sinto que meu corpo simplesmente parou de responder" 
                       ? "seu corpo entrou em estado de bloqueio total" 
@@ -407,14 +407,14 @@ export default function App() {
                   } pelo Modo de Sobrevivência.
                 </h3>
 
-                <div className="space-y-6 text-xl text-stone-300 leading-relaxed font-light mb-10">
+                <div className="space-y-6 text-lg md:text-xl text-stone-300 leading-relaxed font-light mb-8 md:mb-10">
                   {aiDiagnosis ? (
                     <div className="whitespace-pre-wrap">
                       {aiDiagnosis}
                     </div>
                   ) : (
                     <>
-                      <p className="text-2xl font-medium text-white">
+                      <p className="text-xl md:text-2xl font-medium text-white">
                         Não é sua culpa que você ainda sofre com {quiz.answers[0]?.toLowerCase()}. {quiz.answers[3] === "Só conheço os tratamentos hormonais comuns" ? "A reposição hormonal clássica foca nos ovários, mas" : "Você estava tentando consertar os sintomas isolados quando,"} na verdade, precisa religar o seu Gerador de Reserva (as adrenais).
                       </p>
                       
@@ -434,7 +434,7 @@ export default function App() {
                         </p>
                       )}
                       
-                      <p className="text-white font-bold text-2xl mt-8">
+                      <p className="text-white font-bold text-xl md:text-2xl mt-6 md:mt-8">
                         Se você não recalibrar esse sinal agora, {quiz.answers[0]?.includes("Névoa") ? "essa confusão mental pode se tornar permanente" : quiz.answers[0]?.includes("Peso") ? "seu metabolismo pode travar de vez" : "o cansaço de hoje pode se transformar em um esgotamento severo"}. Mas a ciência provou que existe uma saída natural.
                       </p>
                     </>
@@ -486,10 +486,10 @@ export default function App() {
               </div>
             </div>
             <div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-sage-dark mb-10 leading-[1.1] tracking-tight">
+              <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-sage-dark mb-6 md:mb-10 leading-[1.1] tracking-tight">
                 O Segredo do <span className="italic text-coral">"Vale da Longevidade"</span>
               </h2>
-              <div className="space-y-8 text-xl text-stone-600 leading-relaxed font-light">
+              <div className="space-y-6 md:space-y-8 text-lg md:text-xl text-stone-600 leading-relaxed font-light">
                 <p>
                   A mais de 12 mil quilômetros daqui, nas montanhas isoladas de Bama, na China, existe um vale da longevidade onde mulheres com 50 a 70 anos vivem sem sintomas da menopausa. Elas não lutam contra o próprio corpo, e não sabem o que é um calorão ou uma noite de insônia.
                 </p>
@@ -499,7 +499,7 @@ export default function App() {
                 <p>
                   Através de nutrientes específicos e rituais térmicos simples, elas ativam a Via Adrenal para assumir o papel que antes era dos ovários. É uma atualização de "software" do corpo humano que neutraliza o Relógio Biológico Silencioso em questão de dias.
                 </p>
-                <p className="font-bold text-sage-dark text-2xl">
+                <p className="font-bold text-sage-dark text-xl md:text-2xl">
                   A única forma de recuperar sua vitalidade é ativando essa mesma via. E o Protocolo da Serenidade é o único mapa validado para fazer isso sem usar hormônios sintéticos.
                 </p>
               </div>
@@ -534,21 +534,21 @@ export default function App() {
                 tag: "Dia 4-7"
               },
               {
-                title: "Plano Alimentar da Serenidade",
+                title: "Plano Alimentar",
                 desc: "Você saberá exatamente quais ingredientes baratos ativam o Padrão Bama no seu prato.",
                 icon: <Scale className="text-sage" />,
                 tag: "Dia 8-14"
               }
             ].map((item, idx) => (
-              <div key={idx} className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-10 rounded-[2rem] hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group">
-                <div className="flex justify-between items-start mb-8">
-                  <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div key={idx} className="bg-white/5 backdrop-blur-sm border border-white/10 p-6 md:p-10 rounded-[2rem] hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group">
+                <div className="flex justify-between items-start mb-6 md:mb-8">
+                  <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     {item.icon}
                   </div>
-                  <span className="text-xs font-bold tracking-[0.2em] uppercase text-white/50 bg-white/5 px-3 py-1 rounded-full">{item.tag}</span>
+                  <span className="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-white/50 bg-white/5 px-3 py-1 rounded-full">{item.tag}</span>
                 </div>
-                <h4 className="text-2xl font-serif font-bold mb-4">{item.title}</h4>
-                <p className="text-stone-300 leading-relaxed font-light">{item.desc}</p>
+                <h4 className="text-xl md:text-2xl font-serif font-bold mb-3 md:mb-4">{item.title}</h4>
+                <p className="text-sm md:text-base text-stone-300 leading-relaxed font-light">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -580,16 +580,16 @@ export default function App() {
                 author: "Sandra, 57 anos"
               }
             ].map((item, idx) => (
-              <div key={idx} className="bg-cream/30 p-10 rounded-[2rem] border border-stone-100 shadow-sm hover:shadow-md transition-shadow relative">
-                <div className="flex gap-1 mb-6">
+              <div key={idx} className="bg-cream/30 p-8 md:p-10 rounded-[2rem] border border-stone-100 shadow-sm hover:shadow-md transition-shadow relative">
+                <div className="flex gap-1 mb-4 md:mb-6">
                   {[...Array(5)].map((_, i) => (
-                    <Heart key={i} size={16} className="fill-coral text-coral" />
+                    <Heart key={i} size={14} className="fill-coral text-coral" />
                   ))}
                 </div>
-                <h4 className="text-xl font-serif font-bold text-sage-dark mb-4">"{item.title}"</h4>
-                <p className="text-stone-600 leading-relaxed mb-8 font-light italic" dangerouslySetInnerHTML={{ __html: `"${item.text}"` }} />
-                <div className="pt-6 border-t border-stone-100">
-                  <p className="font-bold text-sage-dark text-sm uppercase tracking-wider">— {item.author}</p>
+                <h4 className="text-lg md:text-xl font-serif font-bold text-sage-dark mb-3 md:mb-4">"{item.title}"</h4>
+                <p className="text-base md:text-lg text-stone-600 leading-relaxed mb-6 md:mb-8 font-light italic" dangerouslySetInnerHTML={{ __html: `"${item.text}"` }} />
+                <div className="pt-4 md:pt-6 border-t border-stone-100">
+                  <p className="font-bold text-sage-dark text-xs md:text-sm uppercase tracking-wider">— {item.author}</p>
                 </div>
               </div>
             ))}
@@ -602,9 +602,9 @@ export default function App() {
         <div className="max-w-6xl mx-auto">
           <div className="bg-white rounded-[3.5rem] shadow-2xl overflow-hidden border border-stone-100">
             <div className="grid lg:grid-cols-5">
-              <div className="lg:col-span-3 p-10 md:p-20 bg-sage text-white">
-                <h2 className="text-4xl md:text-5xl font-serif font-bold mb-8">Missão de Resgate à Vitalidade Feminina</h2>
-                <div className="space-y-8 text-xl leading-relaxed font-light">
+              <div className="lg:col-span-3 p-8 md:p-20 bg-sage text-white">
+                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 md:mb-8">Missão de Resgate à Vitalidade Feminina</h2>
+                <div className="space-y-6 md:space-y-8 text-lg md:text-xl leading-relaxed font-light">
                   <p>
                     Se você fosse buscar essa consultoria integrativa em uma clínica especializada hoje, não pagaria menos de <strong>R$ 800,00</strong> pela consulta, além dos exames caros.
                   </p>
@@ -619,36 +619,36 @@ export default function App() {
                   </p>
                 </div>
                 
-                <div className="mt-12 pt-10 border-t border-white/20">
-                  <h4 className="text-xl font-bold mb-6">O que você recebe hoje:</h4>
-                  <div className="grid gap-6">
-                    <div className="flex items-center gap-4">
-                      <div className="w-8 h-8 bg-coral rounded-full flex items-center justify-center font-bold text-sm">✓</div>
-                      <p className="text-lg">Protocolo da Serenidade Completo</p>
+                <div className="mt-10 md:mt-12 pt-8 md:pt-10 border-t border-white/20">
+                  <h4 className="text-lg md:text-xl font-bold mb-4 md:mb-6">O que você recebe hoje:</h4>
+                  <div className="grid gap-4 md:gap-6">
+                    <div className="flex items-center gap-3 md:gap-4">
+                      <div className="w-6 h-6 md:w-8 md:h-8 bg-coral rounded-full flex items-center justify-center font-bold text-xs md:text-sm shrink-0">✓</div>
+                      <p className="text-base md:text-lg">Protocolo da Serenidade Completo</p>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <div className="w-8 h-8 bg-coral rounded-full flex items-center justify-center font-bold text-sm">✓</div>
-                      <p className="text-lg">Plano Alimentar de 14 Dias</p>
+                    <div className="flex items-center gap-3 md:gap-4">
+                      <div className="w-6 h-6 md:w-8 md:h-8 bg-coral rounded-full flex items-center justify-center font-bold text-xs md:text-sm shrink-0">✓</div>
+                      <p className="text-base md:text-lg">Plano Alimentar de 14 Dias</p>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <div className="w-8 h-8 bg-coral rounded-full flex items-center justify-center font-bold text-sm">✓</div>
-                      <p className="text-lg">Acesso Vitalício e Bônus Exclusivos</p>
+                    <div className="flex items-center gap-3 md:gap-4">
+                      <div className="w-6 h-6 md:w-8 md:h-8 bg-coral rounded-full flex items-center justify-center font-bold text-xs md:text-sm shrink-0">✓</div>
+                      <p className="text-base md:text-lg">Acesso Vitalício e Bônus Exclusivos</p>
                     </div>
                   </div>
                 </div>
               </div>
               
-              <div className="lg:col-span-2 p-10 md:p-16 flex flex-col justify-center items-center text-center bg-gradient-to-b from-stone-50 to-stone-100/50">
-                <div className="mb-10">
-                  <span className="inline-block px-4 py-1.5 bg-coral/10 text-coral font-bold rounded-full text-sm tracking-widest uppercase mb-2">
+              <div className="lg:col-span-2 p-8 md:p-16 flex flex-col justify-center items-center text-center bg-gradient-to-b from-stone-50 to-stone-100/50">
+                <div className="mb-8 md:mb-10">
+                  <span className="inline-block px-4 py-1.5 bg-coral/10 text-coral font-bold rounded-full text-[10px] md:text-sm tracking-widest uppercase mb-2">
                     Acesso Imediato • 100% Digital
                   </span>
                   <CountdownTimer />
                   <div className="flex flex-col items-center justify-center mt-6">
-                    <span className="text-stone-400 line-through text-2xl font-medium">De: R$ 97,00</span>
-                    <div className="text-2xl font-bold text-sage-dark mt-2">Por apenas:</div>
-                    <div className="text-7xl md:text-8xl font-bold text-coral mt-2 tracking-tight">
-                      R$ 27<span className="text-4xl md:text-5xl">,90</span>
+                    <span className="text-stone-400 line-through text-xl md:text-2xl font-medium">De: R$ 97,00</span>
+                    <div className="text-xl md:text-2xl font-bold text-sage-dark mt-2">Por apenas:</div>
+                    <div className="text-6xl md:text-8xl font-bold text-coral mt-2 tracking-tight">
+                      R$ 27<span className="text-3xl md:text-5xl">,90</span>
                     </div>
                   </div>
                 </div>
@@ -659,7 +659,7 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="w-full"
                 >
-                  <Button variant="secondary" className="w-full py-8 text-xl shadow-coral/30 bg-coral hover:bg-coral-dark">
+                  <Button variant="secondary" className="w-full py-6 md:py-8 text-lg md:text-xl shadow-coral/30 bg-coral hover:bg-coral-dark">
                     👉 SIM! QUERO INICIAR MEU PROTOCOLO DE 14 DIAS AGORA
                   </Button>
                 </a>
@@ -679,8 +679,8 @@ export default function App() {
           </div>
 
           {/* --- GUARANTEE (BLOCK 6) --- */}
-          <div className="mt-20 max-w-4xl mx-auto bg-white p-10 md:p-16 rounded-[3rem] shadow-xl border border-stone-100 flex flex-col md:flex-row items-center gap-10">
-            <div className="w-40 h-40 flex-shrink-0">
+          <div className="mt-16 md:mt-20 max-w-4xl mx-auto bg-white p-8 md:p-16 rounded-[2.5rem] md:rounded-[3rem] shadow-xl border border-stone-100 flex flex-col md:flex-row items-center gap-8 md:gap-10">
+            <div className="w-32 h-32 md:w-40 md:h-40 flex-shrink-0">
               <img 
                 src="https://cdn-icons-png.flaticon.com/512/1000/1000951.png" 
                 alt="Garantia" 
@@ -688,9 +688,9 @@ export default function App() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div>
-              <h3 className="text-2xl md:text-3xl font-serif font-bold text-sage-dark mb-4">Garantia "Sono de Pedra ou Seu Dinheiro de Volta" (7 Dias)</h3>
-              <p className="text-lg text-stone-600 leading-relaxed font-light">
+            <div className="text-center md:text-left">
+              <h3 className="text-xl md:text-3xl font-serif font-bold text-sage-dark mb-3 md:mb-4">Garantia "Sono de Pedra" (7 Dias)</h3>
+              <p className="text-base md:text-lg text-stone-600 leading-relaxed font-light">
                 Siga o plano. Se em 7 dias você não sentir suas ondas de calor diminuindo drasticamente, sua mente mais clara e seu sono voltando ao normal, eu não quero o seu dinheiro. Basta enviar um e-mail e devolverei 100% do valor pago. Sem perguntas, sem burocracia. O risco está todo nas minhas costas.
               </p>
             </div>
@@ -704,14 +704,14 @@ export default function App() {
           <SectionTitle subtitle="Conheça a equipe por trás do Protocolo da Serenidade">
             Uma Missão de Resgate à Vitalidade Feminina
           </SectionTitle>
-          <div className="bg-cream/50 p-10 md:p-16 rounded-[3rem] border border-stone-100">
-            <p className="text-xl text-stone-700 font-medium mb-8 italic">
+          <div className="bg-cream/50 p-8 md:p-16 rounded-[2.5rem] md:rounded-[3rem] border border-stone-100">
+            <p className="text-lg md:text-xl text-stone-700 font-medium mb-6 md:mb-8 italic">
               "Nós entendemos a frustração de se sentir uma estranha no próprio corpo. Por isso, decodificamos o método que mantém as mulheres de Bama vibrantes há gerações."
             </p>
-            <p className="text-xl text-stone-600 leading-relaxed font-light italic">
+            <p className="text-base md:text-xl text-stone-600 leading-relaxed font-light italic">
               O Protocolo da Serenidade não nasceu em laboratórios farmacêuticos, mas sim de uma busca incessante por respostas que a medicina convencional muitas vezes ignora. Somos um coletivo de pesquisadores independentes, nutricionistas e especialistas em saúde integrativa, apaixonados pela biologia da longevidade.
             </p>
-            <p className="text-xl text-stone-600 leading-relaxed font-light italic mt-8">
+            <p className="text-base md:text-xl text-stone-600 leading-relaxed font-light italic mt-6 md:mt-8">
               Nossa equipe dedicou anos estudando o 'Paradoxo do Estrogênio' e as zonas azuis do mundo — como a Vila de Bama — para traduzir segredos ancestrais em um método prático de 14 dias. Nosso objetivo é claro: dar a cada mulher o mapa para que ela não seja refém dos seus hormônios, mas sim a mestre do seu próprio bem-estar.
             </p>
           </div>
@@ -719,49 +719,49 @@ export default function App() {
       </section>
 
       {/* --- FINAL CTA SECTION (BLOCK 7) --- */}
-      <section className="py-24 px-4 bg-sage-dark text-white text-center">
+      <section className="py-20 md:py-24 px-4 bg-sage-dark text-white text-center">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-serif font-bold mb-8">
+          <h2 className="text-2xl md:text-5xl font-serif font-bold mb-6 md:mb-8 px-2">
             {quiz.userName}, você chegou ao momento da decisão.
           </h2>
           
-          <div className="space-y-12 text-xl leading-relaxed font-light max-w-3xl mx-auto">
-            <p className="text-2xl font-medium text-white">
+          <div className="space-y-8 md:space-y-12 text-lg md:text-xl leading-relaxed font-light max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl font-medium text-white">
               Neste exato momento, você tem duas opções reais à sua frente:
             </p>
 
-            <div className="text-left bg-white/5 p-8 md:p-12 rounded-[2.5rem] border border-white/10">
-              <h4 className="text-2xl font-serif font-bold text-coral mb-4">Opção 1: Ignorar este diagnóstico.</h4>
-              <p className="text-stone-300">
+            <div className="text-left bg-white/5 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10">
+              <h4 className="text-xl md:text-2xl font-serif font-bold text-coral mb-3 md:mb-4">Opção 1: Ignorar este diagnóstico.</h4>
+              <p className="text-sm md:text-base text-stone-300">
                 Você pode fechar esta página agora e continuar tentando resolver seus sintomas com as mesmas ferramentas que falharam até hoje. Isso significa enfrentar mais uma noite em claro entre 2h e 4h da manhã, lutar contra o suor excessivo durante o dia e aceitar o cansaço como parte da sua rotina. Seu hipotálamo continuará enviando sinais de pânico e seu sistema hormonal permanecerá no "Modo de Sobrevivência".
               </p>
             </div>
 
-            <div className="text-left bg-white/10 p-8 md:p-12 rounded-[2.5rem] border border-white/20 shadow-xl">
-              <h4 className="text-2xl font-serif font-bold text-sage mb-4">Opção 2: Ativar o Padrão Bama.</h4>
-              <p className="text-white">
+            <div className="text-left bg-white/10 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/20 shadow-xl">
+              <h4 className="text-xl md:text-2xl font-serif font-bold text-sage mb-3 md:mb-4">Opção 2: Ativar o Padrão Bama.</h4>
+              <p className="text-sm md:text-base text-white">
                 Você clica no botão abaixo, garante seu acesso ao Protocolo da Serenidade por um investimento menor que o de um café por dia, e começa seu Dia 1 amanhã mesmo. Em 14 dias, você segue o mapa das mulheres que vivem com total vitalidade, silenciando os calorões e recuperando o sono de pedra que você não tem há anos.
               </p>
             </div>
 
-            <div className="pt-8">
-              <p className="text-2xl font-serif italic mb-4">
+            <div className="pt-6 md:pt-8">
+              <p className="text-lg md:text-2xl font-serif italic mb-4">
                 O seu corpo já deu o sinal de alerta. A pergunta é: você vai continuar sendo refém dos seus hormônios ou vai se tornar a mestre do seu próprio bem-estar?
               </p>
-              <p className="text-xl font-bold text-sage uppercase tracking-widest">
+              <p className="text-base md:text-xl font-bold text-sage uppercase tracking-widest">
                 A decisão de Bama está em suas mãos.
               </p>
             </div>
           </div>
 
-          <div className="mt-16">
+          <div className="mt-12 md:mt-16">
             <a 
               href="https://pay.hotmart.com/Y98549636E?checkoutMode=10" 
               target="_blank" 
               rel="noopener noreferrer"
               className="inline-block w-full max-w-xl"
             >
-              <Button variant="secondary" className="w-full py-8 text-xl shadow-coral/40 bg-coral hover:bg-coral-dark">
+              <Button variant="secondary" className="w-full py-6 md:py-8 text-lg md:text-xl shadow-coral/40 bg-coral hover:bg-coral-dark">
                 👉 QUERO MEU ACESSO AGORA - R$ 27,90
               </Button>
             </a>
@@ -799,9 +799,9 @@ export default function App() {
                 a: "Não, o método é extremamente simples, prático e direto ao ponto."
               }
             ].map((item, idx) => (
-              <div key={idx} className="bg-white p-8 rounded-3xl border border-stone-100 shadow-sm">
-                <h4 className="text-xl font-serif font-bold text-sage-dark mb-4">{item.q}</h4>
-                <p className="text-stone-600 leading-relaxed text-lg font-light">{item.a}</p>
+              <div key={idx} className="bg-white p-6 md:p-8 rounded-[2rem] md:rounded-3xl border border-stone-100 shadow-sm">
+                <h4 className="text-lg md:text-xl font-serif font-bold text-sage-dark mb-3 md:mb-4">{item.q}</h4>
+                <p className="text-sm md:text-lg text-stone-600 leading-relaxed font-light">{item.a}</p>
               </div>
             ))}
           </div>
