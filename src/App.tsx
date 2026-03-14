@@ -407,15 +407,39 @@ export default function App() {
             ) : (
               <motion.div
                 key="diagnosis"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
+                initial="hidden"
+                animate="visible"
+                variants={{
+                  hidden: { opacity: 0, scale: 0.98 },
+                  visible: { 
+                    opacity: 1, 
+                    scale: 1,
+                    transition: { 
+                      duration: 0.5,
+                      when: "beforeChildren",
+                      staggerChildren: 0.2
+                    }
+                  }
+                }}
                 className="bg-sage-dark text-white rounded-[2.5rem] p-8 md:p-16 shadow-2xl shadow-stone-900/20 border border-white/10"
               >
-                <div className="flex items-center gap-3 text-coral font-bold tracking-[0.2em] mb-6 uppercase text-sm">
+                <motion.div 
+                  variants={{
+                    hidden: { opacity: 0, y: -10 },
+                    visible: { opacity: 1, y: 0 }
+                  }}
+                  className="flex items-center gap-3 text-coral font-bold tracking-[0.2em] mb-6 uppercase text-sm"
+                >
                   <Zap size={20} /> DIAGNÓSTICO PERSONALIZADO CONCLUÍDO
-                </div>
+                </motion.div>
                 
-                <h3 className="text-2xl md:text-5xl font-serif font-bold mb-6 md:mb-8 leading-tight text-coral">
+                <motion.h3 
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 }
+                  }}
+                  className="text-2xl md:text-5xl font-serif font-bold mb-6 md:mb-8 leading-tight text-coral"
+                >
                   {quiz.userName}, {
                     quiz.answers[4] === "Sinto que meu corpo simplesmente parou de responder" 
                       ? "seu corpo entrou em estado de bloqueio total" 
@@ -427,53 +451,66 @@ export default function App() {
                       ? "seu sistema de alerta está travado no 'on'"
                       : "seu corpo está sequestrado"
                   } pelo Modo de Sobrevivência.
-                </h3>
+                </motion.h3>
 
-                <div className="space-y-6 mb-8 md:mb-10">
+                <div className="space-y-4 md:space-y-6 mb-8 md:mb-10">
                   {aiDiagnosis ? (
-                    aiDiagnosis.split('\n\n').filter(p => p.trim()).map((paragraph, idx) => (
-                      <div 
+                    aiDiagnosis.split(/\n\s*\n/).filter(p => p.trim()).map((paragraph, idx) => (
+                      <motion.div 
                         key={idx} 
-                        className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light"
+                        variants={{
+                          hidden: { opacity: 0, y: 30 },
+                          visible: { 
+                            opacity: 1, 
+                            y: 0,
+                            transition: { duration: 0.8, ease: "easeOut" }
+                          }
+                        }}
+                        className="bg-white/[0.07] border border-white/10 p-6 md:p-8 rounded-[2rem] text-lg md:text-xl text-stone-300 leading-relaxed font-light shadow-inner"
                       >
-                        {paragraph}
-                      </div>
+                        {paragraph.split('\n').map((line, lineIdx) => (
+                          <p key={lineIdx} className={lineIdx > 0 ? "mt-2" : ""}>{line}</p>
+                        ))}
+                      </motion.div>
                     ))
                   ) : (
-                    <div className="space-y-6">
-                      <div className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light">
+                    <div className="space-y-4 md:space-y-6">
+                      {[
                         <p className="text-xl md:text-2xl font-medium text-white mb-4">
                           Não é sua culpa que você ainda sofre com {quiz.answers[0]?.toLowerCase()}. {quiz.answers[3] === "Só conheço os tratamentos hormonais comuns" ? "A reposição hormonal clássica foca nos ovários, mas" : "Você estava tentando consertar os sintomas isolados quando,"} na verdade, precisa religar o seu Gerador de Reserva (as adrenais).
-                        </p>
-                      </div>
-                      
-                      <div className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light">
+                        </p>,
                         <p>
                           Com base nas suas respostas, o seu <strong>hipotálamo</strong> — o termostato do cérebro — perdeu a calibração. {quiz.answers[4] === "Nunca nenhum médico me explicou a causa real (o termostato desregulado)" ? "Como você suspeitava, ninguém te explicou que ele" : "Ele"} está enviando sinais de pânico constantes, o que explica por que {quiz.answers[3] === "Já tentei de tudo, mas o alívio é sempre temporário" ? "os métodos comuns só funcionam por pouco tempo" : "você se sente tão exausta"}.
-                        </p>
-                      </div>
-
-                      {quiz.answers[1] !== "Raramente" && (
-                        <div className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light">
+                        </p>,
+                        quiz.answers[1] !== "Raramente" ? (
                           <p>
                             A sensação de "fogo interno" que você relatou é o seu corpo tentando dissipar calor de forma desordenada porque o seu "software" hormonal está travado.
                           </p>
-                        </div>
-                      )}
-
-                      {quiz.answers[2] !== "Não costumo acordar de madrugada" && (
-                        <div className="bg-white/5 border border-white/10 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-stone-300 leading-relaxed font-light">
+                        ) : null,
+                        quiz.answers[2] !== "Não costumo acordar de madrugada" ? (
                           <p>
                             O despertar exaustivo entre 2h e 4h da manhã indica que o seu cortisol está disparando no momento errado, impedindo que você alcance o sono profundo reparador.
                           </p>
-                        </div>
-                      )}
-                      
-                      <div className="bg-coral/10 border border-coral/20 p-6 md:p-8 rounded-3xl text-lg md:text-xl text-white leading-relaxed font-bold">
+                        ) : null,
                         <p>
                           Se você não recalibrar esse sinal agora, {quiz.answers[0]?.includes("Névoa") ? "essa confusão mental pode se tornar permanente" : quiz.answers[0]?.includes("Peso") ? "seu metabolismo pode travar de vez" : "o cansaço de hoje pode se transformar em um esgotamento severo"}. Mas a ciência provou que existe uma saída natural.
                         </p>
-                      </div>
+                      ].filter(Boolean).map((content, idx) => (
+                        <motion.div 
+                          key={idx}
+                          variants={{
+                            hidden: { opacity: 0, y: 30 },
+                            visible: { 
+                              opacity: 1, 
+                              y: 0,
+                              transition: { duration: 0.8, ease: "easeOut" }
+                            }
+                          }}
+                          className={`${idx === 4 ? 'bg-coral/20 border border-coral/30 text-white font-bold shadow-lg shadow-coral/5' : 'bg-white/[0.07] border border-white/10 text-stone-300 font-light shadow-inner'} p-6 md:p-8 rounded-[2rem] text-lg md:text-xl leading-relaxed`}
+                        >
+                          {content}
+                        </motion.div>
+                      ))}
                     </div>
                   )}
                 </div>
