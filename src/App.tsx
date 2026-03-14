@@ -204,29 +204,33 @@ export default function App() {
   const startAnalysis = async () => {
     setIsGenerating(true);
     setAnalysisProgress(0);
+    setAiDiagnosis(''); // Reset previous diagnosis
     
-    let aiFinished = false;
+    const aiFinishedRef = { current: false };
     
     // Start AI call immediately in the background
-    const diagnosisPromise = generateDiagnosis(quiz.userName, quiz.answers)
+    generateDiagnosis(quiz.userName, quiz.answers)
       .then(diagnosis => {
         setAiDiagnosis(diagnosis);
-        aiFinished = true;
+        aiFinishedRef.current = true;
       })
       .catch(error => {
         console.error("AI Diagnosis Error:", error);
-        aiFinished = true; // Still finish to allow user to see results
+        aiFinishedRef.current = true; // Still finish to allow user to see results
       });
 
+    // Safety timeout: if AI takes more than 12 seconds, force completion
+    const safetyTimeout = setTimeout(() => {
+      aiFinishedRef.current = true;
+    }, 12000);
+
     // Progress bar animation logic
-    const startTime = Date.now();
     const interval = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      
       setAnalysisProgress(prev => {
         // If AI is done, jump to 100 and clear interval
-        if (aiFinished && prev >= 90) {
+        if (aiFinishedRef.current && prev >= 90) {
           clearInterval(interval);
+          clearTimeout(safetyTimeout);
           
           // Final transition
           setTimeout(() => {
@@ -237,14 +241,14 @@ export default function App() {
           return 100;
         }
 
-        // Natural progress curve: fast at first, slows down significantly after 90%
+        // Natural progress curve
         let nextProgress;
         if (prev < 70) {
-          nextProgress = prev + (Math.random() * 2 + 1); // Fast
+          nextProgress = prev + (Math.random() * 3 + 1.5); // Faster initial progress
         } else if (prev < 90) {
-          nextProgress = prev + (Math.random() * 0.5 + 0.2); // Slower
+          nextProgress = prev + (Math.random() * 0.8 + 0.3); // Slower
         } else if (prev < 99) {
-          nextProgress = prev + 0.05; // Very slow crawl at the end
+          nextProgress = prev + 0.1; // Slow crawl at the end
         } else {
           nextProgress = 99;
         }
@@ -428,16 +432,16 @@ export default function App() {
                     }
                   }
                 }}
-                className="bg-sage-dark text-white rounded-[2.5rem] p-8 md:p-16 shadow-2xl shadow-stone-900/20 border border-white/10"
+                className="bg-sage text-white rounded-[2.5rem] p-8 md:p-16 shadow-2xl shadow-stone-900/20 border border-white/10"
               >
                 <motion.div 
                   variants={{
                     hidden: { opacity: 0, y: -10 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="flex items-center gap-3 text-coral font-bold tracking-[0.2em] mb-6 uppercase text-sm"
+                  className="flex items-center gap-3 text-white/80 font-bold tracking-[0.2em] mb-6 uppercase text-sm"
                 >
-                  <Zap size={20} /> DIAGNÓSTICO PERSONALIZADO CONCLUÍDO
+                  <Zap size={20} className="text-coral" /> DIAGNÓSTICO PERSONALIZADO CONCLUÍDO
                 </motion.div>
                 
                 <motion.h3 
@@ -445,7 +449,7 @@ export default function App() {
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="text-2xl md:text-5xl font-serif font-bold mb-6 md:mb-8 leading-tight text-coral"
+                  className="text-2xl md:text-5xl font-serif font-bold mb-6 md:mb-8 leading-tight text-white"
                 >
                   {quiz.userName}, {
                     quiz.answers[4] === "Sinto que meu corpo simplesmente parou de responder" 
@@ -460,49 +464,90 @@ export default function App() {
                   } pelo Modo de Sobrevivência.
                 </motion.h3>
 
-                <div className="space-y-4 md:space-y-6 mb-8 md:mb-10">
+                <div className="space-y-6 md:space-y-8 mb-10 md:mb-14">
                   {aiDiagnosis ? (
-                    aiDiagnosis.split(/\n\s*\n/).filter(p => p.trim()).map((paragraph, idx) => (
-                      <motion.div 
-                        key={idx} 
-                        variants={{
-                          hidden: { opacity: 0, y: 30 },
-                          visible: { 
-                            opacity: 1, 
-                            y: 0,
-                            transition: { duration: 0.8, ease: "easeOut" }
-                          }
-                        }}
-                        className="bg-white/[0.07] border border-white/10 p-6 md:p-8 rounded-[2rem] text-lg md:text-xl text-stone-300 leading-relaxed font-light shadow-inner"
-                      >
-                        {paragraph.split('\n').map((line, lineIdx) => (
-                          <p key={lineIdx} className={lineIdx > 0 ? "mt-2" : ""}>{line}</p>
-                        ))}
-                      </motion.div>
-                    ))
+                    aiDiagnosis.split(/\n\s*\n/).filter(p => p.trim()).map((paragraph, idx) => {
+                      const lowerPara = paragraph.toLowerCase();
+                      const Icon = lowerPara.includes('calor') || lowerPara.includes('fogo') ? Flame :
+                                  lowerPara.includes('sono') || lowerPara.includes('madrugada') || lowerPara.includes('noite') ? Moon :
+                                  lowerPara.includes('cérebro') || lowerPara.includes('hipotálamo') || lowerPara.includes('mental') ? Brain :
+                                  lowerPara.includes('adrenal') || lowerPara.includes('energia') || lowerPara.includes('gerador') ? Zap :
+                                  ShieldCheck;
+
+                      return (
+                        <motion.div 
+                          key={idx} 
+                          variants={{
+                            hidden: { opacity: 0, y: 30 },
+                            visible: { 
+                              opacity: 1, 
+                              y: 0,
+                              transition: { duration: 0.8, ease: "easeOut" }
+                            }
+                          }}
+                          className="relative group"
+                        >
+                          <div className="absolute -left-2 top-0 bottom-0 w-1 bg-coral/30 rounded-full group-hover:bg-coral transition-colors duration-500" />
+                          <div className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-8 md:p-10 rounded-[2.5rem] shadow-xl backdrop-blur-sm">
+                            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                              <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-coral/10 flex items-center justify-center text-coral">
+                                <Icon size={24} />
+                              </div>
+                              <div className="text-lg md:text-xl text-stone-200 leading-relaxed font-light">
+                                {paragraph.split('\n').map((line, lineIdx) => (
+                                  <p key={lineIdx} className={lineIdx > 0 ? "mt-4" : ""}>{line}</p>
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      );
+                    })
                   ) : (
-                    <div className="space-y-4 md:space-y-6">
+                    <div className="space-y-6 md:space-y-8">
                       {[
-                        <p className="text-xl md:text-2xl font-medium text-white mb-4">
-                          Não é sua culpa que você ainda sofre com {quiz.answers[0]?.toLowerCase()}. {quiz.answers[3] === "Só conheço os tratamentos hormonais comuns" ? "A reposição hormonal clássica foca nos ovários, mas" : "Você estava tentando consertar os sintomas isolados quando,"} na verdade, precisa religar o seu Gerador de Reserva (as adrenais).
-                        </p>,
-                        <p>
-                          Com base nas suas respostas, o seu <strong>hipotálamo</strong> — o termostato do cérebro — perdeu a calibração. {quiz.answers[4] === "Nunca nenhum médico me explicou a causa real (o termostato desregulado)" ? "Como você suspeitava, ninguém te explicou que ele" : "Ele"} está enviando sinais de pânico constantes, o que explica por que {quiz.answers[3] === "Já tentei de tudo, mas o alívio é sempre temporário" ? "os métodos comuns só funcionam por pouco tempo" : "você se sente tão exausta"}.
-                        </p>,
-                        quiz.answers[1] !== "Raramente" ? (
-                          <p>
-                            A sensação de "fogo interno" que você relatou é o seu corpo tentando dissipar calor de forma desordenada porque o seu "software" hormonal está travado.
-                          </p>
-                        ) : null,
-                        quiz.answers[2] !== "Não costumo acordar de madrugada" ? (
-                          <p>
-                            O despertar exaustivo entre 2h e 4h da manhã indica que o seu cortisol está disparando no momento errado, impedindo que você alcance o sono profundo reparador.
-                          </p>
-                        ) : null,
-                        <p>
-                          Se você não recalibrar esse sinal agora, {quiz.answers[0]?.includes("Névoa") ? "essa confusão mental pode se tornar permanente" : quiz.answers[0]?.includes("Peso") ? "seu metabolismo pode travar de vez" : "o cansaço de hoje pode se transformar em um esgotamento severo"}. Mas a ciência provou que existe uma saída natural.
-                        </p>
-                      ].filter(Boolean).map((content, idx) => (
+                        {
+                          icon: Zap,
+                          content: (
+                            <p className="text-xl md:text-2xl font-medium text-white">
+                              Não é sua culpa que você ainda sofre com {quiz.answers[0]?.toLowerCase()}. {quiz.answers[3] === "Só conheço os tratamentos hormonais comuns" ? "A reposição hormonal clássica foca nos ovários, mas" : "Você estava tentando consertar os sintomas isolados quando,"} na verdade, precisa religar o seu Gerador de Reserva (as adrenais).
+                            </p>
+                          )
+                        },
+                        {
+                          icon: Brain,
+                          content: (
+                            <p>
+                              Com base nas suas respostas, o seu <strong>hipotálamo</strong> — o termostato do cérebro — perdeu a calibração. {quiz.answers[4] === "Nunca nenhum médico me explicou a causa real (o termostato desregulado)" ? "Como você suspeitava, ninguém te explicou que ele" : "Ele"} está enviando sinais de pânico constantes, o que explica por que {quiz.answers[3] === "Já tentei de tudo, mas o alívio é sempre temporário" ? "os métodos comuns só funcionam por pouco tempo" : "você se sente tão exausta"}.
+                            </p>
+                          )
+                        },
+                        quiz.answers[1] !== "Raramente" ? {
+                          icon: Flame,
+                          content: (
+                            <p>
+                              A sensação de "fogo interno" que você relatou é o seu corpo tentando dissipar calor de forma desordenada porque o seu "software" hormonal está travado.
+                            </p>
+                          )
+                        } : null,
+                        quiz.answers[2] !== "Não costumo acordar de madrugada" ? {
+                          icon: Moon,
+                          content: (
+                            <p>
+                              O despertar exaustivo entre 2h e 4h da manhã indica que o seu cortisol está disparando no momento errado, impedindo que você alcance o sono profundo reparador.
+                            </p>
+                          )
+                        } : null,
+                        {
+                          icon: ShieldCheck,
+                          isHighlight: true,
+                          content: (
+                            <p>
+                              Se você não recalibrar esse sinal agora, {quiz.answers[0]?.includes("Névoa") ? "essa confusão mental pode se tornar permanente" : quiz.answers[0]?.includes("Peso") ? "seu metabolismo pode travar de vez" : "o cansaço de hoje pode se transformar em um esgotamento severo"}. Mas a ciência provou que existe uma saída natural.
+                            </p>
+                          )
+                        }
+                      ].filter(Boolean).map((item: any, idx) => (
                         <motion.div 
                           key={idx}
                           variants={{
@@ -513,9 +558,19 @@ export default function App() {
                               transition: { duration: 0.8, ease: "easeOut" }
                             }
                           }}
-                          className={`${idx === 4 ? 'bg-coral/20 border border-coral/30 text-white font-bold shadow-lg shadow-coral/5' : 'bg-white/[0.07] border border-white/10 text-stone-300 font-light shadow-inner'} p-6 md:p-8 rounded-[2rem] text-lg md:text-xl leading-relaxed`}
+                          className="relative group"
                         >
-                          {content}
+                          <div className={`absolute -left-2 top-0 bottom-0 w-1 ${item.isHighlight ? 'bg-coral' : 'bg-coral/30'} rounded-full group-hover:bg-coral transition-colors duration-500`} />
+                          <div className={`${item.isHighlight ? 'bg-coral/20 border-coral/30 shadow-coral/5' : 'bg-gradient-to-br from-white/[0.08] to-transparent border-white/10 shadow-xl'} border p-8 md:p-10 rounded-[2.5rem] backdrop-blur-sm`}>
+                            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
+                              <div className={`flex-shrink-0 w-12 h-12 rounded-2xl ${item.isHighlight ? 'bg-white/20 text-white' : 'bg-coral/10 text-coral'} flex items-center justify-center`}>
+                                <item.icon size={24} />
+                              </div>
+                              <div className={`text-lg md:text-xl leading-relaxed ${item.isHighlight ? 'text-white font-bold' : 'text-stone-200 font-light'}`}>
+                                {item.content}
+                              </div>
+                            </div>
+                          </div>
                         </motion.div>
                       ))}
                     </div>
