@@ -18,13 +18,13 @@ export async function generateDiagnosis(userName: string, answers: string[]) {
     
     DIRETRIZES PARA O TEXTO:
     - Use um tom empático, profissional e autoritário (mas acolhedor).
+    - Seja extremamente CONCISO e DIRETO AO PONTO.
     - Use o nome dela (${userName}) pelo menos uma vez.
-    - Explique por que os sintomas dela (especialmente o ${answers[0]}) estão acontecendo sob a ótica da "Via Adrenal" e do "Hipotálamo desregulado".
-    - Mencione que o corpo dela está no "Modo de Sobrevivência".
-    - Não prometa cura médica, mas fale sobre "recalibrar o termostato interno" e "ativar o Paradoxo do Estrogênio".
-    - O texto deve ser dividido em 3 ou 4 parágrafos curtos e impactantes.
-    - Termine com uma frase de esperança sobre o Protocolo de 14 dias.
-    - Retorne APENAS o texto do diagnóstico, sem títulos ou introduções extras.
+    - Explique brevemente por que o sintoma (${answers[0]}) está acontecendo (Via Adrenal/Hipotálamo).
+    - Mencione o "Modo de Sobrevivência".
+    - O texto deve ter no máximo 2 ou 3 parágrafos curtos.
+    - Termine com uma frase curta de esperança.
+    - Retorne APENAS o texto do diagnóstico.
     - Use Português do Brasil.
   `;
 

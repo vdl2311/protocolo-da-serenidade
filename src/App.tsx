@@ -189,12 +189,13 @@ export default function App() {
     const nextStep = currentStep + 1;
     
     if (nextStep === 6) {
+      const finalAnswers = [...quiz.answers, answer];
       setQuiz(prev => ({
         ...prev,
-        answers: [...prev.answers, answer],
+        answers: finalAnswers,
         step: 'analyzing'
       }));
-      startAnalysis();
+      startAnalysis(finalAnswers);
     } else {
       setQuiz(prev => ({
         ...prev,
@@ -204,7 +205,7 @@ export default function App() {
     }
   };
 
-  const startAnalysis = async () => {
+  const startAnalysis = async (finalAnswers: string[]) => {
     setIsGenerating(true);
     setAnalysisProgress(0);
     setAiDiagnosis(''); // Reset previous diagnosis
@@ -212,7 +213,7 @@ export default function App() {
     const aiFinishedRef = { current: false };
     
     // Start AI call immediately in the background
-    generateDiagnosis(quiz.userName, quiz.answers)
+    generateDiagnosis(quiz.userName, finalAnswers)
       .then(diagnosis => {
         setAiDiagnosis(diagnosis);
         aiFinishedRef.current = true;
@@ -454,145 +455,89 @@ export default function App() {
                   }}
                   className="text-2xl md:text-5xl font-serif font-bold mb-6 md:mb-8 leading-tight text-white"
                 >
-                  {quiz.userName}, {
-                    quiz.answers[4] === "Sinto que meu corpo simplesmente parou de responder" 
-                      ? "seu corpo entrou em estado de bloqueio total" 
-                      : quiz.answers[4]?.includes("coisa da idade")
-                      ? "seu corpo está envelhecendo precocemente"
-                      : quiz.answers[0]?.includes("Ondas de calor")
-                      ? "seu termostato interno está em curto-circuito"
-                      : quiz.answers[0]?.includes("Insônia")
-                      ? "seu sistema de alerta está travado no 'on'"
-                      : "seu corpo está sequestrado"
-                  } pelo Modo de Sobrevivência.
+                  {quiz.userName}, seu corpo está sequestrado pelo "Modo de Sobrevivência".
                 </motion.h3>
 
                 <div className="space-y-6 md:space-y-8 mb-10 md:mb-14">
-                  {aiDiagnosis ? (
-                    aiDiagnosis.split(/\n\s*\n/).filter(p => p.trim()).map((paragraph, idx) => {
-                      const lowerPara = paragraph.toLowerCase();
-                      const Icon = lowerPara.includes('calor') || lowerPara.includes('fogo') ? Flame :
-                                  lowerPara.includes('sono') || lowerPara.includes('madrugada') || lowerPara.includes('noite') ? Moon :
-                                  lowerPara.includes('cérebro') || lowerPara.includes('hipotálamo') || lowerPara.includes('mental') ? Brain :
-                                  lowerPara.includes('adrenal') || lowerPara.includes('energia') || lowerPara.includes('gerador') ? Zap :
-                                  ShieldCheck;
-
-                      return (
-                        <motion.div 
-                          key={idx} 
-                          variants={{
-                            hidden: { opacity: 0, y: 30 },
-                            visible: { 
-                              opacity: 1, 
-                              y: 0,
-                              transition: { duration: 0.8, ease: "easeOut" }
-                            }
-                          }}
-                          className="relative group"
-                        >
-                          <div className="absolute -left-2 top-0 bottom-0 w-1 bg-coral/30 rounded-full group-hover:bg-coral transition-colors duration-500" />
-                          <div className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-8 md:p-10 rounded-[2.5rem] shadow-xl backdrop-blur-sm">
-                            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-                              <div className="flex-shrink-0 w-12 h-12 rounded-2xl bg-coral/10 flex items-center justify-center text-coral">
-                                <Icon size={24} />
-                              </div>
-                              <div className="text-lg md:text-xl text-stone-200 leading-relaxed font-light">
-                                {paragraph.split('\n').map((line, lineIdx) => (
-                                  <p key={lineIdx} className={lineIdx > 0 ? "mt-4" : ""}>{line}</p>
-                                ))}
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      );
-                    })
-                  ) : (
-                    <div className="space-y-6 md:space-y-8">
-                      {[
-                        {
-                          icon: Zap,
-                          content: (
-                            <p className="text-xl md:text-2xl font-medium text-white">
-                              Não é sua culpa que você ainda sofre com {quiz.answers[0]?.toLowerCase()}. {quiz.answers[3] === "Só conheço os tratamentos hormonais comuns" ? "A reposição hormonal clássica foca nos ovários, mas" : "Você estava tentando consertar os sintomas isolados quando,"} na verdade, precisa religar o seu Gerador de Reserva (as adrenais).
-                            </p>
-                          )
-                        },
-                        {
-                          icon: Brain,
-                          content: (
-                            <p>
-                              Com base nas suas respostas, o seu <strong>hipotálamo</strong> — o termostato do cérebro — perdeu a calibração. {quiz.answers[4] === "Nunca nenhum médico me explicou a causa real (o termostato desregulado)" ? "Como você suspeitava, ninguém te explicou que ele" : "Ele"} está enviando sinais de pânico constantes, o que explica por que {quiz.answers[3] === "Já tentei de tudo, mas o alívio é sempre temporário" ? "os métodos comuns só funcionam por pouco tempo" : "você se sente tão exausta"}.
-                            </p>
-                          )
-                        },
-                        quiz.answers[1] !== "Raramente" ? {
-                          icon: Flame,
-                          content: (
-                            <p>
-                              A sensação de "fogo interno" que você relatou é o seu corpo tentando dissipar calor de forma desordenada porque o seu "software" hormonal está travado.
-                            </p>
-                          )
-                        } : null,
-                        quiz.answers[2] !== "Não costumo acordar de madrugada" ? {
-                          icon: Moon,
-                          content: (
-                            <p>
-                              O despertar exaustivo entre 2h e 4h da manhã indica que o seu cortisol está disparando no momento errado, impedindo que você alcance o sono profundo reparador.
-                            </p>
-                          )
-                        } : null,
-                        {
-                          icon: ShieldCheck,
-                          isHighlight: true,
-                          content: (
-                            <p>
-                              Se você não recalibrar esse sinal agora, {quiz.answers[0]?.includes("Névoa") ? "essa confusão mental pode se tornar permanente" : quiz.answers[0]?.includes("Peso") ? "seu metabolismo pode travar de vez" : "o cansaço de hoje pode se transformar em um esgotamento severo"}. Mas a ciência provou que existe uma saída natural.
-                            </p>
-                          )
-                        }
-                      ].filter(Boolean).map((item: any, idx) => (
-                        <motion.div 
-                          key={idx}
-                          variants={{
-                            hidden: { opacity: 0, y: 30 },
-                            visible: { 
-                              opacity: 1, 
-                              y: 0,
-                              transition: { duration: 0.8, ease: "easeOut" }
-                            }
-                          }}
-                          className="relative group"
-                        >
-                          <div className={`absolute -left-2 top-0 bottom-0 w-1 ${item.isHighlight ? 'bg-coral' : 'bg-coral/30'} rounded-full group-hover:bg-coral transition-colors duration-500`} />
-                          <div className={`${item.isHighlight ? 'bg-coral/20 border-coral/30 shadow-coral/5' : 'bg-gradient-to-br from-white/[0.08] to-transparent border-white/10 shadow-xl'} border p-8 md:p-10 rounded-[2.5rem] backdrop-blur-sm`}>
-                            <div className="flex flex-col md:flex-row gap-6 md:gap-8">
-                              <div className={`flex-shrink-0 w-12 h-12 rounded-2xl ${item.isHighlight ? 'bg-white/20 text-white' : 'bg-coral/10 text-coral'} flex items-center justify-center`}>
-                                <item.icon size={24} />
-                              </div>
-                              <div className={`text-lg md:text-xl leading-relaxed ${item.isHighlight ? 'text-white font-bold' : 'text-stone-200 font-light'}`}>
-                                {item.content}
-                              </div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      ))}
+                  <motion.div 
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                    className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-8 md:p-10 rounded-[2.5rem] shadow-xl backdrop-blur-sm"
+                  >
+                    <div className="text-lg md:text-xl text-stone-200 leading-relaxed font-light space-y-6">
+                      {aiDiagnosis ? (
+                        aiDiagnosis.split('\n').map((line, i) => (
+                          <p key={i} dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                        ))
+                      ) : (
+                        <>
+                          <p>Olá, {quiz.userName}. A análise das suas respostas indica que {
+                            quiz.answers[4] === "Sinto que meu corpo simplesmente parou de responder" 
+                              ? "o seu metabolismo não está apenas lento; ele está bloqueado." 
+                              : quiz.answers[4]?.includes("coisa da idade")
+                              ? "você foi levada a acreditar que isso é 'normal da idade', mas seu corpo está apenas em sinal de pânico."
+                              : "o seu metabolismo está operando em um modo de emergência constante."
+                          }</p>
+                          <p>{
+                            quiz.answers[0]?.includes("Ondas de calor") ? "As ondas de calor e o suor excessivo" :
+                            quiz.answers[0]?.includes("Insônia") ? "As noites mal dormidas e o cansaço crônico" :
+                            quiz.answers[0]?.includes("Névoa mental") ? "A névoa mental e a falta de foco" :
+                            quiz.answers[0]?.includes("Ganho de peso") ? "O inchaço abdominal e o ganho de peso repentino" :
+                            "O desconforto e o cansaço"
+                          } que você sente não são apenas sintomas comuns, mas sim uma <strong>"inflamação de sobrevivência"</strong>. Com a queda hormonal, seu Hipotálamo — o termostato do seu corpo — entrou em sinal de pânico. Ele parou de queimar energia para tentar "estocar" gordura como proteção.</p>
+                          <p>{
+                            quiz.answers[2] !== "Não costumo acordar de madrugada"
+                              ? `É por isso que você acorda entre 2h e 4h da manhã e sente esse desconforto súbito: seu sistema está tentando se recalibrar sozinho, sem as ferramentas certas.`
+                              : quiz.answers[0]?.includes("Ondas de calor")
+                              ? `É por isso que esses calorões surgem do nada: seu sistema está tentando se recalibrar sozinho, mas sem as ferramentas certas, ele acaba gerando esse "curto-circuito" térmico.`
+                              : `É por isso que você se sente constantemente exausta: seu sistema está tentando se recalibrar sozinho, mas sem as ferramentas certas, ele permanece travado nesse modo de alerta.`
+                          }</p>
+                        </>
+                      )}
                     </div>
-                  )}
+                  </motion.div>
+
+                  {/* [BLOCO DE ALÍVIO RÁPIDO - NOVO!] */}
+                  <motion.div 
+                    variants={{
+                      hidden: { opacity: 0, y: 30 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                    className="bg-coral/10 border border-coral/20 p-8 md:p-10 rounded-[2.5rem] shadow-xl"
+                  >
+                    <h4 className="text-xl md:text-2xl font-serif font-bold text-white mb-6">O que você precisa agora não é de dieta, é de um RESET.</h4>
+                    <div className="grid gap-4">
+                      <div className="flex items-center gap-4 text-stone-200">
+                        <div className="w-8 h-8 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0">✓</div>
+                        <p className="text-lg md:text-xl"><strong>Método 100% Natural:</strong> Sem hormônios sintéticos ou efeitos colaterais.</p>
+                      </div>
+                      <div className="flex items-center gap-4 text-stone-200">
+                        <div className="w-8 h-8 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0">✓</div>
+                        <p className="text-lg md:text-xl"><strong>Apenas 12 minutos:</strong> Rituais simples que cabem na sua rotina exausta.</p>
+                      </div>
+                      <div className="flex items-center gap-4 text-stone-200">
+                        <div className="w-8 h-8 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0">✓</div>
+                        <p className="text-lg md:text-xl"><strong>Alívio em 7 dias:</strong> Sinta a primeira noite de sono profundo já na primeira semana.</p>
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
 
-                <div className="p-8 bg-white/5 rounded-3xl border border-white/10 mb-12 text-center">
-                  <p className="text-xl italic text-stone-300 leading-relaxed">
-                    "{quiz.userName}, você está a apenas 14 dias de resetar esse sistema e recuperar a energia de uma mulher de 30 anos."
+                {/* [BOTÃO DE AÇÃO IMEDIATA (ACIMA DA DOBRA)] */}
+                <div className="space-y-4">
+                  <Button 
+                    variant="secondary" 
+                    className="w-full py-7 text-xl shadow-coral/40 bg-coral hover:bg-coral-dark animate-pulse"
+                    onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })}
+                  >
+                    👉 QUERO SILENCIAR MEUS SINTOMAS EM 14 DIAS
+                  </Button>
+                  <p className="text-center text-white font-bold text-lg">
+                    Acesso imediato ao Protocolo da Serenidade por apenas <span className="text-coral">R$ 27,90</span>
                   </p>
                 </div>
-
-                <Button 
-                  variant="secondary" 
-                  className="w-full py-7 text-xl"
-                  onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Quero Iniciar meu Reset Agora <ArrowRight size={24} />
-                </Button>
                 <p className="mt-4 text-center text-stone-400 text-xs font-bold uppercase tracking-widest">
                   Acesso Imediato • Produto Digital (E-book)
                 </p>
@@ -630,16 +575,10 @@ export default function App() {
               </h2>
               <div className="space-y-6 md:space-y-8 text-lg md:text-xl text-stone-600 leading-relaxed font-light">
                 <p>
-                  A mais de 12 mil quilômetros daqui, nas montanhas isoladas de Bama, na China, existe um vale da longevidade onde mulheres com 50 a 70 anos vivem sem sintomas da menopausa. Elas não lutam contra o próprio corpo, e não sabem o que é um calorão ou uma noite de insônia.
+                  Nas montanhas isoladas de Bama, na China, mulheres de 60 anos têm a vitalidade de jovens de 30. Elas não são "abençoadas", elas apenas mantêm a Via Adrenal ativa.
                 </p>
                 <p>
-                  <strong>Elas usam o Padrão Bama.</strong>
-                </p>
-                <p>
-                  Através de nutrientes específicos e rituais térmicos simples, elas ativam a Via Adrenal para assumir o papel que antes era dos ovários. É uma atualização de "software" do corpo humano que neutraliza o Relógio Biológico Silencioso em questão de dias.
-                </p>
-                <p className="font-bold text-sage-dark text-xl md:text-2xl">
-                  A única forma de recuperar sua vitalidade é ativando essa mesma via. E o Protocolo da Serenidade é o único mapa validado para fazer isso sem usar hormônios sintéticos.
+                  O Protocolo da Serenidade é o único mapa que traduz o estilo de vida dessas mulheres para a nossa realidade moderna. É uma atualização de "software" para o seu corpo que neutraliza os sinais de pânico do seu cérebro em questão de dias.
                 </p>
               </div>
             </div>
@@ -744,17 +683,26 @@ export default function App() {
               <div className="lg:col-span-3 p-8 md:p-20 bg-sage text-white">
                 <h2 className="text-3xl md:text-5xl font-serif font-bold mb-6 md:mb-8">Missão de Resgate à Vitalidade Feminina</h2>
                 <div className="space-y-6 md:space-y-8 text-lg md:text-xl leading-relaxed font-light">
+                  <p className="text-2xl md:text-3xl font-serif font-bold text-coral-light mb-8">Por que custa apenas R$ 27,90?</p>
                   <p>
-                    Se você fosse buscar essa consultoria integrativa em uma clínica especializada hoje, não pagaria menos de <strong>R$ 800,00</strong> pela consulta, além dos exames caros.
+                    Se você fosse buscar esse suporte em clínicas particulares, o custo seria proibitivo:
                   </p>
+                  <div className="space-y-4 bg-white/5 p-8 rounded-3xl border border-white/10">
+                    <div className="flex justify-between items-center">
+                      <span>Consulta Integrativa Especializada:</span>
+                      <span className="line-through text-white/50">R$ 800,00</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span>Suplementos e Vitaminas Sintéticas:</span>
+                      <span className="line-through text-white/50">R$ 250,00</span>
+                    </div>
+                    <div className="pt-4 border-t border-white/10 flex justify-between items-center text-2xl font-bold">
+                      <span>Seu Investimento Hoje:</span>
+                      <span className="text-coral">R$ 27,90</span>
+                    </div>
+                  </div>
                   <p>
-                    Mas o custo não pode ser a barreira entre você e a sua primeira noite de sono profundo em anos.
-                  </p>
-                  <p>
-                    Por isso, você não pagará R$ 800. Nem mesmo R$ 97.
-                  </p>
-                  <p>
-                    Para cobrir apenas nossos custos de plataforma e garantir que o material chegue ao seu e-mail agora mesmo, o valor do acesso vitalício hoje é de apenas:
+                    Fizemos esse preço simbólico porque nossa missão é que nenhuma mulher precise sofrer por falta de acesso à informação correta.
                   </p>
                 </div>
                 
@@ -828,9 +776,9 @@ export default function App() {
               />
             </div>
             <div className="text-center md:text-left">
-              <h3 className="text-xl md:text-3xl font-serif font-bold text-sage-dark mb-3 md:mb-4">Garantia "Sono de Pedra" (7 Dias)</h3>
+              <h3 className="text-xl md:text-3xl font-serif font-bold text-sage-dark mb-3 md:mb-4">7 DIAS DE RISCO ZERO</h3>
               <p className="text-base md:text-lg text-stone-600 leading-relaxed font-light">
-                Siga o plano. Se em 7 dias você não sentir suas ondas de calor diminuindo drasticamente, sua mente mais clara e seu sono voltando ao normal, eu não quero o seu dinheiro. Basta enviar um e-mail e devolverei 100% do valor pago. Sem perguntas, sem burocracia. O risco está todo nas minhas costas.
+                Siga o plano. Se em 7 dias você não sentir suas ondas de calor diminuindo e seu sono voltando ao normal, eu não quero o seu dinheiro. Basta um e-mail e devolvo 100% do valor. O risco está todo comigo.
               </p>
             </div>
           </div>
@@ -861,34 +809,44 @@ export default function App() {
       <section className="py-20 md:py-24 px-4 bg-sage-dark text-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-5xl font-serif font-bold mb-6 md:mb-8 px-2">
-            {quiz.userName}, você chegou ao momento da decisão.
+            "{quiz.userName}, a decisão agora é sua."
           </h2>
           
           <div className="space-y-8 md:space-y-12 text-lg md:text-xl leading-relaxed font-light max-w-3xl mx-auto">
-            <p className="text-xl md:text-2xl font-medium text-white">
-              Neste exato momento, você tem duas opções reais à sua frente:
-            </p>
-
+            <p className="text-xl md:text-2xl mb-8">Neste momento, você tem dois caminhos à sua frente:</p>
+            
             <div className="text-left bg-white/5 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10">
-              <h4 className="text-2xl md:text-3xl font-serif font-bold text-coral mb-4 md:mb-6">Opção 1: Ignorar este diagnóstico.</h4>
+              <h4 className="text-2xl md:text-3xl font-serif font-bold text-coral mb-4 md:mb-6">Opção 1:</h4>
               <p className="text-base md:text-lg lg:text-xl text-stone-300 leading-relaxed">
-                Você pode fechar esta página agora e continuar tentando resolver seus sintomas com as mesmas ferramentas que falharam até hoje. Isso significa enfrentar mais uma noite em claro entre 2h e 4h da manhã, lutar contra o suor excessivo durante o dia e aceitar o cansaço como parte da sua rotina. Seu hipotálamo continuará enviando sinais de pânico e seu sistema hormonal permanecerá no "Modo de Sobrevivência".
+                Ignorar este diagnóstico e continuar {
+                  quiz.answers[0]?.includes("Ondas de calor") ? "sofrendo com os calorões súbitos e o suor excessivo" :
+                  quiz.answers[0]?.includes("Insônia") ? "passando noites em claro e acordando exausta" :
+                  quiz.answers[0]?.includes("Névoa mental") ? "lutando contra a falta de foco e o esquecimento" :
+                  quiz.answers[0]?.includes("Ganho de peso") ? "vendo o ponteiro da balança subir sem controle" :
+                  "enfrentando esses sintomas que drenam sua energia"
+                }. Mas você sabe que, se nada mudar, a inflamação só vai aumentar.
               </p>
             </div>
 
             <div className="text-left bg-white/10 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/20 shadow-xl">
-              <h4 className="text-2xl md:text-3xl font-serif font-bold text-sage mb-4 md:mb-6">Opção 2: Ativar o Padrão Bama.</h4>
+              <h4 className="text-2xl md:text-3xl font-serif font-bold text-sage mb-4 md:mb-6">Opção 2:</h4>
               <p className="text-base md:text-lg lg:text-xl text-white leading-relaxed">
-                Você clica no botão abaixo, garante seu acesso ao Protocolo da Serenidade por um investimento menor que o de um café por dia, e começa seu Dia 1 amanhã mesmo. Em 14 dias, você segue o mapa das mulheres que vivem com total vitalidade, silenciando os calorões e recuperando o sono de pedra que você não tem há anos.
+                Ativar o Padrão Bama hoje mesmo. Silenciar os sinais de pânico do seu corpo e recuperar {
+                  quiz.answers[0]?.includes("Ondas de calor") ? "o controle térmico do seu organismo" :
+                  quiz.answers[0]?.includes("Insônia") ? "o sono profundo e reparador" :
+                  quiz.answers[0]?.includes("Névoa mental") ? "a clareza mental e a disposição" :
+                  quiz.answers[0]?.includes("Ganho de peso") ? "o seu peso ideal e a autoestima" :
+                  "a vitalidade e o bem-estar"
+                } que você merece.
               </p>
             </div>
 
             <div className="pt-6 md:pt-8">
-              <p className="text-lg md:text-2xl font-serif italic mb-4">
-                O seu corpo já deu o sinal de alerta. A pergunta é: você vai continuar sendo refém dos seus hormônios ou vai se tornar a mestre do seu próprio bem-estar?
+              <p className="text-lg md:text-xl font-light mb-4">
+                Eu não sei por quanto tempo conseguirei manter esse valor de R$ 27,90, já que os custos de manutenção da plataforma estão subindo.
               </p>
-              <p className="text-base md:text-xl font-bold text-sage uppercase tracking-widest">
-                A decisão de Bama está em suas mãos.
+              <p className="text-xl md:text-2xl font-serif font-bold text-coral">
+                Clique no botão abaixo e escolha a Opção 2.
               </p>
             </div>
           </div>
@@ -901,15 +859,18 @@ export default function App() {
               className="inline-block w-full max-w-xl"
             >
               <Button variant="secondary" className="w-full py-6 md:py-8 text-lg md:text-xl shadow-coral/40 bg-coral hover:bg-coral-dark">
-                👉 QUERO MEU ACESSO AGORA - R$ 27,90
+                SIM! QUERO ATIVAR MEU PADRÃO BAMA
               </Button>
             </a>
+            <p className="mt-8 text-stone-300 italic text-lg max-w-2xl mx-auto leading-relaxed">
+              P.S: Lembre-se, você não corre risco nenhum. Se em 14 dias você não sentir que sua energia voltou ou que seu sono melhorou, eu devolvo cada centavo. Sem perguntas.
+            </p>
             <div className="mt-6 flex flex-wrap justify-center gap-4 text-stone-400 text-xs font-bold uppercase tracking-widest">
               <span>Pagamento 100% Seguro</span>
               <span className="hidden md:inline">•</span>
               <span>Acesso Imediato via E-mail</span>
               <span className="hidden md:inline">•</span>
-              <span>Garantia de 7 Dias</span>
+              <span>Garantia de 14 Dias</span>
             </div>
           </div>
         </div>
