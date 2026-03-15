@@ -59,9 +59,12 @@ const CountdownTimer = () => {
   };
 
   return (
-    <div className="flex items-center gap-2 text-coral font-mono font-bold text-xl mt-2">
-      <Clock size={20} />
-      <span>{formatTime(timeLeft)}</span>
+    <div className="flex flex-col items-center gap-1 mt-4">
+      <span className="text-coral font-black text-xs md:text-sm uppercase tracking-[0.3em] animate-bounce">Oferta somente hoje</span>
+      <div className="flex items-center gap-3 text-coral font-mono font-bold text-3xl md:text-5xl bg-coral/5 px-6 py-3 rounded-2xl border border-coral/20">
+        <Clock size={32} className="animate-pulse" />
+        <span>{formatTime(timeLeft)}</span>
+      </div>
     </div>
   );
 };
