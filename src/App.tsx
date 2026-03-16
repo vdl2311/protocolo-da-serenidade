@@ -914,6 +914,51 @@ export default function App() {
           </div>
         </div>
       </footer>
+      
+      {/* --- STICKY FLOATING BUTTON --- */}
+      <AnimatePresence>
+        {quiz.step === 'diagnosis' && (
+          <motion.div 
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            className="fixed bottom-0 left-0 right-0 p-4 z-[100] md:hidden"
+          >
+            <a 
+              href="https://pay.hotmart.com/Y98549636E?checkoutMode=10" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <Button variant="secondary" className="w-full py-5 text-base shadow-2xl bg-coral hover:bg-coral-dark border-2 border-white/20">
+                👉 QUERO MEU PROTOCOLO (R$ 27,90)
+              </Button>
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {quiz.step === 'diagnosis' && (
+          <motion.div 
+            initial={{ x: 100, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: 100, opacity: 0 }}
+            className="fixed bottom-8 right-8 z-[100] hidden md:block"
+          >
+            <a 
+              href="https://pay.hotmart.com/Y98549636E?checkoutMode=10" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="block"
+            >
+              <Button variant="secondary" className="py-6 px-12 text-lg shadow-2xl bg-coral hover:bg-coral-dark border-2 border-white/20">
+                👉 QUERO MEU PROTOCOLO (R$ 27,90)
+              </Button>
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
       </>
     )}
   </div>
