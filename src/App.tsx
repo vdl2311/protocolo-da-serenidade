@@ -727,6 +727,9 @@ export default function App() {
               
               <div className="lg:col-span-2 p-8 md:p-16 flex flex-col justify-center items-center text-center bg-gradient-to-b from-stone-50 to-stone-100/50">
                 <div className="mb-8 md:mb-10">
+                  <p className="text-stone-600 text-base md:text-lg mb-6 leading-relaxed">
+                    {quiz.userName}, você pode gastar R$ 800,00 em uma consulta para ouvir o que está aqui, ou investir o preço de uma única caixa de chá (R$ 0,93 por dia) para ter o método que as chinesas usam há séculos. Qual faz mais sentido para você?
+                  </p>
                   <span className="inline-block px-4 py-1.5 bg-coral/10 text-coral font-bold rounded-full text-[10px] md:text-sm tracking-widest uppercase mb-2">
                     Acesso Imediato • 100% Digital
                   </span>
@@ -842,9 +845,6 @@ export default function App() {
             </div>
 
             <div className="pt-6 md:pt-8">
-              <p className="text-lg md:text-xl font-light mb-4">
-                Eu não sei por quanto tempo conseguirei manter esse valor de R$ 27,90, já que os custos de manutenção da plataforma estão subindo.
-              </p>
               <p className="text-xl md:text-2xl font-serif font-bold text-coral">
                 Clique no botão abaixo e escolha a Opção 2.
               </p>
