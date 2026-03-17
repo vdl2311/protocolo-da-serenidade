@@ -33,7 +33,7 @@ interface QuizState {
   userName: string;
 }
 
-const CountdownTimer = () => {
+const CountdownTimer = ({ show }: { show: boolean }) => {
   const calculateTimeLeft = () => {
     const now = new Date();
     const midnight = new Date();
@@ -59,13 +59,25 @@ const CountdownTimer = () => {
   };
 
   return (
-    <div className="flex flex-col items-center gap-1 mt-4">
-      <span className="text-coral font-black text-xs md:text-sm uppercase tracking-[0.3em] animate-bounce">Oferta somente hoje</span>
-      <div className="flex items-center gap-3 text-coral font-mono font-bold text-3xl md:text-5xl bg-coral/5 px-6 py-3 rounded-2xl border border-coral/20">
-        <Clock size={32} className="animate-pulse" />
-        <span>{formatTime(timeLeft)}</span>
-      </div>
-    </div>
+    <AnimatePresence>
+      {show && (
+        <motion.div 
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          exit={{ y: -100 }}
+          className="fixed top-0 left-0 right-0 z-[150] bg-coral text-white py-3 px-4 shadow-lg flex items-center justify-center gap-3 md:gap-6"
+        >
+          <div className="flex items-center gap-2">
+            <Zap size={16} className="text-white animate-pulse hidden sm:block" />
+            <span className="text-[10px] md:text-xs font-black uppercase tracking-[0.2em] whitespace-nowrap">Oferta Especial termina em:</span>
+          </div>
+          <div className="flex items-center gap-2 font-mono font-bold text-lg md:text-2xl bg-white/20 px-3 py-1 rounded-lg">
+            <Clock size={18} className="animate-pulse" />
+            <span>{formatTime(timeLeft)}</span>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 };
 
@@ -264,6 +276,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-cream text-stone-800 font-sans selection:bg-sage/20">
+      <CountdownTimer show={quiz.step === 'diagnosis'} />
       {/* --- QUIZ HERO SECTION --- */}
       <section id="quiz" className={`relative py-20 md:py-32 px-4 overflow-hidden ${quiz.step === 'diagnosis' ? 'bg-stone-100' : 'bg-sage-dark'}`}>
         <div className={`absolute inset-0 ${quiz.step === 'diagnosis' ? 'opacity-60' : 'opacity-20'}`}>
@@ -733,7 +746,6 @@ export default function App() {
                   <span className="inline-block px-4 py-1.5 bg-coral/10 text-coral font-bold rounded-full text-[10px] md:text-sm tracking-widest uppercase mb-2">
                     Acesso Imediato • 100% Digital
                   </span>
-                  <CountdownTimer />
                   <div className="flex flex-col items-center justify-center mt-6">
                     <span className="text-stone-400 line-through text-xl md:text-2xl font-medium">De: R$ 97,00</span>
                     <div className="text-xl md:text-2xl font-bold text-sage-dark mt-2">Por apenas:</div>
