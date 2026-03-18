@@ -83,14 +83,18 @@ const CountdownTimer = ({ show }: { show: boolean }) => {
 
 const NotificationPopup = ({ show }: { show: boolean }) => {
   const notifications = [
-    "🛒 Maria acabou de adquirir o Protocolo da Serenidade (São Paulo/SP)",
-    "🛒 Tereza acaba de garantir o acesso com desconto (Fortaleza/CE)",
+    "🛒 Maria acabou de adquirir o Protocolo da Serenidade (Ribeirão Preto/SP)",
+    "🛒 Tereza acaba de garantir o acesso com desconto (Juiz de Fora/MG)",
     "🔥 Mais de 1.247 mulheres já iniciaram o Reset de 14 dias este mês.",
     "📢 Apenas 4 vagas restantes com o valor promocional de R$ 27,90.",
-    "🛒 Fátima acabou de adquirir o Protocolo da Serenidade (Rio de Janeiro/RJ)",
-    "🛒 Regina acaba de garantir o acesso com desconto (Curitiba/PR)",
-    "🛒 Sônia acabou de adquirir o Protocolo da Serenidade (Belo Horizonte/MG)",
-    "🛒 Cláudia acaba de garantir o acesso com desconto (Porto Alegre/RS)"
+    "🛒 Fátima acabou de adquirir o Protocolo da Serenidade (Londrina/PR)",
+    "🛒 Regina acaba de garantir o acesso com desconto (Caxias do Sul/RS)",
+    "🛒 Sônia acabou de adquirir o Protocolo da Serenidade (Feira de Santana/BA)",
+    "🛒 Cláudia acaba de garantir o acesso com desconto (Campina Grande/PB)",
+    "🛒 Beatriz acabou de adquirir o Protocolo da Serenidade (Anápolis/GO)",
+    "🛒 Helena acaba de garantir o acesso com desconto (Petrolina/PE)",
+    "🛒 Márcia acabou de adquirir o Protocolo da Serenidade (Dourados/MS)",
+    "🛒 Ivone acaba de garantir o acesso com desconto (Sorocaba/SP)"
   ];
 
   const [index, setIndex] = useState(0);
@@ -618,7 +622,7 @@ export default function App() {
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold mb-10 md:mb-14 leading-tight text-white text-center md:text-left"
+                  className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold mb-10 md:mb-14 leading-tight text-white text-center"
                 >
                   {quiz.userName}, seu corpo está sequestrado pelo "Modo de Sobrevivência".
                 </motion.h3>
@@ -631,7 +635,7 @@ export default function App() {
                     }}
                     className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-6 md:p-14 rounded-[3rem] shadow-xl backdrop-blur-sm"
                   >
-                    <div className="text-xl md:text-3xl text-stone-200 leading-relaxed font-light space-y-8 text-center md:text-left">
+                    <div className="text-xl md:text-3xl text-stone-200 leading-relaxed font-light space-y-8 text-center">
                       {aiDiagnosis ? (
                         aiDiagnosis.split('\n').map((line, i) => (
                           <p key={i} dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
@@ -695,19 +699,19 @@ export default function App() {
                     }}
                     className="bg-coral/10 border border-coral/20 p-8 md:p-14 rounded-[3rem] shadow-xl"
                   >
-                    <h4 className="text-2xl md:text-4xl font-serif font-bold text-white mb-8 text-center md:text-left">O que você precisa agora não é de dieta, é de um RESET.</h4>
+                    <h4 className="text-2xl md:text-4xl font-serif font-bold text-white mb-8 text-center">O que você precisa agora não é de dieta, é de um RESET.</h4>
                     <div className="grid gap-6">
-                      <div className="flex items-center gap-6 text-stone-200">
+                      <div className="flex items-center gap-6 text-stone-200 justify-center md:justify-center">
                         <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0 font-bold">✓</div>
-                        <p className="text-xl md:text-3xl"><strong>Método 100% Natural:</strong> Sem hormônios sintéticos ou efeitos colaterais.</p>
+                        <p className="text-xl md:text-3xl text-center"><strong>Método 100% Natural:</strong> Sem hormônios sintéticos ou efeitos colaterais.</p>
                       </div>
-                      <div className="flex items-center gap-6 text-stone-200">
+                      <div className="flex items-center gap-6 text-stone-200 justify-center md:justify-center">
                         <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0 font-bold">✓</div>
-                        <p className="text-xl md:text-3xl"><strong>Apenas 12 minutos:</strong> Rituais simples que cabem na sua rotina exausta.</p>
+                        <p className="text-xl md:text-3xl text-center"><strong>Apenas 12 minutos:</strong> Rituais simples que cabem na sua rotina exausta.</p>
                       </div>
-                      <div className="flex items-center gap-6 text-stone-200">
+                      <div className="flex items-center gap-6 text-stone-200 justify-center md:justify-center">
                         <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0 font-bold">✓</div>
-                        <p className="text-xl md:text-3xl"><strong>Alívio em 7 dias:</strong> Sinta a primeira noite de sono profundo já na primeira semana.</p>
+                        <p className="text-xl md:text-3xl text-center"><strong>Alívio em 7 dias:</strong> Sinta a primeira noite de sono profundo já na primeira semana.</p>
                       </div>
                     </div>
                   </motion.div>
@@ -745,10 +749,10 @@ export default function App() {
               </div>
             </div>
             <div>
-              <h2 className="text-3xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-[1.1] tracking-tight text-center md:text-left">
+              <h2 className="text-3xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-[1.1] tracking-tight text-center">
                 O Segredo do <span className="italic text-coral">"Vale da Longevidade"</span>
               </h2>
-              <div className="space-y-6 md:space-y-12 text-lg md:text-3xl text-stone-600 leading-relaxed font-light px-4 md:px-0 text-center md:text-left">
+              <div className="space-y-6 md:space-y-12 text-lg md:text-3xl text-stone-600 leading-relaxed font-light px-4 md:px-0 text-center">
                 <p>
                   ⚠️ Nas montanhas isoladas de Bama, na China, mulheres de 60 anos têm a <strong>vitalidade de jovens de 30.</strong>
                 </p>
@@ -806,8 +810,8 @@ export default function App() {
                   </div>
                   <span className="text-lg md:text-2xl font-bold tracking-[0.2em] uppercase text-white/50 bg-white/5 px-4 py-2 rounded-full mx-auto md:mx-0">{item.tag}</span>
                 </div>
-                <h4 className="text-2xl md:text-4xl font-serif font-bold mb-4 md:mb-6 text-center md:text-left">{item.title}</h4>
-                <p className="text-lg md:text-2xl text-stone-300 leading-relaxed font-light text-center md:text-left">{item.desc}</p>
+                <h4 className="text-2xl md:text-4xl font-serif font-bold mb-4 md:mb-6 text-center">{item.title}</h4>
+                <p className="text-lg md:text-2xl text-stone-300 leading-relaxed font-light text-center">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -839,8 +843,8 @@ export default function App() {
                 author: "Sandra, 57 anos"
               }
             ].map((item, idx) => (
-              <div key={idx} className="bg-cream/30 p-10 md:p-14 rounded-[3rem] border border-stone-100 shadow-sm hover:shadow-md transition-shadow relative text-center md:text-left">
-                <div className="flex justify-center md:justify-start gap-2 mb-6 md:mb-10">
+              <div key={idx} className="bg-cream/30 p-10 md:p-14 rounded-[3rem] border border-stone-100 shadow-sm hover:shadow-md transition-shadow relative text-center">
+                <div className="flex justify-center gap-2 mb-6 md:mb-10">
                   {[...Array(5)].map((_, i) => (
                     <Heart key={i} size={24} className="fill-coral text-coral" />
                   ))}
@@ -868,8 +872,8 @@ export default function App() {
           <div className="bg-white rounded-[4rem] shadow-2xl overflow-hidden border border-stone-100 mt-16 md:mt-24">
             <div className="grid lg:grid-cols-5">
               <div className="lg:col-span-3 p-8 md:p-24 bg-sage text-white">
-                <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 md:mb-16 text-center md:text-left">Missão de Resgate à Vitalidade Feminina</h2>
-                <div className="space-y-8 md:space-y-14 text-lg md:text-3xl leading-relaxed font-light px-4 md:px-0 text-center md:text-left">
+                <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 md:mb-16 text-center">Missão de Resgate à Vitalidade Feminina</h2>
+                <div className="space-y-8 md:space-y-14 text-lg md:text-3xl leading-relaxed font-light px-4 md:px-0 text-center">
                   <p className="text-2xl md:text-5xl font-serif font-bold text-coral-light mb-8 md:mb-12">Por que custa apenas R$ 27,90?</p>
                   <p>
                     Se você fosse buscar esse suporte em clínicas particulares, o custo seria proibitivo:
@@ -894,17 +898,17 @@ export default function App() {
                 </div>
                 
                 <div className="mt-14 md:mt-20 pt-10 md:pt-16 border-t border-white/20">
-                  <h4 className="text-2xl md:text-4xl font-bold mb-8 md:mb-12 text-center md:text-left">O que você recebe hoje:</h4>
+                  <h4 className="text-2xl md:text-4xl font-bold mb-8 md:mb-12 text-center">O que você recebe hoje:</h4>
                   <div className="grid gap-6 md:gap-10">
-                    <div className="flex items-center gap-4 md:gap-6 justify-center md:justify-start">
+                    <div className="flex items-center gap-4 md:gap-6 justify-center">
                       <div className="w-10 h-10 md:w-14 md:h-14 bg-coral rounded-full flex items-center justify-center font-bold text-lg md:text-2xl shrink-0">✓</div>
                       <p className="text-xl md:text-3xl">Protocolo da Serenidade Completo</p>
                     </div>
-                    <div className="flex items-center gap-4 md:gap-6 justify-center md:justify-start">
+                    <div className="flex items-center gap-4 md:gap-6 justify-center">
                       <div className="w-10 h-10 md:w-14 md:h-14 bg-coral rounded-full flex items-center justify-center font-bold text-lg md:text-2xl shrink-0">✓</div>
                       <p className="text-xl md:text-3xl">Plano Alimentar de 14 Dias</p>
                     </div>
-                    <div className="flex items-center gap-4 md:gap-6 justify-center md:justify-start">
+                    <div className="flex items-center gap-4 md:gap-6 justify-center">
                       <div className="w-10 h-10 md:w-14 md:h-14 bg-coral rounded-full flex items-center justify-center font-bold text-lg md:text-2xl shrink-0">✓</div>
                       <p className="text-xl md:text-3xl">Acesso Vitalício e Bônus Exclusivos</p>
                     </div>
@@ -964,7 +968,7 @@ export default function App() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="text-center md:text-left px-4 md:px-0">
+            <div className="text-center px-4 md:px-0">
               <h3 className="text-2xl md:text-5xl font-serif font-bold text-sage-dark mb-4 md:mb-8 uppercase">7 DIAS DE RISCO ZERO</h3>
               <p className="text-lg md:text-3xl text-stone-600 leading-relaxed font-light">
                 Siga o plano. Se em 7 dias você não sentir suas ondas de calor diminuindo e seu sono voltando ao normal, eu não quero o seu dinheiro. Basta um e-mail e devolvo 100% do valor. O risco está todo comigo.
@@ -1004,7 +1008,7 @@ export default function App() {
           <div className="space-y-8 md:space-y-12 text-lg md:text-xl leading-relaxed font-light max-w-6xl mx-auto">
             <p className="text-xl md:text-2xl mb-8">Neste momento, você tem dois caminhos à sua frente:</p>
             
-            <div className="text-center md:text-left bg-white/5 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10">
+            <div className="text-center bg-white/5 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10">
               <h4 className="text-xl md:text-3xl font-serif font-bold text-coral mb-4 md:mb-6">Opção 1:</h4>
               <p className="text-lg md:text-2xl lg:text-3xl text-stone-300 leading-relaxed">
                 Ignorar este diagnóstico e continuar {
@@ -1017,7 +1021,7 @@ export default function App() {
               </p>
             </div>
 
-            <div className="text-center md:text-left bg-white/10 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/20 shadow-xl">
+            <div className="text-center bg-white/10 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/20 shadow-xl">
               <h4 className="text-xl md:text-3xl font-serif font-bold text-sage mb-4 md:mb-6">Opção 2:</h4>
               <p className="text-lg md:text-2xl lg:text-3xl text-white leading-relaxed">
                 Ativar o Padrão Bama hoje mesmo. Silenciar os sinais de pânico do seu corpo e recuperar {
@@ -1085,7 +1089,7 @@ export default function App() {
                 a: "Não, o método é extremamente simples, prático e direto ao ponto."
               }
             ].map((item, idx) => (
-              <div key={idx} className="bg-white p-6 md:p-14 rounded-2xl md:rounded-[3rem] border border-stone-100 shadow-md text-center md:text-left">
+              <div key={idx} className="bg-white p-6 md:p-14 rounded-2xl md:rounded-[3rem] border border-stone-100 shadow-md text-center">
                 <h4 className="text-xl md:text-4xl font-serif font-bold text-sage-dark mb-4 md:mb-8">{item.q}</h4>
                 <p className="text-lg md:text-4xl text-stone-600 leading-relaxed font-light">{item.a}</p>
               </div>
