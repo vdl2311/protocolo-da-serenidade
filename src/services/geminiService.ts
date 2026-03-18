@@ -4,26 +4,22 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 
 export async function generateDiagnosis(userName: string, answers: string[]) {
   const prompt = `
-    Você é um especialista em saúde integrativa e longevidade, focado no "Padrão Bama" (um método natural de equilíbrio hormonal inspirado em uma vila chinesa).
+    Você é um especialista em saúde integrativa e longevidade, focado no "Padrão Bama".
+    Sua tarefa é escrever um DIAGNÓSTICO PERSONALIZADO extremamente breve para ${userName}.
     
-    Sua tarefa é escrever um DIAGNÓSTICO PERSONALIZADO para uma mulher chamada ${userName} que está passando pela menopausa/perimenopausa.
+    Respostas do Quiz:
+    - Problema principal: ${answers[0]}
+    - Acorda entre 2h e 4h: ${answers[2]}
     
-    Aqui estão as respostas dela ao nosso quiz:
-    1. Problema mais urgente: ${answers[0]}
-    2. Frequência de ondas de calor: ${answers[1]}
-    3. Acorda entre 2h e 4h da manhã: ${answers[2]}
-    4. Conhecimento sobre via adrenal: ${answers[3]}
-    5. Por que não teve sucesso até agora: ${answers[4]}
-    6. Disposição para o protocolo: ${answers[5]}
-    
-    DIRETRIZES PARA O TEXTO:
-    - Use um tom empático, profissional e autoritário (mas acolhedor).
-    - Seja extremamente CONCISO e DIRETO AO PONTO.
-    - Use o nome dela (${userName}) pelo menos uma vez.
-    - Explique brevemente por que o sintoma (${answers[0]}) está acontecendo (Via Adrenal/Hipotálamo).
-    - Mencione o "Modo de Sobrevivência".
-    - O texto deve ter no máximo 2 ou 3 parágrafos curtos.
-    - Termine com uma frase curta de esperança.
+    ESTRUTURA OBRIGATÓRIA (Siga exatamente este modelo):
+    1. Comece com: "✅ PERFIL ANALISADO COM SUCESSO"
+    2. Frase 1: ${userName}, seu "Interruptor Térmico" está travado no Modo de Sobrevivência.
+    3. Frase 2: Relacione o sintoma (${answers[0]}) e o fato de acordar de madrugada (${answers[2]}) ao Hipotálamo em sinal de pânico (parando de queimar energia para estocar gordura).
+    4. Frase 3: O Protocolo da Serenidade é a única chave para destravar sua Via Adrenal e resetar seu metabolismo em 14 dias.
+
+    REGRAS CRÍTICAS:
+    - Máximo de 3 frases curtas após o cabeçalho de sucesso.
+    - Tom autoritário e direto.
     - Retorne APENAS o texto do diagnóstico.
     - Use Português do Brasil.
   `;
