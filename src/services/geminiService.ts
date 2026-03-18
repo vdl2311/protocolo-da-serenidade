@@ -14,7 +14,7 @@ export async function generateDiagnosis(userName: string, answers: string[]) {
     
     ESTRUTURA OBRIGATÓRIA (Siga exatamente este modelo):
     1. Primeira linha: PERFIL ANALISADO COM SUCESSO
-    2. Segunda linha: ${userName}, seu "Interruptor Térmico" está travado no Modo de Sobrevivência.
+    2. Segunda linha: Escreva uma frase curta e impactante para ${userName} afirmando que o "Interruptor Térmico" dela está travado no "Modo de Sobrevivência" devido ao impacto de ${answers[0]} no organismo dela.
     3. Terceira linha: Comece com ⚠️. Relacione o sintoma específico dela (${answers[0]}) e o fato de acordar de madrugada (${answers[2]}) ao Hipotálamo em sinal de pânico, parando de queimar energia para estocar gordura.
     
     REGRAS CRÍTICAS:
