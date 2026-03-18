@@ -669,13 +669,19 @@ export default function App() {
 
                   {/* [BOTÃO DE AÇÃO IMEDIATA (ACIMA DA DOBRA)] */}
                   <div className="space-y-6 mb-14">
-                    <Button 
-                      variant="secondary" 
-                      className="w-full py-6 md:py-10 text-xl md:text-4xl shadow-coral/40 bg-coral hover:bg-coral-dark animate-pulse"
-                      onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })}
+                    <a 
+                      href="https://pay.hotmart.com/Y98549636E?checkoutMode=10" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="block w-full"
                     >
-                      👉 QUERO SILENCIAR MEUS SINTOMAS EM 14 DIAS
-                    </Button>
+                      <Button 
+                        variant="secondary" 
+                        className="w-full py-6 md:py-10 text-xl md:text-4xl shadow-coral/40 bg-coral hover:bg-coral-dark animate-pulse"
+                      >
+                        👉 QUERO SILENCIAR MEUS SINTOMAS EM 14 DIAS
+                      </Button>
+                    </a>
                     <p className="text-center text-white font-bold text-lg md:text-3xl px-4">
                       Acesso imediato ao Protocolo da Serenidade por apenas <span className="text-coral">R$ 27,90</span>
                     </p>
