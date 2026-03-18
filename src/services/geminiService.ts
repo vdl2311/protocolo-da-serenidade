@@ -5,25 +5,23 @@ const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY || "" });
 export async function generateDiagnosis(userName: string, answers: string[]) {
   const prompt = `
     Você é um especialista em saúde integrativa e longevidade, focado no "Padrão Bama".
-    Sua tarefa é escrever um DIAGNÓSTICO PERSONALIZADO extremamente breve para ${userName}.
+    Sua tarefa é escrever um DIAGNÓSTICO PERSONALIZADO para ${userName} com base nas respostas dela.
     
     Respostas do Quiz:
     - Problema principal: ${answers[0]}
     - Acorda entre 2h e 4h: ${answers[2]}
+    - Motivo do insucesso anterior: ${answers[4]}
     
     ESTRUTURA OBRIGATÓRIA (Siga exatamente este modelo):
-    1. Comece com: "✅ PERFIL ANALISADO COM SUCESSO"
-    2. Frase 1: ${userName}, seu "Interruptor Térmico" está travado no Modo de Sobrevivência.
-    3. Frase 2: Relacione o sintoma (${answers[0]}) e o fato de acordar de madrugada (${answers[2]}) ao Hipotálamo em sinal de pânico (parando de queimar energia para estocar gordura).
-    4. Frase 3: O Protocolo da Serenidade é a única chave para destravar sua Via Adrenal e resetar seu metabolismo em 14 dias.
-
+    1. Primeira linha: PERFIL ANALISADO COM SUCESSO
+    2. Segunda linha: ${userName}, seu "Interruptor Térmico" está travado no Modo de Sobrevivência.
+    3. Terceira linha: Comece com ⚠️. Relacione o sintoma específico dela (${answers[0]}) e o fato de acordar de madrugada (${answers[2]}) ao Hipotálamo em sinal de pânico, parando de queimar energia para estocar gordura.
+    
     REGRAS CRÍTICAS:
-    - Máximo de 3 frases curtas após o cabeçalho de sucesso.
-    - **Use muito negrito** nas frases de impacto para facilitar o escaneamento.
-    - **Quebre os parágrafos**: Nenhum parágrafo deve ter mais de 3 linhas.
-    - **Adicione Ícones**: Use ✅ para benefícios/soluções e ⚠️ para avisos/alertas sobre o estado atual.
-    - Tom autoritário e direto.
-    - Retorne APENAS o texto do diagnóstico.
+    - Mantenha a mesma quantidade de palavras do exemplo: "⚠️ Suas ondas de calor sufocantes e o fato de acordar exausta de madrugada mostram seu Hipotálamo em sinal de pânico, parando de queimar energia para estocar gordura." (Aprox. 30-35 palavras na terceira linha).
+    - **Use negrito** em termos chave como "Hipotálamo", "Modo de Sobrevivência", "Interruptor Térmico".
+    - Tom autoritário, direto e empático.
+    - Retorne APENAS o texto do diagnóstico (3 linhas).
     - Use Português do Brasil.
   `;
 

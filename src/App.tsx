@@ -612,9 +612,9 @@ export default function App() {
                     hidden: { opacity: 0, y: -10 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="flex items-center gap-4 text-white/80 font-bold tracking-[0.2em] mb-10 uppercase text-lg md:text-xl"
+                  className="flex items-center gap-4 text-white/80 font-bold tracking-[0.2em] mb-10 uppercase text-lg md:text-xl justify-center"
                 >
-                  <Zap size={32} className="text-coral" /> DIAGNÓSTICO PERSONALIZADO CONCLUÍDO
+                  <Zap size={32} className="text-coral" /> {aiDiagnosis ? aiDiagnosis.split('\n')[0] : "DIAGNÓSTICO PERSONALIZADO CONCLUÍDO"}
                 </motion.div>
                 
                 <motion.h3 
@@ -624,7 +624,7 @@ export default function App() {
                   }}
                   className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold mb-10 md:mb-14 leading-tight text-white text-center"
                 >
-                  {quiz.userName}, seu corpo está sequestrado pelo "Modo de Sobrevivência".
+                  {aiDiagnosis ? aiDiagnosis.split('\n')[1] : `${quiz.userName}, seu corpo está sequestrado pelo "Modo de Sobrevivência".`}
                 </motion.h3>
 
                 <div className="space-y-10 md:space-y-14 mb-14 md:mb-20">
@@ -637,7 +637,7 @@ export default function App() {
                   >
                     <div className="text-xl md:text-3xl text-stone-200 leading-relaxed font-light space-y-8 text-center">
                       {aiDiagnosis ? (
-                        aiDiagnosis.split('\n').map((line, i) => (
+                        aiDiagnosis.split('\n').slice(2).map((line, i) => (
                           <p key={i} dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
                         ))
                       ) : (
