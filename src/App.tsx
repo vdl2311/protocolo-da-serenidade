@@ -69,10 +69,10 @@ const CountdownTimer = ({ show }: { show: boolean }) => {
         >
           <div className="flex items-center gap-1 md:gap-2">
             <Zap size={16} className="text-white animate-pulse hidden sm:block md:w-6 md:h-6" />
-            <span className="text-[9px] sm:text-xs md:text-2xl font-black uppercase tracking-tight sm:tracking-wider md:tracking-[0.2em]">Oferta Especial termina em:</span>
+            <span className="text-[14px] sm:text-base md:text-2xl font-black uppercase tracking-tight sm:tracking-wider md:tracking-[0.2em]">Oferta Especial termina em:</span>
           </div>
-          <div className="flex items-center gap-1 md:gap-3 font-mono font-bold text-xs md:text-3xl bg-white/20 px-1.5 md:px-4 py-0.5 md:py-2 rounded-lg md:rounded-xl shrink-0">
-            <Clock size={14} className="animate-pulse md:w-6 md:h-6" />
+          <div className="flex items-center gap-1 md:gap-3 font-mono font-bold text-base md:text-3xl bg-white/20 px-3 md:px-4 py-2 md:py-2 rounded-lg md:rounded-xl shrink-0">
+            <Clock size={20} className="animate-pulse md:w-6 md:h-6" />
             <span>{formatTime(timeLeft)}</span>
           </div>
         </motion.div>
@@ -249,7 +249,7 @@ const ProductMockup = ({ compact = false }: { compact?: boolean }) => (
 const SectionTitle = ({ children, subtitle, light = false }: { children: React.ReactNode; subtitle?: string; light?: boolean }) => (
   <div className="text-center mb-12 md:mb-32 px-4">
     <h2 className={`text-2xl sm:text-3xl md:text-6xl lg:text-8xl font-serif font-bold mb-4 md:mb-10 leading-[1.1] tracking-tight ${light ? 'text-white' : 'text-sage-dark'}`}>{children}</h2>
-    {subtitle && <p className={`text-base sm:text-lg md:text-3xl max-w-4xl mx-auto italic ${light ? 'text-stone-300' : 'text-stone-500'}`}>{subtitle}</p>}
+    {subtitle && <p className={`text-base sm:text-lg md:text-3xl max-w-5xl mx-auto italic ${light ? 'text-stone-300' : 'text-stone-500'}`}>{subtitle}</p>}
     <div className={`w-16 md:w-32 h-1.5 md:h-2 mx-auto mt-6 md:mt-12 rounded-full ${light ? 'bg-coral' : 'bg-sage'}`} />
   </div>
 );
@@ -440,7 +440,7 @@ export default function App() {
           />
         </div>
         
-        <div className="relative max-w-5xl mx-auto z-10">
+        <div className="relative max-w-7xl mx-auto z-10">
           {quiz.step !== 'diagnosis' && (
             <div className="text-center mb-16">
               <motion.div
@@ -461,7 +461,7 @@ export default function App() {
             </div>
           )}
 
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-7xl mx-auto">
             <AnimatePresence mode="wait">
               {quiz.step === 'name' ? (
               <motion.div
@@ -601,7 +601,7 @@ export default function App() {
                     }
                   }
                 }}
-                className="bg-sage text-white rounded-[2.5rem] p-8 md:p-16 shadow-2xl shadow-stone-900/20 border border-white/10"
+                className="bg-sage text-white rounded-[2.5rem] p-6 md:p-16 shadow-2xl shadow-stone-900/20 border border-white/10"
               >
                 <motion.div 
                   variants={{
@@ -629,7 +629,7 @@ export default function App() {
                       hidden: { opacity: 0, y: 30 },
                       visible: { opacity: 1, y: 0 }
                     }}
-                    className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-10 md:p-14 rounded-[3rem] shadow-xl backdrop-blur-sm"
+                    className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-6 md:p-14 rounded-[3rem] shadow-xl backdrop-blur-sm"
                   >
                     <div className="text-xl md:text-3xl text-stone-200 leading-relaxed font-light space-y-8 text-center md:text-left">
                       {aiDiagnosis ? (
@@ -721,7 +721,7 @@ export default function App() {
       <>
         {/* --- STORY SECTION (BLOCK 3) --- */}
         <section id="story" className="py-24 md:py-32 px-4 bg-cream/30">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-center">
             <div className="relative">
               <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-stone-900/10">
@@ -767,7 +767,7 @@ export default function App() {
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white rounded-full blur-[150px]" />
         </div>
         
-        <div className="max-w-6xl mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto relative z-10">
           <SectionTitle light subtitle="O que vai acontecer nos próximos 14 dias:">
             O Seu Plano de Transformação
           </SectionTitle>
@@ -810,7 +810,7 @@ export default function App() {
 
       {/* --- TESTIMONIALS SECTION (BLOCK 4 - PART 1) --- */}
       <section className="py-32 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="A Vida Após o Reset de 14 Dias:">
             Histórias de Transformação
           </SectionTitle>
@@ -852,7 +852,7 @@ export default function App() {
 
       {/* --- OFFER SECTION (BLOCK 5) --- */}
       <section id="offer" className="py-32 px-4 bg-cream">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Comece sua jornada de 14 dias hoje mesmo">
             O Seu Protocolo da Serenidade
           </SectionTitle>
@@ -995,7 +995,7 @@ export default function App() {
             "{quiz.userName}, a decisão agora é sua."
           </h2>
           
-          <div className="space-y-8 md:space-y-12 text-lg md:text-xl leading-relaxed font-light max-w-3xl mx-auto">
+          <div className="space-y-8 md:space-y-12 text-lg md:text-xl leading-relaxed font-light max-w-6xl mx-auto">
             <p className="text-xl md:text-2xl mb-8">Neste momento, você tem dois caminhos à sua frente:</p>
             
             <div className="text-center md:text-left bg-white/5 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10">
@@ -1042,7 +1042,7 @@ export default function App() {
                 SIM! QUERO ATIVAR MEU PADRÃO BAMA
               </Button>
             </a>
-            <p className="mt-8 text-stone-300 italic text-lg max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-8 text-stone-300 italic text-lg max-w-5xl mx-auto leading-relaxed">
               P.S: Lembre-se, você não corre risco nenhum. Se em 14 dias você não sentir que sua energia voltou ou que seu sono melhorou, eu devolvo cada centavo. Sem perguntas.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-4 text-stone-400 text-lg font-bold uppercase tracking-widest">
@@ -1088,7 +1088,7 @@ export default function App() {
           <div className="mt-40 text-center text-stone-400 text-2xl border-t border-stone-200 pt-20">
             <p className="font-bold text-sage mb-6 tracking-widest uppercase text-3xl">Protocolo da Serenidade</p>
             <p>&copy; 2024. Todos os direitos reservados.</p>
-            <p className="mt-8 text-lg md:text-2xl max-w-4xl mx-auto leading-relaxed opacity-60">
+            <p className="mt-8 text-lg md:text-2xl max-w-5xl mx-auto leading-relaxed opacity-60">
               Este produto não substitui o parecer médico profissional. Sempre consulte seu médico antes de iniciar qualquer mudança na sua dieta ou estilo de vida.
             </p>
           </div>
