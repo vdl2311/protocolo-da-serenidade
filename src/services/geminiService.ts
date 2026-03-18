@@ -19,6 +19,9 @@ export async function generateDiagnosis(userName: string, answers: string[]) {
 
     REGRAS CRÍTICAS:
     - Máximo de 3 frases curtas após o cabeçalho de sucesso.
+    - **Use muito negrito** nas frases de impacto para facilitar o escaneamento.
+    - **Quebre os parágrafos**: Nenhum parágrafo deve ter mais de 3 linhas.
+    - **Adicione Ícones**: Use ✅ para benefícios/soluções e ⚠️ para avisos/alertas sobre o estado atual.
     - Tom autoritário e direto.
     - Retorne APENAS o texto do diagnóstico.
     - Use Português do Brasil.
