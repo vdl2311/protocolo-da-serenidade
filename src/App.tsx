@@ -69,10 +69,10 @@ const CountdownTimer = ({ show }: { show: boolean }) => {
         >
           <div className="flex items-center gap-1 md:gap-2">
             <Zap size={16} className="text-white animate-pulse hidden sm:block md:w-6 md:h-6" />
-            <span className="text-[10px] sm:text-xs md:text-2xl font-black uppercase tracking-wider md:tracking-[0.2em]">Oferta Especial termina em:</span>
+            <span className="text-[9px] sm:text-xs md:text-2xl font-black uppercase tracking-tight sm:tracking-wider md:tracking-[0.2em]">Oferta Especial termina em:</span>
           </div>
-          <div className="flex items-center gap-1.5 md:gap-3 font-mono font-bold text-sm md:text-3xl bg-white/20 px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl shrink-0">
-            <Clock size={16} className="animate-pulse md:w-6 md:h-6" />
+          <div className="flex items-center gap-1 md:gap-3 font-mono font-bold text-xs md:text-3xl bg-white/20 px-1.5 md:px-4 py-0.5 md:py-2 rounded-lg md:rounded-xl shrink-0">
+            <Clock size={14} className="animate-pulse md:w-6 md:h-6" />
             <span>{formatTime(timeLeft)}</span>
           </div>
         </motion.div>
@@ -618,7 +618,7 @@ export default function App() {
                     hidden: { opacity: 0, y: 20 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold mb-10 md:mb-14 leading-tight text-white"
+                  className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold mb-10 md:mb-14 leading-tight text-white text-center md:text-left"
                 >
                   {quiz.userName}, seu corpo está sequestrado pelo "Modo de Sobrevivência".
                 </motion.h3>
@@ -631,7 +631,7 @@ export default function App() {
                     }}
                     className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-10 md:p-14 rounded-[3rem] shadow-xl backdrop-blur-sm"
                   >
-                    <div className="text-xl md:text-3xl text-stone-200 leading-relaxed font-light space-y-8">
+                    <div className="text-xl md:text-3xl text-stone-200 leading-relaxed font-light space-y-8 text-center md:text-left">
                       {aiDiagnosis ? (
                         aiDiagnosis.split('\n').map((line, i) => (
                           <p key={i} dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
@@ -687,9 +687,9 @@ export default function App() {
                       hidden: { opacity: 0, y: 30 },
                       visible: { opacity: 1, y: 0 }
                     }}
-                    className="bg-coral/10 border border-coral/20 p-10 md:p-14 rounded-[3rem] shadow-xl"
+                    className="bg-coral/10 border border-coral/20 p-8 md:p-14 rounded-[3rem] shadow-xl"
                   >
-                    <h4 className="text-2xl md:text-4xl font-serif font-bold text-white mb-8">O que você precisa agora não é de dieta, é de um RESET.</h4>
+                    <h4 className="text-2xl md:text-4xl font-serif font-bold text-white mb-8 text-center md:text-left">O que você precisa agora não é de dieta, é de um RESET.</h4>
                     <div className="grid gap-6">
                       <div className="flex items-center gap-6 text-stone-200">
                         <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0 font-bold">✓</div>
@@ -739,10 +739,10 @@ export default function App() {
               </div>
             </div>
             <div>
-              <h2 className="text-3xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-[1.1] tracking-tight">
+              <h2 className="text-3xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-[1.1] tracking-tight text-center md:text-left">
                 O Segredo do <span className="italic text-coral">"Vale da Longevidade"</span>
               </h2>
-              <div className="space-y-6 md:space-y-12 text-lg md:text-3xl text-stone-600 leading-relaxed font-light px-2 md:px-0">
+              <div className="space-y-6 md:space-y-12 text-lg md:text-3xl text-stone-600 leading-relaxed font-light px-2 md:px-0 text-center md:text-left">
                 <p>
                   ⚠️ Nas montanhas isoladas de Bama, na China, mulheres de 60 anos têm a <strong>vitalidade de jovens de 30.</strong>
                 </p>
@@ -795,13 +795,13 @@ export default function App() {
             ].map((item, idx) => (
               <div key={idx} className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-14 rounded-[3rem] hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group">
                 <div className="flex justify-between items-start mb-8 md:mb-12">
-                  <div className="w-16 h-16 md:w-24 md:h-24 bg-white/10 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 md:w-24 md:h-24 bg-white/10 rounded-3xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 mx-auto md:mx-0">
                     {React.cloneElement(item.icon as React.ReactElement, { size: 48 })}
                   </div>
-                  <span className="text-lg md:text-2xl font-bold tracking-[0.2em] uppercase text-white/50 bg-white/5 px-4 py-2 rounded-full">{item.tag}</span>
+                  <span className="text-lg md:text-2xl font-bold tracking-[0.2em] uppercase text-white/50 bg-white/5 px-4 py-2 rounded-full mx-auto md:mx-0">{item.tag}</span>
                 </div>
-                <h4 className="text-2xl md:text-4xl font-serif font-bold mb-4 md:mb-6">{item.title}</h4>
-                <p className="text-lg md:text-2xl text-stone-300 leading-relaxed font-light">{item.desc}</p>
+                <h4 className="text-2xl md:text-4xl font-serif font-bold mb-4 md:mb-6 text-center md:text-left">{item.title}</h4>
+                <p className="text-lg md:text-2xl text-stone-300 leading-relaxed font-light text-center md:text-left">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -861,9 +861,9 @@ export default function App() {
 
           <div className="bg-white rounded-[4rem] shadow-2xl overflow-hidden border border-stone-100 mt-16 md:mt-24">
             <div className="grid lg:grid-cols-5">
-              <div className="lg:col-span-3 p-6 md:p-24 bg-sage text-white">
-                <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 md:mb-16">Missão de Resgate à Vitalidade Feminina</h2>
-                <div className="space-y-8 md:space-y-14 text-lg md:text-3xl leading-relaxed font-light px-2 md:px-0">
+              <div className="lg:col-span-3 p-8 md:p-24 bg-sage text-white">
+                <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 md:mb-16 text-center md:text-left">Missão de Resgate à Vitalidade Feminina</h2>
+                <div className="space-y-8 md:space-y-14 text-lg md:text-3xl leading-relaxed font-light px-2 md:px-0 text-center md:text-left">
                   <p className="text-2xl md:text-5xl font-serif font-bold text-coral-light mb-8 md:mb-12">Por que custa apenas R$ 27,90?</p>
                   <p>
                     Se você fosse buscar esse suporte em clínicas particulares, o custo seria proibitivo:
@@ -888,17 +888,17 @@ export default function App() {
                 </div>
                 
                 <div className="mt-14 md:mt-20 pt-10 md:pt-16 border-t border-white/20">
-                  <h4 className="text-2xl md:text-4xl font-bold mb-8 md:mb-12">O que você recebe hoje:</h4>
+                  <h4 className="text-2xl md:text-4xl font-bold mb-8 md:mb-12 text-center md:text-left">O que você recebe hoje:</h4>
                   <div className="grid gap-6 md:gap-10">
-                    <div className="flex items-center gap-4 md:gap-6">
+                    <div className="flex items-center gap-4 md:gap-6 justify-center md:justify-start">
                       <div className="w-10 h-10 md:w-14 md:h-14 bg-coral rounded-full flex items-center justify-center font-bold text-lg md:text-2xl shrink-0">✓</div>
                       <p className="text-xl md:text-3xl">Protocolo da Serenidade Completo</p>
                     </div>
-                    <div className="flex items-center gap-4 md:gap-6">
+                    <div className="flex items-center gap-4 md:gap-6 justify-center md:justify-start">
                       <div className="w-10 h-10 md:w-14 md:h-14 bg-coral rounded-full flex items-center justify-center font-bold text-lg md:text-2xl shrink-0">✓</div>
                       <p className="text-xl md:text-3xl">Plano Alimentar de 14 Dias</p>
                     </div>
-                    <div className="flex items-center gap-4 md:gap-6">
+                    <div className="flex items-center gap-4 md:gap-6 justify-center md:justify-start">
                       <div className="w-10 h-10 md:w-14 md:h-14 bg-coral rounded-full flex items-center justify-center font-bold text-lg md:text-2xl shrink-0">✓</div>
                       <p className="text-xl md:text-3xl">Acesso Vitalício e Bônus Exclusivos</p>
                     </div>
@@ -949,7 +949,7 @@ export default function App() {
           </div>
 
           {/* --- GUARANTEE (BLOCK 6) --- */}
-          <div className="mt-12 md:mt-32 max-w-5xl mx-auto bg-white p-6 md:p-24 rounded-[2rem] md:rounded-[4rem] shadow-2xl border border-stone-100 flex flex-col md:flex-row items-center gap-8 md:gap-16">
+          <div className="mt-12 md:mt-32 max-w-5xl mx-auto bg-white p-8 md:p-24 rounded-[2rem] md:rounded-[4rem] shadow-2xl border border-stone-100 flex flex-col md:flex-row items-center gap-8 md:gap-16">
             <div className="w-32 h-32 md:w-56 md:h-56 flex-shrink-0">
               <img 
                 src="https://cdn-icons-png.flaticon.com/512/1000/1000951.png" 
@@ -1113,7 +1113,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="block"
             >
-              <Button variant="secondary" className="w-full py-4 text-xl shadow-2xl bg-coral hover:bg-coral-dark border-2 border-white/20">
+              <Button variant="secondary" className="w-full py-3 text-lg shadow-2xl bg-coral hover:bg-coral-dark border-2 border-white/20">
                 👉 QUERO MEU PROTOCOLO (R$ 27,90)
               </Button>
             </a>
