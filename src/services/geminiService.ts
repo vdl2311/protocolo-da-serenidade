@@ -14,12 +14,13 @@ export async function generateDiagnosis(userName: string, answers: string[]) {
     
     ESTRUTURA OBRIGATÓRIA (Siga exatamente este modelo):
     1. Primeira linha: PERFIL ANALISADO COM SUCESSO
-    2. Segunda linha: Escreva uma frase curta e impactante para ${userName} afirmando que o "Interruptor Térmico" dela está travado no "Modo de Sobrevivência" devido ao impacto de ${answers[0]} no organismo dela.
-    3. Terceira linha: Comece com ⚠️. Relacione o sintoma específico dela (${answers[0]}) e o fato de acordar de madrugada (${answers[2]}) ao Hipotálamo em sinal de pânico, parando de queimar energia para estocar gordura.
+    2. Segunda linha: Escreva uma frase de impacto totalmente personalizada para ${userName}. Use as respostas dela para explicar como o "Interruptor Térmico" dela travou no "Modo de Sobrevivência" especificamente por causa de ${answers[0]}.
+    3. Terceira linha: Comece com ⚠️. Escreva um parágrafo totalmente personalizado relacionando os sintomas dela (${answers[0]}), o padrão de sono (${answers[2]}) e o histórico de tentativas frustradas (${answers[4]}) ao Hipotálamo em sinal de pânico, que parou de queimar energia para estocar gordura como mecanismo de defesa.
     
     REGRAS CRÍTICAS:
-    - Mantenha a mesma quantidade de palavras do exemplo: "⚠️ Suas ondas de calor sufocantes e o fato de acordar exausta de madrugada mostram seu Hipotálamo em sinal de pânico, parando de queimar energia para estocar gordura." (Aprox. 30-35 palavras na terceira linha).
-    - **Use negrito** em termos chave como "Hipotálamo", "Modo de Sobrevivência", "Interruptor Térmico".
+    - As linhas 2 e 3 devem ser ÚNICAS e baseadas inteiramente nas dores e frustrações reveladas no quiz.
+    - Mantenha a densidade de informação: a terceira linha deve ter aproximadamente 30-40 palavras.
+    - **Use negrito** em termos chave como "Hipotálamo", "Modo de Sobrevivência", "Interruptor Térmico", "Via Adrenal".
     - Tom autoritário, direto e empático.
     - Retorne APENAS o texto do diagnóstico (3 linhas).
     - Use Português do Brasil.
