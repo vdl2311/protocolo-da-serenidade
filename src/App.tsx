@@ -65,14 +65,14 @@ const CountdownTimer = ({ show }: { show: boolean }) => {
           initial={{ y: -100 }}
           animate={{ y: 0 }}
           exit={{ y: -100 }}
-          className="fixed top-0 left-0 right-0 z-[150] bg-coral text-white py-3 px-4 shadow-lg flex items-center justify-center gap-3 md:gap-6"
+          className="fixed top-0 left-0 right-0 z-[150] bg-coral text-white py-2 md:py-3 px-2 md:px-4 shadow-lg flex items-center justify-center gap-2 md:gap-6"
         >
-          <div className="flex items-center gap-2">
-            <Zap size={24} className="text-white animate-pulse hidden sm:block" />
-            <span className="text-lg md:text-2xl font-black uppercase tracking-[0.2em] whitespace-nowrap">Oferta Especial termina em:</span>
+          <div className="flex items-center gap-1 md:gap-2">
+            <Zap size={16} className="text-white animate-pulse hidden sm:block md:w-6 md:h-6" />
+            <span className="text-[10px] sm:text-xs md:text-2xl font-black uppercase tracking-wider md:tracking-[0.2em]">Oferta Especial termina em:</span>
           </div>
-          <div className="flex items-center gap-3 font-mono font-bold text-xl md:text-3xl bg-white/20 px-4 py-2 rounded-xl">
-            <Clock size={24} className="animate-pulse" />
+          <div className="flex items-center gap-1.5 md:gap-3 font-mono font-bold text-sm md:text-3xl bg-white/20 px-2 md:px-4 py-1 md:py-2 rounded-lg md:rounded-xl shrink-0">
+            <Clock size={16} className="animate-pulse md:w-6 md:h-6" />
             <span>{formatTime(timeLeft)}</span>
           </div>
         </motion.div>
@@ -248,8 +248,8 @@ const ProductMockup = ({ compact = false }: { compact?: boolean }) => (
 
 const SectionTitle = ({ children, subtitle, light = false }: { children: React.ReactNode; subtitle?: string; light?: boolean }) => (
   <div className="text-center mb-12 md:mb-32 px-4">
-    <h2 className={`text-3xl md:text-6xl lg:text-8xl font-serif font-bold mb-4 md:mb-10 leading-[1.1] tracking-tight ${light ? 'text-white' : 'text-sage-dark'}`}>{children}</h2>
-    {subtitle && <p className={`text-lg md:text-3xl max-w-4xl mx-auto italic ${light ? 'text-stone-300' : 'text-stone-500'}`}>{subtitle}</p>}
+    <h2 className={`text-2xl sm:text-3xl md:text-6xl lg:text-8xl font-serif font-bold mb-4 md:mb-10 leading-[1.1] tracking-tight ${light ? 'text-white' : 'text-sage-dark'}`}>{children}</h2>
+    {subtitle && <p className={`text-base sm:text-lg md:text-3xl max-w-4xl mx-auto italic ${light ? 'text-stone-300' : 'text-stone-500'}`}>{subtitle}</p>}
     <div className={`w-16 md:w-32 h-1.5 md:h-2 mx-auto mt-6 md:mt-12 rounded-full ${light ? 'bg-coral' : 'bg-sage'}`} />
   </div>
 );
@@ -676,7 +676,7 @@ export default function App() {
                     >
                       👉 QUERO SILENCIAR MEUS SINTOMAS EM 14 DIAS
                     </Button>
-                    <p className="text-center text-white font-bold text-xl md:text-3xl">
+                    <p className="text-center text-white font-bold text-lg md:text-3xl px-2">
                       Acesso imediato ao Protocolo da Serenidade por apenas <span className="text-coral">R$ 27,90</span>
                     </p>
                   </div>
