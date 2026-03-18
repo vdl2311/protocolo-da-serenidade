@@ -158,7 +158,7 @@ const Button = ({
   variant?: "primary" | "secondary" | "outline";
   type?: "button" | "submit";
 }) => {
-  const baseStyles = "px-12 py-6 rounded-full font-bold transition-all duration-300 ease-out flex items-center justify-center gap-3 text-xl md:text-2xl hover:-translate-y-1 active:translate-y-0 uppercase tracking-wider";
+  const baseStyles = "px-6 md:px-12 py-4 md:py-6 rounded-full font-bold transition-all duration-300 ease-out flex items-center justify-center gap-3 text-lg md:text-2xl hover:-translate-y-1 active:translate-y-0 uppercase tracking-wider";
   const variants = {
     primary: "bg-sage text-white hover:bg-sage-dark shadow-lg shadow-sage/20 hover:shadow-xl hover:shadow-sage/30",
     secondary: "bg-coral text-white hover:bg-[#ff6b3d] shadow-lg shadow-coral/20 hover:shadow-xl hover:shadow-coral/30",
@@ -247,10 +247,10 @@ const ProductMockup = ({ compact = false }: { compact?: boolean }) => (
 );
 
 const SectionTitle = ({ children, subtitle, light = false }: { children: React.ReactNode; subtitle?: string; light?: boolean }) => (
-  <div className="text-center mb-16 md:mb-32 px-4">
-    <h2 className={`text-4xl md:text-6xl lg:text-8xl font-serif font-bold mb-6 md:mb-10 leading-[1.1] tracking-tight ${light ? 'text-white' : 'text-sage-dark'}`}>{children}</h2>
-    {subtitle && <p className={`text-xl md:text-3xl max-w-4xl mx-auto italic ${light ? 'text-stone-300' : 'text-stone-500'}`}>{subtitle}</p>}
-    <div className={`w-24 md:w-32 h-2 mx-auto mt-8 md:mt-12 rounded-full ${light ? 'bg-coral' : 'bg-sage'}`} />
+  <div className="text-center mb-12 md:mb-32 px-4">
+    <h2 className={`text-3xl md:text-6xl lg:text-8xl font-serif font-bold mb-4 md:mb-10 leading-[1.1] tracking-tight ${light ? 'text-white' : 'text-sage-dark'}`}>{children}</h2>
+    {subtitle && <p className={`text-lg md:text-3xl max-w-4xl mx-auto italic ${light ? 'text-stone-300' : 'text-stone-500'}`}>{subtitle}</p>}
+    <div className={`w-16 md:w-32 h-1.5 md:h-2 mx-auto mt-6 md:mt-12 rounded-full ${light ? 'bg-coral' : 'bg-sage'}`} />
   </div>
 );
 
@@ -451,10 +451,10 @@ export default function App() {
                 <span className="inline-block px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 rounded-full text-white text-lg font-bold mb-8 uppercase tracking-[0.2em]">
                   O Segredo de Bama
                 </span>
-                <h1 className="text-4xl md:text-6xl lg:text-8xl font-serif font-bold leading-[1.1] tracking-tight mb-10 text-white">
+                <h1 className="text-3xl md:text-6xl lg:text-8xl font-serif font-bold leading-[1.1] tracking-tight mb-8 text-white">
                   O Segredo de Bama: Como mulheres de 90 anos na China silenciaram os sintomas da menopausa <span className="text-coral italic">(sem usar um único hormônio sintético)</span>.
                 </h1>
-                <p className="text-xl md:text-3xl text-stone-200 max-w-4xl mx-auto leading-relaxed font-light px-4">
+                <p className="text-lg md:text-3xl text-stone-200 max-w-4xl mx-auto leading-relaxed font-light px-2">
                   Descubra seu perfil hormonal e ative seu <strong>'Paradoxo do Estrogênio'</strong> para resetar seu metabolismo e seu sono em apenas 14 dias.
                 </p>
               </motion.div>
@@ -471,30 +471,30 @@ export default function App() {
                 exit={{ opacity: 0, y: -20 }}
                 className="bg-white/95 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-14 shadow-2xl shadow-stone-900/10 border border-white"
               >
-                <p className="text-stone-600 mb-10 md:mb-14 text-xl md:text-2xl leading-relaxed italic border-l-8 border-sage pl-6 md:pl-10">
+                <p className="text-stone-600 mb-8 md:mb-14 text-lg md:text-2xl leading-relaxed italic border-l-4 md:border-l-8 border-sage pl-4 md:pl-10">
                   "O Padrão Bama é o nome dado ao equilíbrio hormonal perfeito encontrado em uma vila isolada na China, onde a menopausa é vivida com total serenidade. Este quiz vai comparar seus sintomas atuais com os biomarcadores de Bama para criar o seu Protocolo da Serenidade personalizado."
                 </p>
-                <div className="flex flex-col md:flex-row items-center md:items-center gap-6 md:gap-10 mb-10 md:mb-16 text-center md:text-left">
-                  <div className="p-4 md:p-6 bg-cream rounded-3xl shrink-0">
-                    <Heart size={40} className="text-sage" />
+                <div className="flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-10 mb-8 md:mb-16 text-center md:text-left">
+                  <div className="p-3 md:p-6 bg-cream rounded-2xl md:rounded-3xl shrink-0">
+                    <Heart size={32} className="text-sage md:w-10 md:h-10" />
                   </div>
-                  <h3 className="text-2xl md:text-5xl font-serif font-bold text-sage-dark">
+                  <h3 className="text-xl md:text-5xl font-serif font-bold text-sage-dark">
                     Antes de começarmos, como podemos te chamar?
                   </h3>
                 </div>
-                <form onSubmit={handleNameSubmit} className="space-y-8 md:space-y-12">
+                <form onSubmit={handleNameSubmit} className="space-y-6 md:space-y-12">
                   <div className="relative">
                     <input
-                      type="text"
-                      required
-                      placeholder="Seu nome aqui..."
-                      value={quiz.userName}
-                      onChange={(e) => setQuiz(prev => ({ ...prev, userName: e.target.value }))}
-                      className="w-full p-6 md:p-10 text-2xl md:text-4xl border-4 border-stone-100 rounded-3xl focus:border-sage focus:ring-0 outline-none transition-all"
+                       type="text"
+                       required
+                       placeholder="Seu nome aqui..."
+                       value={quiz.userName}
+                       onChange={(e) => setQuiz(prev => ({ ...prev, userName: e.target.value }))}
+                       className="w-full p-4 md:p-10 text-xl md:text-4xl border-2 md:border-4 border-stone-100 rounded-2xl md:rounded-3xl focus:border-sage focus:ring-0 outline-none transition-all"
                     />
                   </div>
-                  <Button type="submit" className="w-full py-6 md:py-10 text-2xl md:text-4xl">
-                    Iniciar Diagnóstico <ArrowRight size={32} />
+                  <Button type="submit" className="w-full py-4 md:py-10 text-xl md:text-4xl">
+                    Iniciar Diagnóstico <ArrowRight size={24} className="md:w-8 md:h-8" />
                   </Button>
                 </form>
               </motion.div>
@@ -506,22 +506,22 @@ export default function App() {
                 exit={{ opacity: 0, x: -20 }}
                 className="bg-white/95 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-14 shadow-2xl shadow-stone-900/10 border border-white"
               >
-                <div className="flex items-center gap-6 md:gap-10 mb-10 md:mb-16">
-                  <div className="p-4 md:p-6 bg-cream rounded-3xl shrink-0">
-                    {React.cloneElement(quizQuestions[quiz.step].icon as React.ReactElement, { size: 40 })}
+                <div className="flex items-center gap-4 md:gap-10 mb-8 md:mb-16">
+                  <div className="p-3 md:p-6 bg-cream rounded-2xl md:rounded-3xl shrink-0">
+                    {React.cloneElement(quizQuestions[quiz.step].icon as React.ReactElement, { size: 32, className: (quizQuestions[quiz.step].icon as React.ReactElement).props.className + " md:w-10 md:h-10" })}
                   </div>
-                  <div className="flex-1 h-4 bg-stone-100 rounded-full overflow-hidden">
+                  <div className="flex-1 h-3 md:h-4 bg-stone-100 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-sage transition-all duration-500" 
                       style={{ width: `${((quiz.step + 1) / quizQuestions.length) * 100}%` }}
                     />
                   </div>
-                  <span className="text-2xl md:text-4xl font-bold text-stone-400 tracking-tighter shrink-0">
+                  <span className="text-xl md:text-4xl font-bold text-stone-400 tracking-tighter shrink-0">
                     {quiz.step + 1}/{quizQuestions.length}
                   </span>
                 </div>
 
-                <h3 className="text-2xl md:text-5xl font-serif font-bold text-sage-dark mb-10 md:mb-16 leading-tight">
+                <h3 className="text-xl md:text-5xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-tight">
                   {quizQuestions[quiz.step].question(quiz.userName)}
                 </h3>
 
@@ -530,11 +530,11 @@ export default function App() {
                     <button
                       key={idx}
                       onClick={() => handleAnswer(option)}
-                      className="w-full p-6 md:p-10 text-left rounded-[2rem] border-2 border-stone-200 hover:border-sage hover:bg-sage/5 hover:shadow-xl transition-all duration-300 group flex items-center justify-between gap-6"
+                      className="w-full p-4 md:p-10 text-left rounded-2xl md:rounded-[2rem] border-2 border-stone-200 hover:border-sage hover:bg-sage/5 hover:shadow-xl transition-all duration-300 group flex items-center justify-between gap-4 md:gap-6"
                     >
-                      <span className="text-xl md:text-3xl font-medium text-stone-700 group-hover:text-sage-dark leading-snug">{option}</span>
-                      <div className="w-10 h-10 md:w-14 md:h-14 rounded-full border-4 border-stone-200 group-hover:border-sage group-hover:bg-sage flex items-center justify-center transition-colors shrink-0">
-                        <CheckCircle2 size={24} className="text-white opacity-0 group-hover:opacity-100" />
+                      <span className="text-lg md:text-3xl font-medium text-stone-700 group-hover:text-sage-dark leading-snug">{option}</span>
+                      <div className="w-8 h-8 md:w-14 md:h-14 rounded-full border-2 md:border-4 border-stone-200 group-hover:border-sage group-hover:bg-sage flex items-center justify-center transition-colors shrink-0">
+                        <CheckCircle2 size={18} className="text-white opacity-0 group-hover:opacity-100 md:w-6 md:h-6" />
                       </div>
                     </button>
                   ))}
@@ -671,7 +671,7 @@ export default function App() {
                   <div className="space-y-6 mb-14">
                     <Button 
                       variant="secondary" 
-                      className="w-full py-10 text-2xl md:text-4xl shadow-coral/40 bg-coral hover:bg-coral-dark animate-pulse"
+                      className="w-full py-6 md:py-10 text-xl md:text-4xl shadow-coral/40 bg-coral hover:bg-coral-dark animate-pulse"
                       onClick={() => document.getElementById('offer')?.scrollIntoView({ behavior: 'smooth' })}
                     >
                       👉 QUERO SILENCIAR MEUS SINTOMAS EM 14 DIAS
@@ -739,10 +739,10 @@ export default function App() {
               </div>
             </div>
             <div>
-              <h2 className="text-4xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-10 md:mb-16 leading-[1.1] tracking-tight">
+              <h2 className="text-3xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-[1.1] tracking-tight">
                 O Segredo do <span className="italic text-coral">"Vale da Longevidade"</span>
               </h2>
-              <div className="space-y-8 md:space-y-12 text-xl md:text-3xl text-stone-600 leading-relaxed font-light">
+              <div className="space-y-6 md:space-y-12 text-lg md:text-3xl text-stone-600 leading-relaxed font-light px-2 md:px-0">
                 <p>
                   ⚠️ Nas montanhas isoladas de Bama, na China, mulheres de 60 anos têm a <strong>vitalidade de jovens de 30.</strong>
                 </p>
@@ -861,25 +861,25 @@ export default function App() {
 
           <div className="bg-white rounded-[4rem] shadow-2xl overflow-hidden border border-stone-100 mt-16 md:mt-24">
             <div className="grid lg:grid-cols-5">
-              <div className="lg:col-span-3 p-10 md:p-24 bg-sage text-white">
-                <h2 className="text-4xl md:text-7xl font-serif font-bold mb-10 md:mb-16">Missão de Resgate à Vitalidade Feminina</h2>
-                <div className="space-y-10 md:space-y-14 text-xl md:text-3xl leading-relaxed font-light">
-                  <p className="text-3xl md:text-5xl font-serif font-bold text-coral-light mb-12">Por que custa apenas R$ 27,90?</p>
+              <div className="lg:col-span-3 p-6 md:p-24 bg-sage text-white">
+                <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 md:mb-16">Missão de Resgate à Vitalidade Feminina</h2>
+                <div className="space-y-8 md:space-y-14 text-lg md:text-3xl leading-relaxed font-light px-2 md:px-0">
+                  <p className="text-2xl md:text-5xl font-serif font-bold text-coral-light mb-8 md:mb-12">Por que custa apenas R$ 27,90?</p>
                   <p>
                     Se você fosse buscar esse suporte em clínicas particulares, o custo seria proibitivo:
                   </p>
-                  <div className="space-y-6 bg-white/5 p-10 rounded-[3rem] border border-white/10">
-                    <div className="flex justify-between items-center">
+                  <div className="space-y-4 md:space-y-6 bg-white/5 p-6 md:p-10 rounded-2xl md:rounded-[3rem] border border-white/10">
+                    <div className="flex justify-between items-center gap-4">
                       <span>Consulta Integrativa Especializada:</span>
-                      <span className="line-through text-white/50">R$ 800,00</span>
+                      <span className="line-through text-white/50 shrink-0">R$ 800,00</span>
                     </div>
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center gap-4">
                       <span>Suplementos e Vitaminas Sintéticas:</span>
-                      <span className="line-through text-white/50">R$ 250,00</span>
+                      <span className="line-through text-white/50 shrink-0">R$ 250,00</span>
                     </div>
-                    <div className="pt-8 border-t border-white/10 flex justify-between items-center text-3xl md:text-5xl font-bold">
+                    <div className="pt-6 md:pt-8 border-t border-white/10 flex justify-between items-center text-2xl md:text-5xl font-bold gap-4">
                       <span>Seu Investimento Hoje:</span>
-                      <span className="text-coral">R$ 27,90</span>
+                      <span className="text-coral shrink-0">R$ 27,90</span>
                     </div>
                   </div>
                   <p>
@@ -929,7 +929,7 @@ export default function App() {
                   rel="noopener noreferrer"
                   className="w-full"
                 >
-                  <Button variant="secondary" className="w-full py-8 md:py-12 text-2xl md:text-4xl shadow-coral/30 bg-coral hover:bg-coral-dark">
+                  <Button variant="secondary" className="w-full py-6 md:py-12 text-xl md:text-4xl shadow-coral/30 bg-coral hover:bg-coral-dark">
                     👉 SIM! QUERO INICIAR MEU PROTOCOLO DE 14 DIAS AGORA
                   </Button>
                 </a>
@@ -949,8 +949,8 @@ export default function App() {
           </div>
 
           {/* --- GUARANTEE (BLOCK 6) --- */}
-          <div className="mt-20 md:mt-32 max-w-5xl mx-auto bg-white p-10 md:p-24 rounded-[3rem] md:rounded-[4rem] shadow-2xl border border-stone-100 flex flex-col md:flex-row items-center gap-10 md:gap-16">
-            <div className="w-40 h-40 md:w-56 md:h-56 flex-shrink-0">
+          <div className="mt-12 md:mt-32 max-w-5xl mx-auto bg-white p-6 md:p-24 rounded-[2rem] md:rounded-[4rem] shadow-2xl border border-stone-100 flex flex-col md:flex-row items-center gap-8 md:gap-16">
+            <div className="w-32 h-32 md:w-56 md:h-56 flex-shrink-0">
               <img 
                 src="https://cdn-icons-png.flaticon.com/512/1000/1000951.png" 
                 alt="Garantia" 
@@ -958,9 +958,9 @@ export default function App() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="text-center md:text-left">
-              <h3 className="text-2xl md:text-5xl font-serif font-bold text-sage-dark mb-6 md:mb-8">7 DIAS DE RISCO ZERO</h3>
-              <p className="text-xl md:text-3xl text-stone-600 leading-relaxed font-light">
+            <div className="text-center md:text-left px-2 md:px-0">
+              <h3 className="text-2xl md:text-5xl font-serif font-bold text-sage-dark mb-4 md:mb-8 uppercase">7 DIAS DE RISCO ZERO</h3>
+              <p className="text-lg md:text-3xl text-stone-600 leading-relaxed font-light">
                 Siga o plano. Se em 7 dias você não sentir suas ondas de calor diminuindo e seu sono voltando ao normal, eu não quero o seu dinheiro. Basta um e-mail e devolvo 100% do valor. O risco está todo comigo.
               </p>
             </div>
@@ -999,8 +999,8 @@ export default function App() {
             <p className="text-xl md:text-2xl mb-8">Neste momento, você tem dois caminhos à sua frente:</p>
             
             <div className="text-left bg-white/5 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10">
-              <h4 className="text-2xl md:text-3xl font-serif font-bold text-coral mb-4 md:mb-6">Opção 1:</h4>
-              <p className="text-xl md:text-2xl lg:text-3xl text-stone-300 leading-relaxed">
+              <h4 className="text-xl md:text-3xl font-serif font-bold text-coral mb-4 md:mb-6">Opção 1:</h4>
+              <p className="text-lg md:text-2xl lg:text-3xl text-stone-300 leading-relaxed">
                 Ignorar este diagnóstico e continuar {
                   quiz.answers[0]?.includes("Ondas de calor") ? "sofrendo com os calorões súbitos e o suor excessivo" :
                   quiz.answers[0]?.includes("Insônia") ? "passando noites em claro e acordando exausta" :
@@ -1012,8 +1012,8 @@ export default function App() {
             </div>
 
             <div className="text-left bg-white/10 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/20 shadow-xl">
-              <h4 className="text-2xl md:text-3xl font-serif font-bold text-sage mb-4 md:mb-6">Opção 2:</h4>
-              <p className="text-xl md:text-2xl lg:text-3xl text-white leading-relaxed">
+              <h4 className="text-xl md:text-3xl font-serif font-bold text-sage mb-4 md:mb-6">Opção 2:</h4>
+              <p className="text-lg md:text-2xl lg:text-3xl text-white leading-relaxed">
                 Ativar o Padrão Bama hoje mesmo. Silenciar os sinais de pânico do seu corpo e recuperar {
                   quiz.answers[0]?.includes("Ondas de calor") ? "o controle térmico do seu organismo" :
                   quiz.answers[0]?.includes("Insônia") ? "o sono profundo e reparador" :
@@ -1079,9 +1079,9 @@ export default function App() {
                 a: "Não, o método é extremamente simples, prático e direto ao ponto."
               }
             ].map((item, idx) => (
-              <div key={idx} className="bg-white p-8 md:p-14 rounded-[3rem] border border-stone-100 shadow-md">
-                <h4 className="text-2xl md:text-4xl font-serif font-bold text-sage-dark mb-6 md:mb-8">{item.q}</h4>
-                <p className="text-2xl md:text-4xl text-stone-600 leading-relaxed font-light">{item.a}</p>
+              <div key={idx} className="bg-white p-6 md:p-14 rounded-2xl md:rounded-[3rem] border border-stone-100 shadow-md">
+                <h4 className="text-xl md:text-4xl font-serif font-bold text-sage-dark mb-4 md:mb-8">{item.q}</h4>
+                <p className="text-lg md:text-4xl text-stone-600 leading-relaxed font-light">{item.a}</p>
               </div>
             ))}
           </div>
@@ -1113,7 +1113,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="block"
             >
-              <Button variant="secondary" className="w-full py-8 text-2xl shadow-2xl bg-coral hover:bg-coral-dark border-4 border-white/20">
+              <Button variant="secondary" className="w-full py-4 text-xl shadow-2xl bg-coral hover:bg-coral-dark border-2 border-white/20">
                 👉 QUERO MEU PROTOCOLO (R$ 27,90)
               </Button>
             </a>
@@ -1138,7 +1138,7 @@ export default function App() {
               rel="noopener noreferrer"
               className="block"
             >
-              <Button variant="secondary" className="py-10 px-16 text-3xl shadow-2xl bg-coral hover:bg-coral-dark border-4 border-white/20">
+              <Button variant="secondary" className="py-6 md:py-10 px-8 md:px-16 text-xl md:text-3xl shadow-2xl bg-coral hover:bg-coral-dark border-2 md:border-4 border-white/20">
                 👉 QUERO MEU PROTOCOLO (R$ 27,90)
               </Button>
             </a>
