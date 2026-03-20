@@ -301,7 +301,7 @@ const ProductMockup = ({ compact = false }: { compact?: boolean }) => (
 
 const SectionTitle = ({ children, subtitle, light = false }: { children: React.ReactNode; subtitle?: string; light?: boolean }) => (
   <div className="text-center mb-12 md:mb-32 px-4">
-    <h2 className={`text-2xl sm:text-3xl md:text-6xl lg:text-8xl font-serif font-bold mb-4 md:mb-10 leading-[1.1] tracking-tight ${light ? 'text-white' : 'text-sage-dark'}`}>{children}</h2>
+    <h2 className={`text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-serif font-bold mb-4 md:mb-10 leading-[1.1] tracking-tight ${light ? 'text-white' : 'text-sage-dark'}`}>{children}</h2>
     {subtitle && <p className={`text-base sm:text-lg md:text-3xl max-w-5xl mx-auto italic ${light ? 'text-stone-300' : 'text-stone-500'}`}>{subtitle}</p>}
     <div className={`w-16 md:w-32 h-1.5 md:h-2 mx-auto mt-6 md:mt-12 rounded-full ${light ? 'bg-coral' : 'bg-sage'}`} />
   </div>
@@ -353,7 +353,7 @@ export default function App() {
         "Às vezes, principalmente à noite",
         "Raramente"
       ],
-      icon: <Flame className="text-coral" />
+      icon: <Flame className="text-coral-text" />
     },
     {
       question: (name: string) => `Quando você acorda entre 2h e 4h da manhã com a mente "ligada", você sente que o seu dia seguinte já está "arruinado" pelo cansaço antes mesmo de começar?`,
@@ -505,7 +505,7 @@ export default function App() {
                   O Segredo de Bama
                 </span>
                 <h1 className="text-3xl md:text-6xl lg:text-8xl font-serif font-bold leading-[1.1] tracking-tight mb-8 text-white">
-                  O Segredo de Bama: Como mulheres de 90 anos na China silenciaram os sintomas da menopausa <span className="text-coral italic">(sem usar um único hormônio sintético)</span>.
+                  O Segredo de Bama: Como mulheres de 90 anos na China silenciaram os sintomas da menopausa <span className="text-coral-text italic">(sem usar um único hormônio sintético)</span>.
                 </h1>
                 <p className="text-lg md:text-3xl text-stone-200 max-w-4xl mx-auto leading-relaxed font-light px-4">
                   Descubra seu perfil hormonal e ative seu <strong>'Paradoxo do Estrogênio'</strong> para resetar seu metabolismo e seu sono em apenas 14 dias.
@@ -664,7 +664,7 @@ export default function App() {
                   className="flex flex-col items-center gap-4 text-white/80 font-bold tracking-[0.2em] mb-10 uppercase text-lg md:text-xl justify-center text-center"
                 >
                   <div className="flex items-center gap-4">
-                    <Zap size={32} className="text-coral" /> DIAGNÓSTICO CONCLUÍDO: SEU SISTEMA HORMONAL PRECISA "ENDIREITAR"
+                    <Zap size={32} className="text-coral-text" /> DIAGNÓSTICO CONCLUÍDO: SEU SISTEMA HORMONAL PRECISA "ENDIREITAR"
                   </div>
                   <p className="text-sm md:text-lg italic font-serif normal-case tracking-normal mt-4 text-white/60">
                     "Tua palavra é luz para os meus caminhos..." e hoje a ciência traz a luz que você precisava para entender por que seu corpo parece estar "pegando fogo".
@@ -676,7 +676,7 @@ export default function App() {
                     <motion.div 
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="bg-coral/20 text-coral px-6 py-2 rounded-full text-sm md:text-base font-bold inline-block"
+                      className="bg-coral/20 text-coral-text px-6 py-2 rounded-full text-sm md:text-base font-bold inline-block"
                     >
                       {aiDiagnosis.split('\n')[0]}
                     </motion.div>
@@ -708,7 +708,7 @@ export default function App() {
                   <motion.div 
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-2xl md:text-5xl font-serif italic text-coral-light mb-14 md:mb-20 text-center leading-tight px-4"
+                    className="text-2xl md:text-5xl font-serif italic text-coral-text mb-14 md:mb-20 text-center leading-tight px-4"
                   >
                     {aiDiagnosis.split('\n')[1]}
                   </motion.div>
@@ -723,7 +723,7 @@ export default function App() {
                     className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-6 md:p-14 rounded-[3rem] shadow-xl backdrop-blur-sm"
                   >
                     <div className="text-xl md:text-3xl text-stone-200 leading-relaxed font-light space-y-8 text-center">
-                      <p className="text-coral font-bold uppercase tracking-widest text-lg md:text-2xl mb-8">O Problema de Raiz:</p>
+                      <p className="text-coral-text font-bold uppercase tracking-widest text-lg md:text-2xl mb-8">O Problema de Raiz:</p>
                       <p>
                         "Você já se sentiu como a mulher do texto bíblico, 'encurvada' por sintomas que ninguém resolve há anos? Você tenta dietas, tenta remédios, mas nada 'endireita' sua energia? Isso acontece porque você está tratando o galho, mas a raiz do problema está no seu <strong>Hipotálamo</strong>."
                       </p>
@@ -731,7 +731,7 @@ export default function App() {
                       {aiDiagnosis ? (
                         <div className="space-y-8">
                           {aiDiagnosis.split('\n').slice(2).map((line, i) => (
-                            <p key={i} className="text-white text-2xl md:text-4xl leading-relaxed" dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                            <p key={i} className="text-white text-2xl md:text-4xl leading-relaxed" dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-coral-text">$1</strong>') }} />
                           ))}
                         </div>
                       ) : (
@@ -761,13 +761,13 @@ export default function App() {
                     >
                       <Button 
                         variant="secondary" 
-                        className="w-full py-6 md:py-10 text-xl md:text-4xl shadow-coral/40 bg-coral hover:bg-coral-dark animate-pulse"
+                        className="w-full py-6 md:py-10 text-xl md:text-4xl shadow-coral-text/40 bg-coral hover:bg-coral-dark animate-pulse"
                       >
                         👉 SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS
                       </Button>
                     </a>
                     <p className="text-center text-white font-bold text-lg md:text-3xl px-4">
-                      Investimento simbólico: <span className="text-coral">R$ 27,90</span>
+                      Investimento simbólico: <span className="text-coral-text">R$ 27,90</span>
                     </p>
                   </div>
 
@@ -782,15 +782,15 @@ export default function App() {
                     <h4 className="text-2xl md:text-4xl font-serif font-bold text-white mb-8 text-center">O que você precisa agora não é de dieta, é de um RESET.</h4>
                     <div className="grid gap-6">
                       <div className="flex items-center gap-6 text-stone-200 justify-center md:justify-center">
-                        <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0 font-bold">✓</div>
+                        <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral-text shrink-0 font-bold">✓</div>
                         <p className="text-xl md:text-3xl text-center"><strong>Método 100% Natural:</strong> Sem hormônios sintéticos ou efeitos colaterais.</p>
                       </div>
                       <div className="flex items-center gap-6 text-stone-200 justify-center md:justify-center">
-                        <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0 font-bold">✓</div>
+                        <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral-text shrink-0 font-bold">✓</div>
                         <p className="text-xl md:text-3xl text-center"><strong>Apenas 12 minutos:</strong> Rituais simples que cabem na sua rotina exausta.</p>
                       </div>
                       <div className="flex items-center gap-6 text-stone-200 justify-center md:justify-center">
-                        <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral shrink-0 font-bold">✓</div>
+                        <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral-text shrink-0 font-bold">✓</div>
                         <p className="text-xl md:text-3xl text-center"><strong>Alívio em 7 dias:</strong> Sinta a primeira noite de sono profundo já na primeira semana.</p>
                       </div>
                     </div>
@@ -830,7 +830,7 @@ export default function App() {
             </div>
             <div>
               <h2 className="text-3xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-[1.1] tracking-tight text-center">
-                A Solução <span className="italic text-coral">Ancestral</span>
+                A Solução <span className="italic text-coral-text">Ancestral</span>
               </h2>
               <div className="space-y-6 md:space-y-12 text-lg md:text-3xl text-stone-600 leading-relaxed font-light px-4 md:px-0 text-center">
                 <p>
@@ -840,7 +840,7 @@ export default function App() {
                   <strong>Missão de Cuidado:</strong> "Eu poderia ter levado esse método para grandes corporações, mas escolhi você. Minha missão é garantir que você recupere sua saúde para que possa cuidar da sua família e cumprir o seu propósito com disposição."
                 </p>
                 <div className="pt-8">
-                  <p className="text-coral font-bold uppercase tracking-widest text-xl mb-4">A Revelação do que estava Oculto:</p>
+                  <p className="text-coral-text font-bold uppercase tracking-widest text-xl mb-4">A Verdade que foi Escondida:</p>
                   <p className="text-stone-500 italic">
                     Descubra a raiz "escondida" que mantém seu corpo encurvado pelo cansaço e como um segredo ancestral das montanhas de Bama pode trazer a paz que seu sono precisa.
                   </p>
@@ -867,7 +867,7 @@ export default function App() {
               {
                 title: "Alívio Rápido",
                 desc: "Você aplicará o \"Interruptor Térmico\" para neutralizar calorões instantaneamente.",
-                icon: <Flame className="text-coral" />,
+                icon: <Flame className="text-coral-text" />,
                 tag: "Dia 1-3"
               },
               {
@@ -926,7 +926,7 @@ export default function App() {
               <div key={idx} className="bg-cream/30 p-10 md:p-14 rounded-[3rem] border border-stone-100 shadow-sm hover:shadow-md transition-shadow relative text-center">
                 <div className="flex justify-center gap-2 mb-6 md:mb-10">
                   {[...Array(5)].map((_, i) => (
-                    <Heart key={i} size={24} className="fill-coral text-coral" />
+                    <Heart key={i} size={24} className="fill-coral-text text-coral-text" />
                   ))}
                 </div>
                 <h4 className="text-2xl md:text-4xl font-serif font-bold text-sage-dark mb-6 md:mb-8">"{item.title}"</h4>
@@ -954,7 +954,7 @@ export default function App() {
               <div className="lg:col-span-3 p-8 md:p-24 bg-sage text-white">
                 <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 md:mb-16 text-center">Uma Decisão com Paz</h2>
                 <div className="space-y-8 md:space-y-14 text-lg md:text-3xl leading-relaxed font-light px-4 md:px-0 text-center">
-                  <p className="text-2xl md:text-5xl font-serif font-bold text-coral-light mb-8 md:mb-12">O Segredo Protege a Bênção</p>
+                  <p className="text-2xl md:text-5xl font-serif font-bold text-coral-text mb-8 md:mb-12">A Proteção da sua Jornada</p>
                   <p>
                     Se você sente paz no coração ao ler estas palavras, essa é a sua direção. O investimento é simbólico, para proteger esse segredo e garantir o seu compromisso.
                   </p>
@@ -965,7 +965,7 @@ export default function App() {
                     </div>
                     <div className="pt-6 md:pt-8 border-t border-white/10 flex justify-between items-center text-2xl md:text-5xl font-bold gap-4">
                       <span>Seu Investimento Hoje:</span>
-                      <span className="text-coral shrink-0">R$ 27,90</span>
+                      <span className="text-coral-text shrink-0">R$ 27,90</span>
                     </div>
                   </div>
                   <p>
@@ -997,14 +997,14 @@ export default function App() {
                   <p className="text-stone-600 text-xl md:text-3xl mb-10 leading-relaxed">
                     {quiz.userName}, você pode gastar R$ 800,00 em uma consulta para ouvir o que está aqui, ou investir o preço de uma única caixa de chá (R$ 0,93 por dia) para ter o método que as chinesas usam há séculos. Qual faz mais sentido para você?
                   </p>
-                  <span className="inline-block px-6 py-3 bg-coral/10 text-coral font-bold rounded-full text-lg md:text-2xl tracking-widest uppercase mb-6">
+                  <span className="inline-block px-6 py-3 bg-coral/10 text-coral-text font-bold rounded-full text-lg md:text-2xl tracking-widest uppercase mb-6">
                     Acesso Imediato • 100% Digital
                   </span>
                   <div className="flex flex-col items-center justify-center mt-10">
                     <span className="text-stone-400 line-through text-2xl md:text-4xl font-medium">De: R$ 97,00</span>
                     <div className="text-2xl md:text-4xl font-bold text-sage-dark mt-4">Por apenas:</div>
-                    <div className="text-7xl md:text-9xl font-bold text-coral mt-4 tracking-tight">
-                      R$ 27<span className="text-4xl md:text-6xl">,90</span>
+                    <div className="text-6xl md:text-9xl font-bold text-coral-text mt-4 tracking-tight">
+                      R$ 27<span className="text-3xl md:text-6xl">,90</span>
                     </div>
                   </div>
                 </div>
@@ -1085,7 +1085,7 @@ export default function App() {
             <p className="text-xl md:text-2xl mb-8">Reflita: como você quer estar daqui a 14 dias?</p>
             
             <div className="text-center bg-white/5 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10">
-              <h4 className="text-xl md:text-3xl font-serif font-bold text-coral mb-4 md:mb-6">Caminho da Estagnação:</h4>
+              <h4 className="text-xl md:text-3xl font-serif font-bold text-coral-text mb-4 md:mb-6">Caminho da Estagnação:</h4>
               <p className="text-lg md:text-2xl lg:text-3xl text-stone-300 leading-relaxed">
                 Continuar "encurvada" por sintomas que ninguém resolve há anos, tratando apenas o galho e ignorando a raiz.
               </p>
@@ -1099,7 +1099,7 @@ export default function App() {
             </div>
 
             <div className="pt-6 md:pt-8">
-              <p className="text-xl md:text-2xl font-serif font-bold text-coral italic">
+              <p className="text-xl md:text-2xl font-serif font-bold text-coral-text italic">
                 "Se você sente paz no coração ao ler estas palavras, essa é a sua direção."
               </p>
             </div>
