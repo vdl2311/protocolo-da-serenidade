@@ -94,7 +94,56 @@ const NotificationPopup = ({ show }: { show: boolean }) => {
     "🛒 Beatriz acabou de adquirir o Protocolo da Serenidade (Anápolis/GO)",
     "🛒 Helena acaba de garantir o acesso com desconto (Petrolina/PE)",
     "🛒 Márcia acabou de adquirir o Protocolo da Serenidade (Dourados/MS)",
-    "🛒 Ivone acaba de garantir o acesso com desconto (Sorocaba/SP)"
+    "🛒 Ivone acaba de garantir o acesso com desconto (Sorocaba/SP)",
+    "🛒 Patrícia acabou de adquirir o Protocolo da Serenidade (Piracicaba/SP)",
+    "🛒 Sandra acaba de garantir o acesso com desconto (Joinville/SC)",
+    "🛒 Luciana acabou de adquirir o Protocolo da Serenidade (Uberlândia/MG)",
+    "🛒 Adriana acaba de garantir o acesso com desconto (Cascavel/PR)",
+    "🛒 Mônica acabou de adquirir o Protocolo da Serenidade (Caruaru/PE)",
+    "🛒 Fernanda acaba de garantir o acesso com desconto (Sobral/CE)",
+    "🛒 Silvana acaba de garantir o acesso com desconto (Imperatriz/MA)",
+    "🛒 Rosana acabou de adquirir o Protocolo da Serenidade (Marabá/PA)",
+    "🛒 Eliane acaba de garantir o acesso com desconto (Rondonópolis/MT)",
+    "🛒 Vera acaba de garantir o acesso com desconto (Ji-Paraná/RO)",
+    "🛒 Marta acaba de garantir o acesso com desconto (Passo Fundo/RS)",
+    "🛒 Neusa acabou de adquirir o Protocolo da Serenidade (Santa Maria/RS)",
+    "🛒 Zélia acaba de garantir o acesso com desconto (Pelotas/RS)",
+    "🛒 Ângela acabou de adquirir o Protocolo da Serenidade (Blumenau/SC)",
+    "🛒 Marli acaba de garantir o acesso com desconto (Chapecó/SC)",
+    "🛒 Inês acaba de garantir o acesso com desconto (Itajaí/SC)",
+    "🛒 Dirce acaba de garantir o acesso com desconto (Criciúma/SC)",
+    "🛒 Cleusa acaba de garantir o acesso com desconto (Ponta Grossa/PR)",
+    "🛒 Alzira acaba de garantir o acesso com desconto (Maringá/PR)",
+    "🛒 Nair acaba de adquirir o Protocolo da Serenidade (Foz do Iguaçu/PR)",
+    "🛒 Hilda acaba de garantir o acesso com desconto (Guarapuava/PR)",
+    "🛒 Odete acabou de adquirir o Protocolo da Serenidade (Bauru/SP)",
+    "🛒 Arlete acaba de garantir o acesso com desconto (São José do Rio Preto/SP)",
+    "🛒 Wilma acabou de adquirir o Protocolo da Serenidade (Presidente Prudente/SP)",
+    "🛒 Gilda acaba de garantir o acesso com desconto (Araçatuba/SP)",
+    "🛒 Dalva acabou de adquirir o Protocolo da Serenidade (Franca/SP)",
+    "🛒 Zilda acaba de garantir o acesso com desconto (Araraquara/SP)",
+    "🛒 Selma acabou de adquirir o Protocolo da Serenidade (São Carlos/SP)",
+    "🛒 Telma acaba de garantir o acesso com desconto (Limeira/SP)",
+    "🛒 Vilma acabou de adquirir o Protocolo da Serenidade (Americana/SP)",
+    "🛒 Edna acaba de garantir o acesso com desconto (Indaiatuba/SP)",
+    "🛒 Olga acabou de adquirir o Protocolo da Serenidade (Itu/SP)",
+    "🛒 Ruth acaba de garantir o acesso com desconto (Taubaté/SP)",
+    "🛒 Ester acabou de adquirir o Protocolo da Serenidade (São José dos Campos/SP)",
+    "🛒 Noemi acaba de garantir o acesso com desconto (Jacareí/SP)",
+    "🛒 Sara acabou de adquirir o Protocolo da Serenidade (Pindamonhangaba/SP)",
+    "🛒 Raquel acaba de garantir o acesso com desconto (Guaratinguetá/SP)",
+    "🛒 Débora acabou de adquirir o Protocolo da Serenidade (Lorena/SP)",
+    "🛒 Miriam acaba de garantir o acesso com desconto (Cruzeiro/SP)",
+    "🛒 Rebeca acabou de adquirir o Protocolo da Serenidade (Resende/RJ)",
+    "🛒 Abigail acaba de garantir o acesso com desconto (Volta Redonda/RJ)",
+    "🛒 Eunice acabou de adquirir o Protocolo da Serenidade (Barra Mansa/RJ)",
+    "🛒 Lídia acaba de garantir o acesso com desconto (Angra dos Reis/RJ)",
+    "🛒 Priscila acabou de adquirir o Protocolo da Serenidade (Cabo Frio/RJ)",
+    "🛒 Marta acaba de garantir o acesso com desconto (Macaé/RJ)",
+    "🛒 Dorcas acabou de adquirir o Protocolo da Serenidade (Campos dos Goytacazes/RJ)",
+    "🛒 Tabita acaba de garantir o acesso com desconto (Nova Friburgo/RJ)",
+    "🛒 Débora acabou de adquirir o Protocolo da Serenidade (Petrópolis/RJ)",
+    "🛒 Noemi acaba de garantir o acesso com desconto (Teresópolis/RJ)"
   ];
 
   const [index, setIndex] = useState(0);
@@ -612,20 +661,58 @@ export default function App() {
                     hidden: { opacity: 0, y: -10 },
                     visible: { opacity: 1, y: 0 }
                   }}
-                  className="flex items-center gap-4 text-white/80 font-bold tracking-[0.2em] mb-10 uppercase text-lg md:text-xl justify-center"
+                  className="flex flex-col items-center gap-4 text-white/80 font-bold tracking-[0.2em] mb-10 uppercase text-lg md:text-xl justify-center text-center"
                 >
-                  <Zap size={32} className="text-coral" /> {aiDiagnosis ? aiDiagnosis.split('\n')[0] : "DIAGNÓSTICO PERSONALIZADO CONCLUÍDO"}
+                  <div className="flex items-center gap-4">
+                    <Zap size={32} className="text-coral" /> DIAGNÓSTICO CONCLUÍDO: SEU SISTEMA HORMONAL PRECISA "ENDIREITAR"
+                  </div>
+                  <p className="text-sm md:text-lg italic font-serif normal-case tracking-normal mt-4 text-white/60">
+                    "Tua palavra é luz para os meus caminhos..." e hoje a ciência traz a luz que você precisava para entender por que seu corpo parece estar "pegando fogo".
+                  </p>
                 </motion.div>
+
+                {aiDiagnosis && (
+                  <div className="flex justify-center mb-10">
+                    <motion.div 
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="bg-coral/20 text-coral px-6 py-2 rounded-full text-sm md:text-base font-bold inline-block"
+                    >
+                      {aiDiagnosis.split('\n')[0]}
+                    </motion.div>
+                  </div>
+                )}
                 
-                <motion.h3 
-                  variants={{
-                    hidden: { opacity: 0, y: 20 },
-                    visible: { opacity: 1, y: 0 }
-                  }}
-                  className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold mb-10 md:mb-14 leading-tight text-white text-center"
-                >
-                  {aiDiagnosis ? aiDiagnosis.split('\n')[1] : `${quiz.userName}, seu corpo está sequestrado pelo "Modo de Sobrevivência".`}
-                </motion.h3>
+                <motion.div className="text-center mb-14 md:mb-20">
+                  <motion.h3 
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                    className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold mb-8 leading-tight text-white"
+                  >
+                    A Revelação do que estava Oculto: Por que a Indústria Tradicional não quer que você descubra o "Interruptor" que silencia a Menopausa em 14 dias?
+                  </motion.h3>
+                  <motion.p 
+                    variants={{
+                      hidden: { opacity: 0, y: 20 },
+                      visible: { opacity: 1, y: 0 }
+                    }}
+                    className="text-xl md:text-3xl text-white/80 font-light leading-relaxed max-w-4xl mx-auto"
+                  >
+                    Descubra a raiz "escondida" que mantém seu corpo encurvado pelo cansaço e como um segredo ancestral das montanhas de Bama pode trazer a paz que seu sono precisa.
+                  </motion.p>
+                </motion.div>
+
+                {aiDiagnosis && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-2xl md:text-5xl font-serif italic text-coral-light mb-14 md:mb-20 text-center leading-tight px-4"
+                  >
+                    {aiDiagnosis.split('\n')[1]}
+                  </motion.div>
+                )}
 
                 <div className="space-y-10 md:space-y-14 mb-14 md:mb-20">
                   <motion.div 
@@ -636,36 +723,26 @@ export default function App() {
                     className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-6 md:p-14 rounded-[3rem] shadow-xl backdrop-blur-sm"
                   >
                     <div className="text-xl md:text-3xl text-stone-200 leading-relaxed font-light space-y-8 text-center">
+                      <p className="text-coral font-bold uppercase tracking-widest text-lg md:text-2xl mb-8">O Problema de Raiz:</p>
+                      <p>
+                        "Você já se sentiu como a mulher do texto bíblico, 'encurvada' por sintomas que ninguém resolve há anos? Você tenta dietas, tenta remédios, mas nada 'endireita' sua energia? Isso acontece porque você está tratando o galho, mas a raiz do problema está no seu <strong>Hipotálamo</strong>."
+                      </p>
+                      <div className="w-16 h-1 bg-white/20 mx-auto my-8" />
                       {aiDiagnosis ? (
-                        aiDiagnosis.split('\n').slice(2).map((line, i) => (
-                          <p key={i} dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
-                        ))
+                        <div className="space-y-8">
+                          {aiDiagnosis.split('\n').slice(2).map((line, i) => (
+                            <p key={i} className="text-white text-2xl md:text-4xl leading-relaxed" dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+                          ))}
+                        </div>
                       ) : (
                         <>
-                          <p>⚠️ Olá, {quiz.userName}. A análise indica que {
-                            quiz.answers[4] === "Sinto que meu corpo simplesmente parou de responder" 
-                              ? "o seu metabolismo <strong>não está apenas lento; ele está bloqueado.</strong>" 
-                              : quiz.answers[4]?.includes("coisa da idade")
-                              ? "você foi levada a acreditar que isso é 'normal da idade', mas seu corpo está em <strong>sinal de pânico.</strong>"
-                              : "o seu metabolismo está operando em um <strong>modo de emergência constante.</strong>"
-                          }</p>
-                          <p>⚠️ {
-                            quiz.answers[0]?.includes("Ondas de calor") ? "As ondas de calor e o suor excessivo" :
-                            quiz.answers[0]?.includes("Insônia") ? "As noites mal dormidas e o cansaço crônico" :
-                            quiz.answers[0]?.includes("Névoa mental") ? "A névoa mental e a falta de foco" :
-                            quiz.answers[0]?.includes("Ganho de peso") ? "O inchaço abdominal e o ganho de peso repentino" :
-                            "O desconforto e o cansaço"
-                          } que você sente são uma <strong>\"inflamação de sobrevivência\"</strong>.</p>
-                          <p>⚠️ Seu Hipotálamo — o termostato do seu corpo — entrou em pânico. <strong>Ele parou de queimar energia</strong> para tentar \"estocar\" gordura como proteção.</p>
-                          <p>✅ {
-                            quiz.answers[2] !== "Não costumo acordar de madrugada"
-                              ? `É por isso que você acorda entre 2h e 4h da manhã. O Protocolo vai <strong>resetar esse sistema</strong> em 14 dias.`
-                              : quiz.answers[0]?.includes("Ondas de calor")
-                              ? `O Protocolo vai neutralizar esse "curto-circuito" térmico e <strong>devolver sua serenidade</strong> em 14 dias.`
-                              : `O Protocolo vai destravar seu metabolismo e <strong>devolver sua energia vital</strong> em 14 dias.`
-                          }</p>
+                          <p>⚠️ Olá, {quiz.userName}. A análise indica que seu metabolismo está operando em um <strong>modo de emergência constante.</strong></p>
                         </>
                       )}
+                      <div className="w-16 h-1 bg-white/20 mx-auto my-8" />
+                      <p className="italic text-white/70">
+                        "Seu corpo não está doente; ele está apenas em um <strong>'Modo de Sobrevivência'</strong> oculto. Ele entende que você está sob ataque e, por isso, gera calorões e estoca gordura para te proteger. É um mecanismo de defesa que precisa ser desligado."
+                      </p>
                     </div>
                   </motion.div>
 
@@ -673,6 +750,9 @@ export default function App() {
 
                   {/* [BOTÃO DE AÇÃO IMEDIATA (ACIMA DA DOBRA)] */}
                   <div className="space-y-6 mb-14">
+                    <p className="text-center text-white font-bold text-xl md:text-3xl px-4 italic">
+                      "Não tome uma decisão precipitada. Reflita: como você quer estar daqui a 14 dias?"
+                    </p>
                     <a 
                       href="https://pay.hotmart.com/Y98549636E?checkoutMode=10" 
                       target="_blank" 
@@ -683,11 +763,11 @@ export default function App() {
                         variant="secondary" 
                         className="w-full py-6 md:py-10 text-xl md:text-4xl shadow-coral/40 bg-coral hover:bg-coral-dark animate-pulse"
                       >
-                        👉 QUERO SILENCIAR MEUS SINTOMAS EM 14 DIAS
+                        👉 SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS
                       </Button>
                     </a>
                     <p className="text-center text-white font-bold text-lg md:text-3xl px-4">
-                      Acesso imediato ao Protocolo da Serenidade por apenas <span className="text-coral">R$ 27,90</span>
+                      Investimento simbólico: <span className="text-coral">R$ 27,90</span>
                     </p>
                   </div>
 
@@ -744,27 +824,27 @@ export default function App() {
               </div>
               <div className="absolute -bottom-10 -right-6 md:-right-12 bg-sage/95 backdrop-blur-md text-white p-10 md:p-14 rounded-[3rem] shadow-2xl max-w-sm border border-white/20">
                 <p className="font-serif italic text-2xl md:text-4xl leading-relaxed">
-                  "O Segredo do Vale da Longevidade"
+                  "O Segredo Protege a Bênção"
                 </p>
               </div>
             </div>
             <div>
               <h2 className="text-3xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-[1.1] tracking-tight text-center">
-                O Segredo do <span className="italic text-coral">"Vale da Longevidade"</span>
+                A Solução <span className="italic text-coral">Ancestral</span>
               </h2>
               <div className="space-y-6 md:space-y-12 text-lg md:text-3xl text-stone-600 leading-relaxed font-light px-4 md:px-0 text-center">
                 <p>
-                  ⚠️ Nas montanhas isoladas de Bama, na China, mulheres de 60 anos têm a <strong>vitalidade de jovens de 30.</strong>
+                  "Nas montanhas de Bama, as mulheres detêm um segredo que as mantém jovens e serenas até os 80 anos. Esse segredo não é vendido em farmácias. É um <strong>Padrão de Recalibragem de 12 minutos</strong> que eu decodifiquei para você."
                 </p>
                 <p>
-                  ⚠️ Elas não são "abençoadas", elas apenas mantêm a <strong>Via Adrenal ativa</strong> e o Hipotálamo em equilíbrio.
+                  <strong>Missão de Cuidado:</strong> "Eu poderia ter levado esse método para grandes corporações, mas escolhi você. Minha missão é garantir que você recupere sua saúde para que possa cuidar da sua família e cumprir o seu propósito com disposição."
                 </p>
-                <p>
-                  ✅ O Protocolo da Serenidade é o único mapa que traduz esse estilo de vida para a <strong>nossa realidade moderna.</strong>
-                </p>
-                <p>
-                  ✅ É uma atualização de "software" que <strong>neutraliza os sinais de pânico</strong> do seu cérebro em questão de dias.
-                </p>
+                <div className="pt-8">
+                  <p className="text-coral font-bold uppercase tracking-widest text-xl mb-4">A Revelação do que estava Oculto:</p>
+                  <p className="text-stone-500 italic">
+                    Descubra a raiz "escondida" que mantém seu corpo encurvado pelo cansaço e como um segredo ancestral das montanhas de Bama pode trazer a paz que seu sono precisa.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -822,24 +902,24 @@ export default function App() {
       <section className="py-32 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="A Vida Após o Reset de 14 Dias:">
-            Histórias de Transformação
+            Vidas que se "Endireitaram"
           </SectionTitle>
           
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: "As ondas de calor quase sumiram!",
-                text: "Eu não aguentava mais trocar de roupa três vezes por noite. O Protocolo me mostrou <strong>como enganar meu hipotálamo</strong>. Hoje, as ondas de calor quase sumiram!",
+                title: "Minha vida se endireitou!",
+                text: "Eu vivia encurvada pelo cansaço e pelas dores que ninguém resolvia. Parecia que meu corpo estava sempre pegando fogo. Com o Protocolo, em 14 dias, senti uma paz que não tinha há anos.",
                 author: "Cláudia, 54 anos"
               },
               {
-                title: "Meu marido notou a diferença!",
-                text: "Eu vivia em uma <strong>névoa mental</strong>. O Ritual Noturno me devolveu o sono e a minha paciência. Meu marido notou a diferença logo na primeira semana!",
+                title: "A raiz foi tratada!",
+                text: "Eu tentava de tudo, mas nada funcionava porque eu só tratava o 'galho'. Quando entendi o segredo do Hipotálamo, tudo mudou. Voltei a dormir como uma pedra.",
                 author: "Patrícia, 49 anos"
               },
               {
-                title: "Até meu médico aprovou!",
-                text: "Eu decidi tentar o plano de 14 dias antes de ir para medicamentos pesados. Meu médico ficou <strong>impressionado com minha energia nos exames</strong> e mandou eu continuar.",
+                title: "Decidi com paz.",
+                text: "Estava desconfiada, mas senti paz ao ler sobre o método. Foi a melhor direção que tomei. Hoje me sinto renovada e com disposição para cuidar da minha família.",
                 author: "Sandra, 57 anos"
               }
             ].map((item, idx) => (
@@ -872,20 +952,16 @@ export default function App() {
           <div className="bg-white rounded-[4rem] shadow-2xl overflow-hidden border border-stone-100 mt-16 md:mt-24">
             <div className="grid lg:grid-cols-5">
               <div className="lg:col-span-3 p-8 md:p-24 bg-sage text-white">
-                <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 md:mb-16 text-center">Missão de Resgate à Vitalidade Feminina</h2>
+                <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 md:mb-16 text-center">Uma Decisão com Paz</h2>
                 <div className="space-y-8 md:space-y-14 text-lg md:text-3xl leading-relaxed font-light px-4 md:px-0 text-center">
-                  <p className="text-2xl md:text-5xl font-serif font-bold text-coral-light mb-8 md:mb-12">Por que custa apenas R$ 27,90?</p>
+                  <p className="text-2xl md:text-5xl font-serif font-bold text-coral-light mb-8 md:mb-12">O Segredo Protege a Bênção</p>
                   <p>
-                    Se você fosse buscar esse suporte em clínicas particulares, o custo seria proibitivo:
+                    Se você sente paz no coração ao ler estas palavras, essa é a sua direção. O investimento é simbólico, para proteger esse segredo e garantir o seu compromisso.
                   </p>
                   <div className="space-y-4 md:space-y-6 bg-white/5 p-6 md:p-10 rounded-2xl md:rounded-[3rem] border border-white/10">
                     <div className="flex justify-between items-center gap-4">
-                      <span>Consulta Integrativa Especializada:</span>
-                      <span className="line-through text-white/50 shrink-0">R$ 800,00</span>
-                    </div>
-                    <div className="flex justify-between items-center gap-4">
-                      <span>Suplementos e Vitaminas Sintéticas:</span>
-                      <span className="line-through text-white/50 shrink-0">R$ 250,00</span>
+                      <span>Valor Real do Conhecimento:</span>
+                      <span className="line-through text-white/50 shrink-0">R$ 97,00</span>
                     </div>
                     <div className="pt-6 md:pt-8 border-t border-white/10 flex justify-between items-center text-2xl md:text-5xl font-bold gap-4">
                       <span>Seu Investimento Hoje:</span>
@@ -893,7 +969,7 @@ export default function App() {
                     </div>
                   </div>
                   <p>
-                    Fizemos esse preço simbólico porque nossa missão é que nenhuma mulher precise sofrer por falta de acesso à informação correta.
+                    Ainda sofrendo com as mesmas dores ocultas ou com a vida "endireitada"? A escolha é sua.
                   </p>
                 </div>
                 
@@ -969,9 +1045,9 @@ export default function App() {
               />
             </div>
             <div className="text-center px-4 md:px-0">
-              <h3 className="text-2xl md:text-5xl font-serif font-bold text-sage-dark mb-4 md:mb-8 uppercase">7 DIAS DE RISCO ZERO</h3>
+              <h3 className="text-2xl md:text-5xl font-serif font-bold text-sage-dark mb-4 md:mb-8 uppercase">GARANTIA DE PAZ (7 DIAS)</h3>
               <p className="text-lg md:text-3xl text-stone-600 leading-relaxed font-light">
-                Siga o plano. Se em 7 dias você não sentir suas ondas de calor diminuindo e seu sono voltando ao normal, eu não quero o seu dinheiro. Basta um e-mail e devolvo 100% do valor. O risco está todo comigo.
+                "O risco é todo meu. Se em 7 dias você não sentir que esse é o caminho certo, eu devolvo seu investimento. Decida com calma, decida com paz."
               </p>
             </div>
           </div>
@@ -1002,41 +1078,29 @@ export default function App() {
       <section className="py-20 md:py-24 px-4 bg-sage-dark text-white text-center">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl md:text-5xl font-serif font-bold mb-6 md:mb-8 px-4">
-            "{quiz.userName}, a decisão agora é sua."
+            "{quiz.userName}, qual será sua direção?"
           </h2>
           
           <div className="space-y-8 md:space-y-12 text-lg md:text-xl leading-relaxed font-light max-w-6xl mx-auto">
-            <p className="text-xl md:text-2xl mb-8">Neste momento, você tem dois caminhos à sua frente:</p>
+            <p className="text-xl md:text-2xl mb-8">Reflita: como você quer estar daqui a 14 dias?</p>
             
             <div className="text-center bg-white/5 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/10">
-              <h4 className="text-xl md:text-3xl font-serif font-bold text-coral mb-4 md:mb-6">Opção 1:</h4>
+              <h4 className="text-xl md:text-3xl font-serif font-bold text-coral mb-4 md:mb-6">Caminho da Estagnação:</h4>
               <p className="text-lg md:text-2xl lg:text-3xl text-stone-300 leading-relaxed">
-                Ignorar este diagnóstico e continuar {
-                  quiz.answers[0]?.includes("Ondas de calor") ? "sofrendo com os calorões súbitos e o suor excessivo" :
-                  quiz.answers[0]?.includes("Insônia") ? "passando noites em claro e acordando exausta" :
-                  quiz.answers[0]?.includes("Névoa mental") ? "lutando contra a falta de foco e o esquecimento" :
-                  quiz.answers[0]?.includes("Ganho de peso") ? "vendo o ponteiro da balança subir sem controle" :
-                  "enfrentando esses sintomas que drenam sua energia"
-                }. Mas você sabe que, se nada mudar, a inflamação só vai aumentar.
+                Continuar "encurvada" por sintomas que ninguém resolve há anos, tratando apenas o galho e ignorando a raiz.
               </p>
             </div>
 
             <div className="text-center bg-white/10 p-6 md:p-12 rounded-[2rem] md:rounded-[2.5rem] border border-white/20 shadow-xl">
-              <h4 className="text-xl md:text-3xl font-serif font-bold text-sage mb-4 md:mb-6">Opção 2:</h4>
+              <h4 className="text-xl md:text-3xl font-serif font-bold text-sage mb-4 md:mb-6">Caminho da Direção:</h4>
               <p className="text-lg md:text-2xl lg:text-3xl text-white leading-relaxed">
-                Ativar o Padrão Bama hoje mesmo. Silenciar os sinais de pânico do seu corpo e recuperar {
-                  quiz.answers[0]?.includes("Ondas de calor") ? "o controle térmico do seu organismo" :
-                  quiz.answers[0]?.includes("Insônia") ? "o sono profundo e reparador" :
-                  quiz.answers[0]?.includes("Névoa mental") ? "a clareza mental e a disposição" :
-                  quiz.answers[0]?.includes("Ganho de peso") ? "o seu peso ideal e a autoestima" :
-                  "a vitalidade e o bem-estar"
-                } que você merece.
+                Ativar o segredo ancestral, silenciar o "Modo de Sobrevivência" e ter sua vida "endireitada" com paz e disposição.
               </p>
             </div>
 
             <div className="pt-6 md:pt-8">
-              <p className="text-xl md:text-2xl font-serif font-bold text-coral">
-                Clique no botão abaixo e escolha a Opção 2.
+              <p className="text-xl md:text-2xl font-serif font-bold text-coral italic">
+                "Se você sente paz no coração ao ler estas palavras, essa é a sua direção."
               </p>
             </div>
           </div>
@@ -1049,7 +1113,7 @@ export default function App() {
               className="inline-block w-full max-w-xl"
             >
               <Button variant="secondary" className="w-full py-6 md:py-8 text-lg md:text-xl shadow-coral/40 bg-coral hover:bg-coral-dark">
-                SIM! QUERO ATIVAR MEU PADRÃO BAMA
+                SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS
               </Button>
             </a>
             <p className="mt-8 text-stone-300 italic text-lg max-w-5xl mx-auto leading-relaxed">
