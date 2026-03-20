@@ -664,7 +664,7 @@ export default function App() {
                     }
                   }
                 }}
-                className="bg-sage text-white rounded-[2.5rem] p-6 md:p-16 shadow-2xl shadow-stone-900/20 border border-white/10"
+                className="bg-sage-dark text-white rounded-[2.5rem] p-6 md:p-16 shadow-2xl shadow-stone-900/20 border border-white/10"
               >
                 <motion.div 
                   variants={{
@@ -851,7 +851,7 @@ export default function App() {
             </div>
             <div>
               <h2 className="text-3xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-[1.1] tracking-tight text-center">
-                O Padrão Bama: <span className="italic text-coral-text">O Segredo de Vitalidade que a Indústria Esconde de Você</span>
+                O Padrão Bama: <span className="italic text-coral-accent">O Segredo de Vitalidade que a Indústria Esconde de Você</span>
               </h2>
               <div className="space-y-6 md:space-y-12 text-lg md:text-3xl text-stone-600 leading-relaxed font-light px-4 md:px-0 text-center">
                 <p>
@@ -946,7 +946,7 @@ export default function App() {
               <div key={idx} className="bg-cream/30 p-10 md:p-14 rounded-[3rem] border border-stone-100 shadow-sm hover:shadow-md transition-shadow relative text-center">
                 <div className="flex justify-center gap-2 mb-6 md:mb-10">
                   {[...Array(5)].map((_, i) => (
-                    <Heart key={i} size={24} className="fill-coral-text text-coral-text" />
+                    <Heart key={i} size={24} className="fill-coral-accent text-coral-accent" />
                   ))}
                 </div>
                 <h4 className="text-2xl md:text-4xl font-serif font-bold text-sage-dark mb-6 md:mb-8">"{item.title}"</h4>
@@ -971,7 +971,7 @@ export default function App() {
 
           <div className="bg-white rounded-[4rem] shadow-2xl overflow-hidden border border-stone-100 mt-16 md:mt-24">
             <div className="grid lg:grid-cols-5">
-              <div className="lg:col-span-3 p-8 md:p-24 bg-sage text-white">
+              <div className="lg:col-span-3 p-8 md:p-24 bg-sage-dark text-white">
                 <h2 className="text-3xl md:text-7xl font-serif font-bold mb-8 md:mb-16 text-center">Uma Decisão com Paz</h2>
                 <div className="space-y-8 md:space-y-14 text-lg md:text-3xl leading-relaxed font-light px-4 md:px-0 text-center">
                   <p className="text-2xl md:text-5xl font-serif font-bold text-coral-text mb-8 md:mb-12">A Proteção da sua Jornada</p>

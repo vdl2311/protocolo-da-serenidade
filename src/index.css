@@ -9,9 +9,11 @@
   --color-sage-dark: #4A5D4D;
   --color-lavender: #967BB6;
   --color-cream: #F9F7F2;
-  --color-coral: #FF7F50;
-  --color-coral-dark: #E66A40;
-  --color-coral-text: #D95D39;
+  --color-coral: #FF8C61;
+  --color-coral-dark: #FF6B3D;
+  --color-coral-text: #FFB38A;
+  --color-coral-accent: #D95D39;
+  --color-coral-vibrant: #FF6B3D;
 }
 
 @layer base {
