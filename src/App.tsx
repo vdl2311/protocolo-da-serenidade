@@ -143,7 +143,17 @@ const NotificationPopup = ({ show }: { show: boolean }) => {
     "🛒 Dorcas acabou de adquirir o Protocolo da Serenidade (Campos dos Goytacazes/RJ)",
     "🛒 Tabita acaba de garantir o acesso com desconto (Nova Friburgo/RJ)",
     "🛒 Débora acabou de adquirir o Protocolo da Serenidade (Petrópolis/RJ)",
-    "🛒 Noemi acaba de garantir o acesso com desconto (Teresópolis/RJ)"
+    "🛒 Noemi acaba de garantir o acesso com desconto (Teresópolis/RJ)",
+    "🛒 Lúcia acabou de adquirir o Protocolo da Serenidade (Sobral/CE)",
+    "🛒 Cláudia acaba de garantir o acesso com desconto (Mossoró/RN)",
+    "🛒 Antônia acabou de adquirir o Protocolo da Serenidade (Juazeiro do Norte/CE)",
+    "🛒 Francisca acaba de garantir o acesso com desconto (Crato/CE)",
+    "🛒 Maria acaba de adquirir o Protocolo da Serenidade (Parnaíba/PI)",
+    "🛒 Josefa acaba de garantir o acesso com desconto (Arapiraca/AL)",
+    "🛒 Raimunda acabou de adquirir o Protocolo da Serenidade (Vitória da Conquista/BA)",
+    "🛒 Sebastiana acaba de garantir o acesso com desconto (Itabuna/BA)",
+    "🛒 Luzia acabou de adquirir o Protocolo da Serenidade (Ilhéus/BA)",
+    "🛒 Terezinha acaba de garantir o acesso com desconto (Jequié/BA)"
   ];
 
   const [index, setIndex] = useState(0);
@@ -214,7 +224,7 @@ const Button = ({
   const baseStyles = "px-6 md:px-12 py-4 md:py-6 rounded-full font-bold transition-all duration-300 ease-out flex items-center justify-center gap-3 text-lg md:text-2xl hover:-translate-y-1 active:translate-y-0 uppercase tracking-wider";
   const variants = {
     primary: "bg-sage text-white hover:bg-sage-dark shadow-lg shadow-sage/20 hover:shadow-xl hover:shadow-sage/30",
-    secondary: "bg-coral text-white hover:bg-[#ff6b3d] shadow-lg shadow-coral/20 hover:shadow-xl hover:shadow-coral/30",
+    secondary: "bg-coral text-white hover:bg-coral-dark shadow-lg shadow-coral/20 hover:shadow-xl hover:shadow-coral/30",
     outline: "border-2 border-sage text-sage hover:bg-sage/5"
   };
 
@@ -664,10 +674,18 @@ export default function App() {
                   className="flex flex-col items-center gap-4 text-white/80 font-bold tracking-[0.2em] mb-10 uppercase text-lg md:text-xl justify-center text-center"
                 >
                   <div className="flex items-center gap-4">
-                    <Zap size={32} className="text-coral-text" /> DIAGNÓSTICO CONCLUÍDO: SEU SISTEMA HORMONAL PRECISA "ENDIREITAR"
+                    <Zap size={32} className="text-coral-text" /> DIAGNÓSTICO PERSONALIZADO LIBERADO COM SUCESSO
+                  </div>
+                  <div className="w-full max-w-md bg-white/10 h-3 rounded-full overflow-hidden mt-6 relative">
+                    <motion.div 
+                      initial={{ width: 0 }}
+                      animate={{ width: "100%" }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      className="absolute top-0 left-0 h-full bg-coral shadow-[0_0_15px_rgba(255,107,107,0.5)]"
+                    />
                   </div>
                   <p className="text-sm md:text-lg italic font-serif normal-case tracking-normal mt-4 text-white/60">
-                    "Tua palavra é luz para os meus caminhos..." e hoje a ciência traz a luz que você precisava para entender por que seu corpo parece estar "pegando fogo".
+                    "Sua jornada para endireitar sua saúde começa agora."
                   </p>
                 </motion.div>
 
@@ -691,7 +709,7 @@ export default function App() {
                     }}
                     className="text-3xl md:text-6xl lg:text-7xl font-serif font-bold mb-8 leading-tight text-white"
                   >
-                    A Revelação do que estava Oculto: Por que a Indústria Tradicional não quer que você descubra o "Interruptor" que silencia a Menopausa em 14 dias?
+                    A Revelação do que Estava Oculto: O "Interruptor Térmico" que Silencia a Menopausa em 14 Dias.
                   </motion.h3>
                   <motion.p 
                     variants={{
@@ -700,7 +718,7 @@ export default function App() {
                     }}
                     className="text-xl md:text-3xl text-white/80 font-light leading-relaxed max-w-4xl mx-auto"
                   >
-                    Descubra a raiz "escondida" que mantém seu corpo encurvado pelo cansaço e como um segredo ancestral das montanhas de Bama pode trazer a paz que seu sono precisa.
+                    "Eu abrirei portas que ninguém pode fechar..." Descubra por que seu corpo entrou no "Modo de Sobrevivência" e como o Segredo de Bama é a chave para recuperar o sono e a paz que você merece.
                   </motion.p>
                 </motion.div>
 
@@ -723,13 +741,20 @@ export default function App() {
                     className="bg-gradient-to-br from-white/[0.08] to-transparent border border-white/10 p-6 md:p-14 rounded-[3rem] shadow-xl backdrop-blur-sm"
                   >
                     <div className="text-xl md:text-3xl text-stone-200 leading-relaxed font-light space-y-8 text-center">
-                      <p className="text-coral-text font-bold uppercase tracking-widest text-lg md:text-2xl mb-8">O Problema de Raiz:</p>
+                      <p className="text-coral-text font-bold uppercase tracking-widest text-lg md:text-2xl mb-8">Por que os caminhos da sua saúde parecem "travados"?</p>
                       <p>
-                        "Você já se sentiu como a mulher do texto bíblico, 'encurvada' por sintomas que ninguém resolve há anos? Você tenta dietas, tenta remédios, mas nada 'endireita' sua energia? Isso acontece porque você está tratando o galho, mas a raiz do problema está no seu <strong>Hipotálamo</strong>."
+                        {quiz.userName}, o seu diagnóstico confirmou: você não está doente, você está apenas com a raiz hormonal fora do lugar.
+                      </p>
+                      <p>
+                        Assim como uma árvore não dá frutos se a raiz estiver sufocada, seu corpo não consegue queimar gordura ou esfriar os calorões se o seu Hipotálamo estiver travado no modo de pânico.
+                      </p>
+                      <p>
+                        Você passou anos tentando tratar os galhos (os sintomas), mas hoje a verdade foi revelada: seu corpo foi "sequestrado" pelo estresse moderno. É hora de endireitar o que o tempo entortou.
                       </p>
                       <div className="w-16 h-1 bg-white/20 mx-auto my-8" />
                       {aiDiagnosis ? (
                         <div className="space-y-8">
+                          <p className="text-coral-text font-bold uppercase tracking-widest text-sm md:text-lg mb-4">Análise Personalizada da IA:</p>
                           {aiDiagnosis.split('\n').slice(2).map((line, i) => (
                             <p key={i} className="text-white text-2xl md:text-4xl leading-relaxed" dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-coral-text">$1</strong>') }} />
                           ))}
@@ -739,10 +764,6 @@ export default function App() {
                           <p>⚠️ Olá, {quiz.userName}. A análise indica que seu metabolismo está operando em um <strong>modo de emergência constante.</strong></p>
                         </>
                       )}
-                      <div className="w-16 h-1 bg-white/20 mx-auto my-8" />
-                      <p className="italic text-white/70">
-                        "Seu corpo não está doente; ele está apenas em um <strong>'Modo de Sobrevivência'</strong> oculto. Ele entende que você está sob ataque e, por isso, gera calorões e estoca gordura para te proteger. É um mecanismo de defesa que precisa ser desligado."
-                      </p>
                     </div>
                   </motion.div>
 
@@ -830,19 +851,18 @@ export default function App() {
             </div>
             <div>
               <h2 className="text-3xl md:text-7xl lg:text-8xl font-serif font-bold text-sage-dark mb-8 md:mb-16 leading-[1.1] tracking-tight text-center">
-                A Solução <span className="italic text-coral-text">Ancestral</span>
+                O Padrão Bama: <span className="italic text-coral-text">O Segredo de Vitalidade que a Indústria Esconde de Você</span>
               </h2>
               <div className="space-y-6 md:space-y-12 text-lg md:text-3xl text-stone-600 leading-relaxed font-light px-4 md:px-0 text-center">
                 <p>
-                  "Nas montanhas de Bama, as mulheres detêm um segredo que as mantém jovens e serenas até os 80 anos. Esse segredo não é vendido em farmácias. É um <strong>Padrão de Recalibragem de 12 minutos</strong> que eu decodifiquei para você."
+                  Existe um lugar onde mulheres de 70 anos têm a vitalidade de 30. Elas não conhecem calorões, não sofrem com insônia e mantêm o peso ideal sem esforço.
                 </p>
                 <p>
-                  <strong>Missão de Cuidado:</strong> "Eu poderia ter levado esse método para grandes corporações, mas escolhi você. Minha missão é garantir que você recupere sua saúde para que possa cuidar da sua família e cumprir o seu propósito com disposição."
+                  Esse é o Padrão Bama. Um método de 12 minutos que recalibra sua <strong>"Via Adrenal"</strong> e sinaliza ao seu cérebro que o tempo de sofrer acabou.
                 </p>
                 <div className="pt-8">
-                  <p className="text-coral-text font-bold uppercase tracking-widest text-xl mb-4">A Verdade que foi Escondida:</p>
                   <p className="text-stone-500 italic">
-                    Descubra a raiz "escondida" que mantém seu corpo encurvado pelo cansaço e como um segredo ancestral das montanhas de Bama pode trazer a paz que seu sono precisa.
+                    Não conte para as pessoas negativas que você encontrou este caminho. Deixe que elas vejam apenas o seu brilho voltando, sua paz restaurada e seu corpo transformado. O seu resultado será a sua maior resposta.
                   </p>
                 </div>
               </div>
@@ -944,7 +964,7 @@ export default function App() {
       <section id="offer" className="py-32 px-4 bg-cream">
         <div className="max-w-7xl mx-auto">
           <SectionTitle subtitle="Comece sua jornada de 14 dias hoje mesmo">
-            O Seu Protocolo da Serenidade
+            Apresentando: O Protocolo da Serenidade (Método de 14 Dias)
           </SectionTitle>
           
           <ProductMockup />
@@ -974,19 +994,19 @@ export default function App() {
                 </div>
                 
                 <div className="mt-14 md:mt-20 pt-10 md:pt-16 border-t border-white/20">
-                  <h4 className="text-2xl md:text-4xl font-bold mb-8 md:mb-12 text-center">O que você recebe hoje:</h4>
+                  <h4 className="text-2xl md:text-4xl font-bold mb-8 md:mb-12 text-center">O que você vai receber:</h4>
                   <div className="grid gap-6 md:gap-10">
                     <div className="flex items-center gap-4 md:gap-6 justify-center">
                       <div className="w-10 h-10 md:w-14 md:h-14 bg-coral rounded-full flex items-center justify-center font-bold text-lg md:text-2xl shrink-0">✓</div>
-                      <p className="text-xl md:text-3xl">Protocolo da Serenidade Completo</p>
+                      <p className="text-xl md:text-3xl">O Reset da Manhã: O ritual para sinalizar paz ao seu corpo logo ao acordar.</p>
                     </div>
                     <div className="flex items-center gap-4 md:gap-6 justify-center">
                       <div className="w-10 h-10 md:w-14 md:h-14 bg-coral rounded-full flex items-center justify-center font-bold text-lg md:text-2xl shrink-0">✓</div>
-                      <p className="text-xl md:text-3xl">Plano Alimentar de 14 Dias</p>
+                      <p className="text-xl md:text-3xl">O Escudo Térmico: Como apagar o incêndio interno naturalmente.</p>
                     </div>
                     <div className="flex items-center gap-4 md:gap-6 justify-center">
                       <div className="w-10 h-10 md:w-14 md:h-14 bg-coral rounded-full flex items-center justify-center font-bold text-lg md:text-2xl shrink-0">✓</div>
-                      <p className="text-xl md:text-3xl">Acesso Vitalício e Bônus Exclusivos</p>
+                      <p className="text-xl md:text-3xl">O Mapa do Metabolismo Bama: Destrave a queima de gordura mesmo após os 50.</p>
                     </div>
                   </div>
                 </div>
@@ -1001,7 +1021,7 @@ export default function App() {
                     Acesso Imediato • 100% Digital
                   </span>
                   <div className="flex flex-col items-center justify-center mt-10">
-                    <span className="text-stone-400 line-through text-2xl md:text-4xl font-medium">De: R$ 97,00</span>
+                    <span className="text-stone-400 line-through text-2xl md:text-4xl font-medium">De: R$ 197,00</span>
                     <div className="text-2xl md:text-4xl font-bold text-sage-dark mt-4">Por apenas:</div>
                     <div className="text-6xl md:text-9xl font-bold text-coral-text mt-4 tracking-tight">
                       R$ 27<span className="text-3xl md:text-6xl">,90</span>
@@ -1016,7 +1036,7 @@ export default function App() {
                   className="w-full"
                 >
                   <Button variant="secondary" className="w-full py-6 md:py-12 text-xl md:text-4xl shadow-coral/30 bg-coral hover:bg-coral-dark">
-                    👉 SIM! QUERO INICIAR MEU PROTOCOLO DE 14 DIAS AGORA
+                    👉 SIM! QUERO MINHA CHAVE PARA A SERENIDADE AGORA
                   </Button>
                 </a>
 
@@ -1045,9 +1065,9 @@ export default function App() {
               />
             </div>
             <div className="text-center px-4 md:px-0">
-              <h3 className="text-2xl md:text-5xl font-serif font-bold text-sage-dark mb-4 md:mb-8 uppercase">GARANTIA DE PAZ (7 DIAS)</h3>
+              <h3 className="text-2xl md:text-5xl font-serif font-bold text-sage-dark mb-4 md:mb-8 uppercase">"Decisões Decidem Destinos"</h3>
               <p className="text-lg md:text-3xl text-stone-600 leading-relaxed font-light">
-                "O risco é todo meu. Se em 7 dias você não sentir que esse é o caminho certo, eu devolvo seu investimento. Decida com calma, decida com paz."
+                Não tome uma decisão precipitada. Eu quero que você clique nesse botão apenas se sentir paz no coração. Para que você decida com total tranquilidade, eu te dou 7 dias de Garantia Incondicional. Se em uma semana você não sentir que seus caminhos estão se abrindo e sua saúde está se endireitando, eu devolvo 100% do seu investimento. O risco é meu. Sua paz é o que importa.
               </p>
             </div>
           </div>
