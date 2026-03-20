@@ -1136,14 +1136,14 @@ export default function App() {
               </Button>
             </a>
             <p className="mt-8 text-stone-300 italic text-lg max-w-5xl mx-auto leading-relaxed">
-              P.S: Lembre-se, você não corre risco nenhum. Se em 14 dias você não sentir que sua energia voltou ou que seu sono melhorou, eu devolvo cada centavo. Sem perguntas.
+              P.S: Lembre-se, você não corre risco nenhum. Se em 7 dias você não sentir que sua energia voltou ou que seu sono melhorou, eu devolvo cada centavo. Sem perguntas.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-4 text-stone-400 text-lg font-bold uppercase tracking-widest">
               <span>Pagamento 100% Seguro</span>
               <span className="hidden md:inline">•</span>
               <span>Acesso Imediato via E-mail</span>
               <span className="hidden md:inline">•</span>
-              <span>Garantia de 14 Dias</span>
+              <span>Garantia de 7 Dias</span>
             </div>
           </div>
         </div>
