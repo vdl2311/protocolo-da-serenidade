@@ -31,7 +31,8 @@ export async function generateDiagnosis(userName: string, answers: string[]) {
       model: "gemini-3-flash-preview",
       contents: prompt,
     });
-    return response.text || "Não foi possível gerar seu diagnóstico no momento. Por favor, tente novamente.";
+    const text = response.text || "Não foi possível gerar seu diagnóstico no momento. Por favor, tente novamente.";
+    return text.replace(/Análise Personalizada da IA:?\s*\n?/gi, "").trim();
   } catch (error) {
     console.error("Erro ao gerar diagnóstico:", error);
     return "Ocorreu um erro ao processar seu diagnóstico personalizado. Mas não se preocupe, o Protocolo da Serenidade foi desenhado exatamente para o seu perfil.";

@@ -754,7 +754,6 @@ export default function App() {
                       <div className="w-16 h-1 bg-white/20 mx-auto my-8" />
                       {aiDiagnosis ? (
                         <div className="space-y-8">
-                          <p className="text-coral-text font-bold uppercase tracking-widest text-sm md:text-lg mb-4">Análise Personalizada da IA:</p>
                           {aiDiagnosis.split('\n').slice(2).map((line, i) => (
                             <p key={i} className="text-white text-2xl md:text-4xl leading-relaxed" dangerouslySetInnerHTML={{ __html: line.replace(/\*\*(.*?)\*\*/g, '<strong class="text-coral-text">$1</strong>') }} />
                           ))}
