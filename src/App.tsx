@@ -65,14 +65,14 @@ const CountdownTimer = ({ show }: { show: boolean }) => {
           initial={{ y: -100 }}
           animate={{ y: 0 }}
           exit={{ y: -100 }}
-          className="fixed top-0 left-0 right-0 z-[150] bg-coral text-white py-2 md:py-3 px-2 md:px-4 shadow-lg flex items-center justify-center gap-2 md:gap-6"
+          className="fixed top-0 left-0 right-0 z-[150] bg-amber-50 text-amber-900 py-2 md:py-3 px-2 md:px-4 shadow-sm border-b border-amber-100 flex items-center justify-center gap-2 md:gap-6"
         >
           <div className="flex items-center gap-1 md:gap-2">
-            <Zap size={16} className="text-white animate-pulse hidden sm:block md:w-6 md:h-6" />
-            <span className="text-[14px] sm:text-base md:text-2xl font-black uppercase tracking-tight sm:tracking-wider md:tracking-[0.2em]">Oferta Especial termina em:</span>
+            <Zap size={16} className="text-amber-600 animate-pulse hidden sm:block md:w-6 md:h-6" />
+            <span className="text-[14px] sm:text-base md:text-2xl font-black uppercase tracking-tight sm:tracking-wider md:tracking-[0.2em]">⏱️ Oportunidade Única: O seu diagnóstico personalizado expira em:</span>
           </div>
-          <div className="flex items-center gap-1 md:gap-3 font-mono font-bold text-base md:text-3xl bg-white/20 px-3 md:px-4 py-2 md:py-2 rounded-lg md:rounded-xl shrink-0">
-            <Clock size={20} className="animate-pulse md:w-6 md:h-6" />
+          <div className="flex items-center gap-1 md:gap-3 font-mono font-bold text-base md:text-3xl bg-amber-100 px-3 md:px-4 py-2 md:py-2 rounded-lg md:rounded-xl shrink-0">
+            <Clock size={20} className="text-amber-600 animate-pulse md:w-6 md:h-6" />
             <span>{formatTime(timeLeft)}</span>
           </div>
         </motion.div>
@@ -749,7 +749,7 @@ export default function App() {
                         Assim como uma árvore não dá frutos se a raiz estiver sufocada, seu corpo não consegue queimar gordura ou esfriar os calorões se o seu Hipotálamo estiver travado no modo de pânico.
                       </p>
                       <p>
-                        Você passou anos tentando tratar os galhos (os sintomas), mas hoje a verdade foi revelada: seu corpo foi "sequestrado" pelo estresse moderno. É hora de endireitar o que o tempo entortou.
+                        ⚠️ <strong>A Implicação Real:</strong> Você passou anos tratando os "galhos" (os sintomas), mas hoje a verdade foi revelada: seu corpo foi "sequestrado" pelo estresse moderno. É hora de endireitar o que o tempo entortou.
                       </p>
                       <div className="w-16 h-1 bg-white/20 mx-auto my-8" />
                       {aiDiagnosis ? (
@@ -760,7 +760,7 @@ export default function App() {
                         </div>
                       ) : (
                         <>
-                          <p>⚠️ Olá, {quiz.userName}. A análise indica que seu metabolismo está operando em um <strong>modo de emergência constante.</strong></p>
+                          <p>⚠️ {quiz.userName}, o seu diagnóstico confirmou: você não está doente, você está apenas com a raiz hormonal fora do lugar.</p>
                         </>
                       )}
                     </div>
@@ -803,15 +803,15 @@ export default function App() {
                     <div className="grid gap-6">
                       <div className="flex items-center gap-6 text-stone-200 justify-center md:justify-center">
                         <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral-text shrink-0 font-bold">✓</div>
-                        <p className="text-xl md:text-2xl text-center"><strong>Método 100% Natural:</strong> Sem hormônios sintéticos ou efeitos colaterais.</p>
+                        <p className="text-xl md:text-2xl text-center"><strong>Método 100% Natural</strong></p>
                       </div>
                       <div className="flex items-center gap-6 text-stone-200 justify-center md:justify-center">
                         <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral-text shrink-0 font-bold">✓</div>
-                        <p className="text-xl md:text-2xl text-center"><strong>Apenas 12 minutos:</strong> Rituais simples que cabem na sua rotina exausta.</p>
+                        <p className="text-xl md:text-2xl text-center"><strong>Apenas 12 minutos por dia</strong></p>
                       </div>
                       <div className="flex items-center gap-6 text-stone-200 justify-center md:justify-center">
                         <div className="w-10 h-10 bg-coral/20 rounded-full flex items-center justify-center text-coral-text shrink-0 font-bold">✓</div>
-                        <p className="text-xl md:text-2xl text-center"><strong>Alívio em 7 dias:</strong> Sinta a primeira noite de sono profundo já na primeira semana.</p>
+                        <p className="text-xl md:text-2xl text-center"><strong>Alívio sentido na primeira semana</strong></p>
                       </div>
                     </div>
                   </motion.div>
@@ -850,14 +850,14 @@ export default function App() {
             </div>
             <div>
               <h2 className="text-3xl md:text-5xl lg:text-7xl font-serif font-bold text-sage-dark mb-8 md:mb-12 leading-[1.1] tracking-tight text-center">
-                O Padrão Bama: <span className="italic text-coral-accent">O Segredo de Vitalidade que a Indústria Esconde de Você</span>
+                O que é o Padrão Bama?
               </h2>
               <div className="space-y-6 md:space-y-10 text-lg md:text-2xl text-stone-600 leading-relaxed font-light px-4 md:px-0 text-center">
                 <p>
-                  Existe um lugar onde mulheres de 70 anos têm a vitalidade de 30. Elas não conhecem calorões, não sofrem com insônia e mantêm o peso ideal sem esforço.
+                  Existe um lugar onde mulheres de 70 anos têm a vitalidade de 30. Elas não conhecem calorões e não sofrem com insônia. O segredo delas não está em remédios, mas em como elas sinalizam "Paz" para o cérebro através da Via Adrenal.
                 </p>
                 <p>
-                  Esse é o Padrão Bama. Um método de 12 minutos que recalibra sua <strong>"Via Adrenal"</strong> e sinaliza ao seu cérebro que o tempo de sofrer acabou.
+                  O Protocolo da Serenidade é o método de 12 minutos que recalibra o seu <strong>"Interruptor Térmico"</strong>, ensinando seu corpo que o tempo de sofrer acabou.
                 </p>
                 <div className="pt-8">
                   <p className="text-stone-500 italic">
@@ -877,29 +877,23 @@ export default function App() {
         </div>
         
         <div className="max-w-7xl mx-auto relative z-10">
-          <SectionTitle light subtitle="O que vai acontecer nos próximos 14 dias:">
+          <SectionTitle light subtitle="O que vai acontecer com você nas próximas 2 semanas:">
             O Seu Plano de Transformação
           </SectionTitle>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
             {[
               {
-                title: "Alívio Rápido",
-                desc: "Você aplicará o \"Interruptor Térmico\" para neutralizar calorões instantaneamente.",
+                title: "FASE 1: O Reset Térmico",
+                desc: "Você aplicará o ritual para neutralizar os calorões instantaneamente e sentirá a primeira noite de sono profundo.",
                 icon: <Flame className="text-coral-text" />,
-                tag: "Dia 1-3"
+                tag: "Dias 1-7"
               },
               {
-                title: "Sono Profundo",
-                desc: "O Ritual de 12 Minutos estabilizará sua glicose para um sono sem interrupções.",
-                icon: <Moon className="text-lavender" />,
-                tag: "Dia 4-7"
-              },
-              {
-                title: "Plano Alimentar",
-                desc: "Você saberá exatamente quais ingredientes baratos ativam o Padrão Bama no seu prato.",
+                title: "FASE 2: A Blindagem de Bama",
+                desc: "Você aprenderá as combinações de alimentos que mantêm sua temperatura estável e destravam seu metabolismo.",
                 icon: <Scale className="text-sage" />,
-                tag: "Dia 8-14"
+                tag: "Dias 8-14"
               }
             ].map((item, idx) => (
               <div key={idx} className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 md:p-14 rounded-[3rem] hover:bg-white/10 hover:-translate-y-1 transition-all duration-300 group">
@@ -962,7 +956,7 @@ export default function App() {
       {/* --- OFFER SECTION (BLOCK 5) --- */}
       <section id="offer" className="py-32 px-4 bg-cream">
         <div className="max-w-7xl mx-auto">
-          <SectionTitle subtitle="Comece sua jornada de 14 dias hoje mesmo">
+          <SectionTitle subtitle="Sua saúde precisa de uma direção. Qual você vai escolher?">
             Apresentando: O Protocolo da Serenidade (Método de 14 Dias)
           </SectionTitle>
           
@@ -971,7 +965,7 @@ export default function App() {
           <div className="bg-white rounded-[4rem] shadow-2xl overflow-hidden border border-stone-100 mt-16 md:mt-24">
             <div className="grid lg:grid-cols-5">
               <div className="lg:col-span-3 p-8 md:p-16 bg-sage-dark text-white">
-                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-8 md:mb-12 text-center">Uma Decisão com Paz</h2>
+                <h2 className="text-3xl md:text-5xl font-serif font-bold mb-8 md:mb-12 text-center">Investimento Simbólico</h2>
                 <div className="space-y-8 md:space-y-10 text-lg md:text-xl leading-relaxed font-light px-4 md:px-0 text-center">
                   <p className="text-2xl md:text-3xl font-serif font-bold text-coral-text mb-8 md:mb-10">A Proteção da sua Jornada</p>
                   <p>
@@ -980,13 +974,16 @@ export default function App() {
                   <div className="space-y-4 md:space-y-6 bg-white/5 p-6 md:p-8 rounded-2xl md:rounded-[3rem] border border-white/10">
                     <div className="flex justify-between items-center gap-4">
                       <span>Valor Real do Conhecimento:</span>
-                      <span className="line-through text-white/50 shrink-0">R$ 97,00</span>
+                      <span className="line-through text-white/50 shrink-0">R$ 197,00</span>
                     </div>
                     <div className="pt-6 md:pt-8 border-t border-white/10 flex justify-between items-center text-2xl md:text-3xl font-bold gap-4">
                       <span>Seu Investimento Hoje:</span>
                       <span className="text-coral-text shrink-0">R$ 27,90</span>
                     </div>
                   </div>
+                  <p className="italic text-stone-300">
+                    (Menos de R$ 1,00 por dia para ter sua vida de volta)
+                  </p>
                   <p>
                     Ainda sofrendo com as mesmas dores ocultas ou com a vida "endireitada"? A escolha é sua.
                   </p>
@@ -1035,7 +1032,7 @@ export default function App() {
                   className="w-full"
                 >
                   <Button variant="secondary" className="w-full py-6 md:py-8 text-xl md:text-2xl shadow-coral/30 bg-coral hover:bg-coral-dark">
-                    👉 SIM! QUERO MINHA CHAVE PARA A SERENIDADE AGORA
+                    👉 SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS
                   </Button>
                 </a>
 
@@ -1132,7 +1129,7 @@ export default function App() {
               className="inline-block w-full max-w-xl"
             >
               <Button variant="secondary" className="w-full py-6 md:py-8 text-lg shadow-coral/40 bg-coral hover:bg-coral-dark">
-                SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS
+                👉 SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS
               </Button>
             </a>
             <p className="mt-8 text-stone-300 italic text-lg max-w-5xl mx-auto leading-relaxed">
@@ -1207,7 +1204,7 @@ export default function App() {
               className="block"
             >
               <Button variant="secondary" className="w-full py-3 text-lg shadow-2xl bg-coral hover:bg-coral-dark border-2 border-white/20">
-                👉 QUERO MEU PROTOCOLO (R$ 27,90)
+                👉 SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS
               </Button>
             </a>
           </motion.div>
@@ -1232,7 +1229,7 @@ export default function App() {
               className="block"
             >
               <Button variant="secondary" className="py-6 md:py-8 px-8 md:px-12 text-xl md:text-2xl shadow-2xl bg-coral hover:bg-coral-dark border-2 md:border-4 border-white/20">
-                👉 QUERO MEU PROTOCOLO (R$ 27,90)
+                👉 SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS
               </Button>
             </a>
           </motion.div>
