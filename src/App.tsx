@@ -238,7 +238,7 @@ export default function App() {
 
     const safetyTimeout = setTimeout(() => {
       aiFinishedRef.current = true;
-    }, 12000);
+    }, 6000);
 
     const interval = setInterval(() => {
       setAnalysisProgress(prev => {
@@ -248,13 +248,13 @@ export default function App() {
           setTimeout(() => {
             setQuiz(prevQuiz => ({ ...prevQuiz, step: 'diagnosis' }));
             setIsGenerating(false);
-          }, 800);
+          }, 400);
           return 100;
         }
         let nextProgress;
-        if (prev < 70) nextProgress = prev + (Math.random() * 3 + 1.5);
-        else if (prev < 90) nextProgress = prev + (Math.random() * 0.8 + 0.3);
-        else if (prev < 99) nextProgress = prev + 0.1;
+        if (prev < 70) nextProgress = prev + (Math.random() * 5 + 3);
+        else if (prev < 90) nextProgress = prev + (Math.random() * 2 + 1);
+        else if (prev < 99) nextProgress = prev + 0.5;
         else nextProgress = 99;
         return Math.min(nextProgress, 99);
       });
