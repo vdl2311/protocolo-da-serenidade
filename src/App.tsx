@@ -129,7 +129,12 @@ export default function App() {
   // Scroll to top ONLY on diagnosis step
   useEffect(() => {
     if (quiz.step === 'diagnosis') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo(0, 0);
+      // Fallback for some browsers or race conditions with rendering
+      const timeout = setTimeout(() => {
+        window.scrollTo(0, 0);
+      }, 100);
+      return () => clearTimeout(timeout);
     }
   }, [quiz.step]);
 
