@@ -420,7 +420,7 @@ export default function App() {
                 {/* Countdown Timer Bar */}
                 <div className="bg-[#FFF9F0] py-3 px-4 border-b border-amber-100 sticky top-0 z-[110] shadow-sm">
                   <div className="max-w-3xl mx-auto flex flex-col md:flex-row items-center justify-between gap-2">
-                    <p className="text-[10px] md:text-sm font-black text-amber-900 uppercase tracking-tight text-center md:text-left leading-tight">
+                    <p className="text-[12px] md:text-base font-black text-amber-900 uppercase tracking-tight text-center md:text-left leading-tight">
                       ⚠️ OPORTUNIDADE ÚNICA: O SEU DIAGNÓSTICO PERSONALIZADO EXPIRA EM:
                     </p>
                     <div className="flex items-center gap-2 bg-amber-100/50 px-3 py-1 rounded-lg border border-amber-200">
@@ -557,14 +557,14 @@ export default function App() {
 
                   <footer>
                     <p>Protocolo da Serenidade &nbsp;·&nbsp; Produto 100% Digital &nbsp;·&nbsp; © 2026 Todos os direitos reservados.</p>
-                    <p style={{ marginTop: '8px', fontSize: '11.5px', color: '#444' }}>Este produto não substitui acompanhamento médico profissional. Consulte seu médico antes de iniciar qualquer mudança na dieta ou estilo de vida.</p>
+                    <p style={{ marginTop: '8px', fontSize: '14px', color: '#444' }}>Este produto não substitui acompanhamento médico profissional. Consulte seu médico antes de iniciar qualquer mudança na dieta ou estilo de vida.</p>
                   </footer>
                 </div>
 
                 {/* Sticky Bottom Button */}
                 <div className="fixed bottom-0 left-0 w-full p-4 bg-white/90 backdrop-blur-md border-t border-stone-200 z-[100] shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
                   <div className="max-w-md mx-auto text-center">
-                    <p className="text-[10px] font-sans text-stone-500 mb-2 flex items-center justify-center gap-1 uppercase font-bold tracking-wider">
+                    <p className="text-[12px] font-sans text-stone-500 mb-2 flex items-center justify-center gap-1 uppercase font-bold tracking-wider">
                       🔒 PAGAMENTO SEGURO | ACESSO IMEDIATO
                     </p>
                     <a 
