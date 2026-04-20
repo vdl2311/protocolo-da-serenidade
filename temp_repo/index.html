@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Protocolo da Serenidade — Laura</title>
+    <script>
+      // Fix for "Uncaught TypeError: Cannot set property fetch of #<Window> which has only a getter"
+      (function() {
+        if (!window.fetch) return;
+        var descriptor = Object.getOwnPropertyDescriptor(window, 'fetch');
+        if (descriptor && !descriptor.configurable) {
+          console.warn('window.fetch is non-configurable, skipping polyfill attempt.');
+          return;
+        }
+        var _fetch = window.fetch;
+        try {
+          Object.defineProperty(window, 'fetch', {
+            enumerable: true,
+            configurable: true,
+            get: function() { return _fetch; },
+            set: function(v) { 
+              console.warn('Attempted to overwrite window.fetch. Ignoring to prevent TypeError.');
+            }
+          });
+        } catch (e) {
+          console.error('Failed to redefine window.fetch', e);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

@@ -33,7 +33,7 @@ const NotificationPopup = ({ show }: { show: boolean }) => {
     "🛒 Maria acabou de adquirir o Protocolo da Serenidade (Ribeirão Preto/SP)",
     "🛒 Tereza acaba de garantir o acesso com desconto (Juiz de Fora/MG)",
     "🔥 Mais de 1.247 mulheres já iniciaram o Reset de 14 dias este mês.",
-    "📢 Apenas 4 vagas restantes com o valor promocional de R$ 37,90.",
+    "📢 Apenas 4 vagas restantes com o valor promocional de R$ 47,90.",
   ];
 
   const [index, setIndex] = useState(0);
@@ -106,7 +106,7 @@ const Button = ({
 };
 
 export default function App() {
-  const [quiz, setQuiz] = useState<QuizState>({ step: 0, answers: [], userName: '' });
+  const [quiz, setQuiz] = useState<QuizState>({ step: 'name', answers: [], userName: '' });
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [aiDiagnosis, setAiDiagnosis] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -199,8 +199,7 @@ export default function App() {
   const handleNameSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (quiz.userName.trim()) {
-      setQuiz(prev => ({ ...prev, step: 'analyzing' }));
-      startAnalysis(quiz.answers);
+      setQuiz(prev => ({ ...prev, step: 0 }));
     }
   };
 
@@ -213,8 +212,9 @@ export default function App() {
       setQuiz(prev => ({
         ...prev,
         answers: finalAnswers,
-        step: 'name'
+        step: 'analyzing'
       }));
+      startAnalysis(finalAnswers);
     } else {
       setQuiz(prev => ({
         ...prev,
@@ -295,14 +295,14 @@ export default function App() {
                 className="bg-white/95 backdrop-blur-xl rounded-[2rem] md:rounded-[2.5rem] p-6 md:p-14 shadow-2xl shadow-stone-900/10 border border-white"
               >
                 <p className="text-stone-600 mb-8 md:mb-10 text-lg md:text-xl leading-relaxed italic border-l-4 md:border-l-6 border-sage pl-4 md:pl-8">
-                  "Sintomas registrados com sucesso. O Padrão Bama é o nome dado ao equilíbrio hormonal perfeito encontrado numa vila na China. Estamos prontos para cruzar os seus dados com esses biomarcadores."
+                  "O Padrão Bama é o nome dado ao equilíbrio hormonal perfeito encontrado em uma vila isolada na China, onde a menopausa é vivida com total serenidade. Este quiz vai comparar seus sintomas atuais com os biomarcadores de Bama para criar o seu Protocolo da Serenidade personalizado."
                 </p>
                 <div className="flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-8 mb-8 md:mb-10 text-center md:text-left">
                   <div className="p-3 md:p-4 bg-cream rounded-2xl md:rounded-3xl shrink-0">
                     <Heart size={32} className="text-sage md:w-8 md:h-8" />
                   </div>
                   <h3 className="text-xl md:text-3xl font-serif font-bold text-sage-dark">
-                    Para finalizar e personalizar seu diagnóstico, qual é o seu nome?
+                    Antes de começarmos, como podemos te chamar?
                   </h3>
                 </div>
                 <form onSubmit={handleNameSubmit} className="space-y-6 md:space-y-8">
@@ -317,7 +317,7 @@ export default function App() {
                     />
                   </div>
                   <Button type="submit" className="w-full py-4 md:py-6 text-xl md:text-2xl">
-                    Ver Meu Diagnóstico <ArrowRight size={24} className="md:w-6 md:h-6" />
+                    Iniciar Diagnóstico <ArrowRight size={24} className="md:w-6 md:h-6" />
                   </Button>
                 </form>
               </motion.div>
@@ -500,7 +500,7 @@ export default function App() {
 
                         <div className="price-block">
                           <div className="total-line">Valor total do pacote: <s>R$ 352,00</s> por</div>
-                          <div className="price-big">R$ 37,90</div>
+                          <div className="price-big">R$ 47,90</div>
                           <div className="price-note">Pagamento único · Menos que um jantar fora · Acesso imediato e vitalício</div>
                         </div>
 
@@ -508,7 +508,7 @@ export default function App() {
 
                         <div className="btn-wrap">
                           <a href="https://pay.hotmart.com/Y98549636E?checkoutMode=10" target="_blank" rel="noopener noreferrer" className="btn">
-                            👉 SIM! QUERO MEU RESET DE 14 DIAS AGORA — R$ 37,90
+                            👉 SIM! QUERO MEU RESET DE 14 DIAS AGORA — R$ 47,90
                             <small>Clique para garantir acesso imediato com todos os bônus.</small>
                           </a>
                         </div>
@@ -549,11 +549,11 @@ export default function App() {
                   <div style={{ padding: '52px 0', background: '#fff' }}>
                     <div className="wrap">
                       <h2 className="mini-head" style={{ textAlign: 'center', marginBottom: '16px' }}>Você chegou até aqui por um motivo.</h2>
-                      <p className="center">A névoa, o cansaço, a irritabilidade que você sente — você sabe que isso não é "só a menopausa". A decisão de R$ 37,90 é o que separa esses dois futuros.</p>
+                      <p className="center">A névoa, o cansaço, a irritabilidade que você sente — você sabe que isso não é "só a menopausa". A decisão de R$ 47,90 é o que separa esses dois futuros.</p>
                       <div className="arrow-down" style={{ margin: '20px 0 8px' }}>▼ ▼ ▼</div>
                       <div className="btn-wrap">
                         <a href="https://pay.hotmart.com/Y98549636E?checkoutMode=10" target="_blank" rel="noopener noreferrer" className="btn" style={{ fontSize: '18px' }}>
-                          👉 QUERO MEU RESET DE 14 DIAS — R$ 37,90
+                          👉 QUERO MEU RESET DE 14 DIAS — R$ 47,90
                           <small>Acesso imediato · 7 dias de garantia incondicional · Risco zero</small>
                         </a>
                       </div>
@@ -578,7 +578,7 @@ export default function App() {
                       rel="noopener noreferrer" 
                       className="block bg-[#1a6e35] text-white text-center py-4 px-2 rounded-full text-sm md:text-lg font-black hover:bg-[#145228] transition-all shadow-lg shadow-green-900/20 active:translate-y-1 uppercase tracking-tight"
                     >
-                      👉 SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS — R$ 37,90
+                      👉 SIM! QUERO MINHA DIREÇÃO E MEU RESET DE 14 DIAS — R$ 47,90
                     </a>
                   </div>
                 </div>
