@@ -284,7 +284,22 @@ export default function App() {
         )}
         
         <div className="relative max-w-7xl mx-auto z-10">
-          <div className="max-w-7xl mx-auto">
+          <div className="max-w-4xl mx-auto">
+            {quiz.step !== 'diagnosis' && quiz.step !== 'analyzing' && (
+              <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-center mb-12 md:mb-16"
+              >
+                <h2 className="text-3xl md:text-5xl font-serif font-black text-sage-dark mb-4 md:mb-6 leading-tight">
+                  Descubra o Motivo do Seu Cansaço e <span className="text-coral">Recupere Sua Serenidade</span>
+                </h2>
+                <p className="text-stone-600 text-lg md:text-2xl max-w-2xl mx-auto">
+                  Responda estas 6 perguntas rápidas para cruzar seus sintomas com os biomarcadores do Padrão Bama.
+                </p>
+              </motion.div>
+            )}
+
             <AnimatePresence mode="wait">
               {quiz.step === 'name' ? (
               <motion.div
