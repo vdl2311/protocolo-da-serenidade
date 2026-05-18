@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Star, ShieldCheck, ChevronDown, Lock, Zap, Clock, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import { LegalView } from './components/Legal';
 
 const checkoutLink = "https://pay.hotmart.com/Y98549636E?checkoutMode=10";
+const supportEmail = "vdlmarketdigital@gmail.com";
 
 export default function App() {
   const [showFloatCta, setShowFloatCta] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [currentView, setCurrentView] = useState<'landing' | 'privacy' | 'terms' | 'contact'>('landing');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,6 +18,22 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (currentView !== 'landing') {
+      window.scrollTo(0, 0);
+    }
+  }, [currentView]);
+
+  if (currentView !== 'landing') {
+    return (
+      <LegalView 
+        type={currentView} 
+        onBack={() => setCurrentView('landing')} 
+        email={supportEmail}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-cream text-dark">
@@ -473,15 +492,15 @@ export default function App() {
       {/* FOOTER */}
       <footer className="bg-dark text-white/35 py-12 px-5 text-center">
         <div className="flex justify-center gap-6 mb-8 uppercase tracking-widest font-medium">
-          <a href="#" className="hover:text-white transition-colors">Privacidade</a>
-          <a href="#" className="hover:text-white transition-colors">Termos</a>
-          <a href="#" className="hover:text-white transition-colors">Contato</a>
+          <button onClick={() => setCurrentView('privacy')} className="hover:text-white transition-colors cursor-pointer">Privacidade</button>
+          <button onClick={() => setCurrentView('terms')} className="hover:text-white transition-colors cursor-pointer">Termos</button>
+          <button onClick={() => setCurrentView('contact')} className="hover:text-white transition-colors cursor-pointer">Contato</button>
         </div>
         <p className="max-w-2xl mx-auto leading-relaxed italic mb-8">
           <strong className="text-white/60 not-italic">⚠️ Aviso importante:</strong> Este conteúdo é estritamente informativo e educativo. Não substitui, diagnostica nem trata condições médicas. Não substitui orientação médica profissional. Consulte sempre um médico ou profissional de saúde antes de realizar mudanças em seu estilo de vida. Os resultados individuais podem variar.
         </p>
         <p className="uppercase tracking-[0.3em] mb-4">© 2026 Protocolo da Serenidade · Todos os direitos reservados</p>
-        <a href="mailto:contato@seudominio.com.br" className="text-white/60 hover:text-gold transition-colors">contato@seudominio.com.br</a>
+        <a href={`mailto:${supportEmail}`} className="text-white/60 hover:text-gold transition-colors">{supportEmail}</a>
       </footer>
 
       {/* FLOATING CTA */}
