@@ -1,5 +1,6 @@
 {
   "name": "Protocolo da Serenidade",
-  "description": "Método natural de 14 dias para mulheres na menopausa. Regulação térmica da Via Adrenal para alívio de calorões, insônia e névoa mental. Baseado no Padrão Bama.",
-  "requestFramePermissions": []
+  "description": "Guia natural de bem-estar e equilíbrio hormonal para a menopausa, com o Protocolo da Serenidade e bônus exclusivos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
