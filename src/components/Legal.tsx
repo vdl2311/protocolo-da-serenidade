@@ -91,17 +91,19 @@ export const LegalView: React.FC<LegalProps> = ({ type, onBack, email }) => {
         
         <div className="bg-white rounded-3xl p-8 md:p-14 shadow-sm border border-rose/10">
           <div className="flex flex-col items-center mb-10 text-center">
-            <div className="w-16 h-16 bg-rose-light rounded-2xl flex items-center justify-center mb-5">
+            <div className="w-20 h-20 bg-rose-light rounded-2xl flex items-center justify-center mb-6">
               {current.icon}
             </div>
-            <h1 className="font-serif text-3xl md:text-4xl text-dark font-medium">{current.title}</h1>
+            <h1 className="font-serif text-4xl md:text-5xl text-dark font-medium">{current.title}</h1>
           </div>
           
-          {current.text}
+          <div className="text-lg leading-relaxed text-mid">
+            {current.text}
+          </div>
         </div>
         
         <div className="mt-12 text-center">
-           <p className="text-xs text-light uppercase tracking-widest">© 2026 Protocolo da Serenidade</p>
+           <p className="text-sm text-light uppercase tracking-widest">© 2026 Protocolo da Serenidade</p>
         </div>
       </div>
     </div>

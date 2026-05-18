@@ -38,7 +38,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-cream text-dark">
       {/* TOPBAR */}
-      <div className="bg-dark text-white py-2.5 px-5 text-center text-xs md:text-sm tracking-wide z-50">
+      <div className="bg-dark text-white py-3 px-5 text-center text-sm md:text-base tracking-wide z-50">
         Acesso imediato · <span className="text-gold font-medium">Garantia de 7 dias sem perguntas</span> · Pagamento 100% seguro
       </div>
 
@@ -48,25 +48,25 @@ export default function App() {
         <div className="absolute top-[-60px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(200,133,106,0.12)_0%,transparent_70%)] pointer-events-none" />
         
         <div className="container relative z-10">
-          <p className="text-rose text-xs font-medium tracking-[0.18em] uppercase mb-6 animate-fade-in [animation-delay:0.1s]">
+          <p className="text-rose text-sm font-medium tracking-[0.18em] uppercase mb-6 animate-fade-in [animation-delay:0.1s]">
             Equilíbrio e bem-estar feminino natural
           </p>
           <motion.h1 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="font-serif text-[clamp(42px,7vw,76px)] leading-[1.08] text-dark max-w-[780px] mx-auto mb-7"
+            className="font-serif text-[clamp(48px,8vw,80px)] leading-[1.08] text-dark max-w-[780px] mx-auto mb-7"
           >
             O Protocolo que ajuda seu corpo a encontrar<br />
             <span className="italic text-rose">serenidade e equilíbrio</span><br />
             na menopausa
           </motion.h1>
-          <p className="text-mid text-lg font-light leading-[1.7] max-w-[560px] mx-auto mb-12 animate-fade-in [animation-delay:0.4s]">
+          <p className="text-mid text-xl font-light leading-[1.7] max-w-[600px] mx-auto mb-12 animate-fade-in [animation-delay:0.4s]">
             Estratégias naturais simples — alimentação, respiração e rituais noturnos — para apoiar seu bem-estar de dentro para fora nessa fase de transformação.
           </p>
           
           <div className="animate-fade-in [animation-delay:0.5s] mb-12">
-            <a href={checkoutLink} className="btn-primary inline-block w-auto py-[18px] px-12 text-base">
+            <a href={checkoutLink} className="btn-primary inline-block w-auto py-[20px] px-14 text-lg">
               Quero meu acesso agora · R$ 37,90
             </a>
           </div>
@@ -75,7 +75,7 @@ export default function App() {
       </section>
 
       {/* PROOF BAR */}
-      <div className="bg-dark py-5 px-5 flex justify-center gap-12 md:gap-24 flex-wrap">
+      <div className="bg-dark py-6 px-5 flex justify-center gap-12 md:gap-24 flex-wrap">
         {[
           { label: "+2.800", sub: "mulheres impactadas" },
           { label: "5★", sub: "avaliação média" },
@@ -83,8 +83,8 @@ export default function App() {
           { label: "100%", sub: "acesso imediato" }
         ].map((item, i) => (
           <div key={i} className="text-center">
-            <strong className="block font-serif text-3xl text-gold font-medium leading-none">{item.label}</strong>
-            <span className="text-[12px] text-white/60 tracking-wider font-light">{item.sub}</span>
+            <strong className="block font-serif text-4xl text-gold font-medium leading-none">{item.label}</strong>
+            <span className="text-sm text-white/60 tracking-wider font-light">{item.sub}</span>
           </div>
         ))}
       </div>
@@ -106,14 +106,14 @@ export default function App() {
               { emoji: "🌿", title: "Bem-estar natural", desc: "Apoiar o corpo de forma holística. Sentir-se plena e em harmonia com as mudanças naturais da vida." }
             ].map((card, i) => (
               <div key={i} className="bg-cream border border-rose-mid rounded-2xl p-8 transition-all hover:bg-white">
-                <div className="text-[28px] mb-3">{card.emoji}</div>
-                <h3 className="font-serif text-xl font-medium text-dark mb-2">{card.title}</h3>
-                <p className="text-sm text-mid leading-[1.65]">{card.desc}</p>
+                <div className="text-4xl mb-4">{card.emoji}</div>
+                <h3 className="font-serif text-2xl font-medium text-dark mb-3">{card.title}</h3>
+                <p className="text-base text-mid leading-[1.7]">{card.desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="bg-rose-light border-l-[3px] border-rose rounded-r-xl p-8 font-serif text-[22px] italic text-dark leading-[1.7]">
+          <div className="bg-rose-light border-l-[4px] border-rose rounded-r-xl p-10 font-serif text-[26px] italic text-dark leading-[1.7]">
             "E se pequenas mudanças no dia a dia pudessem trazer muito mais leveza, energia e equilíbrio?"
           </div>
         </div>
@@ -222,15 +222,15 @@ export default function App() {
             <div className="bonus-card">
               <span className="inline-block px-3 py-1 bg-gold/10 border border-gold/25 rounded-full text-[10px] font-bold text-gold tracking-widest uppercase mb-6">Bônus 01</span>
               <span className="text-4xl mb-4 block leading-none">📅</span>
-              <h3 className="font-serif text-[26px] text-white font-medium leading-tight mb-3">Plano de 14 Dias para Equilíbrio Hormonal</h3>
-              <p className="text-sm text-white/60 leading-relaxed mb-6">Um roteiro dia a dia baseado nos 3 pilares do Protocolo — Nutrição, Bem-Estar e Suplementação. Tudo organizado para você começar com confiança e sem dúvidas.</p>
+              <h3 className="font-serif text-[28px] text-white font-medium leading-tight mb-4">Plano de 14 Dias para Equilíbrio Hormonal</h3>
+              <p className="text-base text-white/60 leading-relaxed mb-6">Um roteiro dia a dia baseado nos 3 pilares do Protocolo — Nutrição, Bem-Estar e Suplementação. Tudo organizado para você começar com confiança e sem dúvidas.</p>
               
               <div className="bonus-mockup">
-                <span className="text-[11px] text-gold uppercase tracking-widest mb-3 block">O que está incluído</span>
-                <div className="space-y-1">
+                <span className="text-[12px] text-gold uppercase tracking-widest mb-4 block">O que está incluído</span>
+                <div className="space-y-2">
                   {["Ações práticas para cada um dos 14 dias", "Checklist diário para marcar seus hábitos", "Dicas de ajuste por sintoma (calor, humor, fadiga)", "Revisão semanal para acompanhar a evolução", "Guia de suplementação natural por fase"].map((t, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-[13px] text-white/70 py-1.5 border-b border-white/5 last:border-0 border-solid">
-                       <Check size={14} className="text-gold shrink-0 mt-0.5" />
+                    <div key={idx} className="flex items-start gap-3 text-[14px] text-white/70 py-2 border-b border-white/5 last:border-0 border-solid">
+                       <Check size={16} className="text-gold shrink-0 mt-0.5" />
                        <span>{t}</span>
                     </div>
                   ))}
@@ -239,13 +239,13 @@ export default function App() {
 
               <div className="flex flex-wrap gap-2 mb-8">
                 {["Dias 1–3: Fundamentos", "Dias 4–7: Consistência", "Dias 8–10: Intensificação", "Dias 11–14: Celebração"].map((phase, idx) => (
-                  <span key={idx} className="bg-gold/10 border border-gold/20 text-gold text-[10px] py-1 px-2.5 rounded-lg whitespace-nowrap">{phase}</span>
+                  <span key={idx} className="bg-gold/10 border border-gold/20 text-gold text-[11px] py-1.5 px-3 rounded-lg whitespace-nowrap">{phase}</span>
                 ))}
               </div>
 
               <div className="flex items-center gap-3">
                 <span className="text-white/30 text-sm line-through">R$ 47,00</span>
-                <span className="text-gold text-[15px] font-medium tracking-wide">✦ GRÁTIS</span>
+                <span className="text-gold text-[16px] font-medium tracking-wide">✦ GRÁTIS</span>
               </div>
             </div>
 
@@ -363,13 +363,13 @@ export default function App() {
             ].map((test, i) => (
               <div key={i} className="bg-cream border border-rose/15 rounded-2xl p-7 flex flex-col items-start">
                 <span className="font-serif text-[64px] text-rose-mid leading-[0.8] mb-3">"</span>
-                <p className="font-serif text-[18px] italic text-mid leading-relaxed mb-6"> {test.text} </p>
+                <p className="font-serif text-xl italic text-mid leading-relaxed mb-6"> {test.text} </p>
                 <div className="mt-auto flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-linear-to-br from-rose to-sage flex items-center justify-center font-serif text-[18px] font-medium text-white shadow-sm shrink-0">{test.char}</div>
+                  <div className="w-12 h-12 rounded-full bg-linear-to-br from-rose to-sage flex items-center justify-center font-serif text-xl font-medium text-white shadow-sm shrink-0">{test.char}</div>
                   <div>
-                    <div className="text-gold text-[14px] leading-none mb-1">★★★★★</div>
-                    <div className="text-[13px] font-medium text-dark leading-none pb-0.5">{test.name}</div>
-                    <div className="text-[12px] text-light leading-none">{test.loc}</div>
+                    <div className="text-gold text-base leading-none mb-1">★★★★★</div>
+                    <div className="text-sm font-medium text-dark leading-none pb-0.5">{test.name}</div>
+                    <div className="text-[13px] text-light leading-none">{test.loc}</div>
                   </div>
                 </div>
               </div>
@@ -454,7 +454,7 @@ export default function App() {
               <div key={i} className={`border-b border-rose/20 transition-all ${openFaq === i ? 'faq-item-open' : ''}`}>
                 <button 
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full flex items-center justify-between text-left py-6 gap-4 text-dark font-medium text-[16px] faq-q"
+                  className="w-full flex items-center justify-between text-left py-6 gap-4 text-dark font-medium text-lg faq-q"
                 >
                   {item.q}
                 </button>
@@ -466,7 +466,7 @@ export default function App() {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <p className="text-[15px] text-mid leading-[1.75] pb-6">{item.a}</p>
+                      <p className="text-base text-mid leading-[1.75] pb-6">{item.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
